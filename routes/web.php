@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('/admin-dl')->group(function(){
+    Route::get('/login','SalesManagement\LoginController@showFormLogin');
+    Route::post('/login','SalesManagement\LoginController@login')->name('admin.login');
+    Route::get('/',function(){
+        return view('dashboard');
+    });
+});
