@@ -45,8 +45,8 @@ class User extends Authenticatable
     }
     public function attachRole($role){
         if(is_string($role)){
-            return $this->roles()-save(Role::whereName($role)->firstOrFail());
+            return $this->roles()->save(Role::whereName($role)->firstOrFail());
         }
-        return $this->roles->save($role);
+        return $this->roles()->save($role);
     }
 }

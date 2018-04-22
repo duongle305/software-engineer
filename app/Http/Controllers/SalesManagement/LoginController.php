@@ -5,7 +5,7 @@ namespace App\Http\Controllers\SalesManagement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -13,9 +13,9 @@ class LoginController extends Controller
     {
         $all = $request->only('email','password');
         $msgs = [
-                    'email.required'=>'* Vui lòng nhập địa chỉ email.',
-                    'email.email'=>'Địa * chỉ email không chính xác.',
-                    'password.required'=>'* Vui lòng nhập mật khẩu.',
+                    'email.required'=>'Vui lòng nhập địa chỉ email.',
+                    'email.email'=>'Địa chỉ email không đúng.',
+                    'password.required'=>'Vui lòng nhập mật khẩu.',
                 ];
         $vali = Validator::make($all,[
             'email'=>'required|string|email',
@@ -23,8 +23,9 @@ class LoginController extends Controller
         ],$msgs);
         if(!$vali->fails()){
             if(Auth::attempt(['email'=>$all['email'],'password'=>$all['password']])){
+                return redirect()->route('admin.dashboard')->withMesssages(['login-success'=>'Chào mừng bạn đến với Sale management']);
             }
-            return redirect()->back()->with(['login-fail'=>'Thông tin đăng nhập không chính xác.']);
+            return redirect()->back()->withErrors(['login-fail'=>'Thông tin đăng nhập không đúng.']);
         }
         return redirect()->back()->withErrors($vali)->withInput();
         
@@ -32,5 +33,9 @@ class LoginController extends Controller
 
     public function showFormLogin(){
         return view('auth.login');
+    }
+
+    public function logout(){
+
     }
 }

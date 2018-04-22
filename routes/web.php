@@ -18,7 +18,9 @@ Route::get('/', function () {
 Route::prefix('/admin-dl')->group(function(){
     Route::get('/login','SalesManagement\LoginController@showFormLogin');
     Route::post('/login','SalesManagement\LoginController@login')->name('admin.login');
-    Route::get('/',function(){
-        return view('dashboard');
-    });
+    Route::get('/logout','SalesManagement\Logincontroller@logout')->name('admin.logout');
+    Route::get('/dashboard','SalesManagement\DashboardController@index')->name('admin.dashboard');
+    Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
+
+    Route::resource('/users','SalesManagement\UserController');
 });
