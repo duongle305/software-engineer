@@ -30,7 +30,7 @@
                                                 <p>Ngày sinh: {{ date('d-m-Y',strtotime($user->birthday)) }} </p>
                                                 <p>Giới tính: {{ ucwords(strtolower($user->sex)) }}</p>
                                                 <p>Email: {{ $user->email }}</p>
-                                                <p>Địa chỉ thường trus</p>
+                                                <p>Địa chỉ: {{ $user->address }}</p>
                                             </div>
                                         </div>
                                     </div>
