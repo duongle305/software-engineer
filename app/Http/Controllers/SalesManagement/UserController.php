@@ -111,21 +111,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $user = User::find($id);
-        if($user){
-            return view('admin.users.show')->withUser($user);
-        }
-        return redirect()->back()->withErrors(['show-users'=>'Nhân viên không tồn tại.']);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

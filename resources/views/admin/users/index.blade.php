@@ -43,7 +43,6 @@
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <a href="{{ route('users.show', $user->id) }}" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
-                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i> Sửa</a>
                                             </div>
                                         </td>
                                     </tr>

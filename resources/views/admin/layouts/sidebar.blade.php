@@ -21,7 +21,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{{ route('admin.dashboard') }}">
                 <i class="icon-rocket menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
                 <span class="badge badge-success">New</span>
