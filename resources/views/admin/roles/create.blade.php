@@ -11,7 +11,8 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Library</span></li>
+                    <li class="breadcrumb-item"><a href="#">Quản lý role</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Thêm mới role</span></li>
                 </ol>
             </nav>
             <div class="card">
@@ -23,17 +24,17 @@
                         <div class="form-group">
                             <label for="first_name">Tên</label>
                             <input type="text" class="form-control" name="role_name" id="rolet_name"
-                                   value="{{ old('first_name') }}">\
+                                   value="">
                         </div>
                         <div class="form-group">
                             <label for="last_name">Mô tả</label>
-                            <input type="text" class="form-control" name="role_description" id="role_description"
-                                   value="{{ old('last_name') }}">
+                            <textarea type="text" class="form-control" rows="5" name="role_description" id="role_description"
+                                      value=""></textarea>
                         </div>
                         <div class="form-group">
                             <label for="last_name">Quyền hạn</label>
                             <div class="row">
-                                <div class="col-sm-12 col-dm-6">
+                                <div class="col-sm-12 col-md-2">
                                     <div class="form-check form-check-flat">
                                         <label class="form-check-label">
                                             <input type="checkbox" class="form-check-input" name="role_permission" id="role_permission_1">
@@ -41,11 +42,13 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-dm-6">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="role_permission" id="role_permission_2">
-                                        Default
-                                    </label>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-check form-check-flat">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="role_permission" id="role_permission_1">
+                                            Default
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Quản lý role')
+@section('title','Quản lý nhân viên')
 
 @section('plugin_css')
 @endsection
@@ -11,7 +11,7 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Quản lý role</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Sản phẩm</span></li>
                 </ol>
             </nav>
             <div class="card">
@@ -21,13 +21,17 @@
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Mã</th>
                                 <th>Tên</th>
-                                <th>Mô tả</th>
+                                <th>Giá bán</th>
+                                <th>Số lượng</th>
                                 <th>Ngày tạo</th>
-                                <th>Action</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody>
+                                <tbody>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -45,6 +49,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('plugin_js')
