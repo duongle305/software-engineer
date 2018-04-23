@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Quản lý role')
+@section('title','Quản lý nhân viên')
 
 @section('plugin_css')
 @endsection
@@ -11,7 +11,7 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Quản lý role</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Library</span></li>
                 </ol>
             </nav>
             <div class="card">
@@ -24,27 +24,29 @@
                                 <th>Tên</th>
                                 <th>Mô tả</th>
                                 <th>Ngày tạo</th>
-                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
-                                        <a href="" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i> Sửa</a>
-                                    </div>
-                                </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
+                                    <a href="" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i> Sửa</a>
+                                </div>
+                            </td>
                             </tbody>
                         </table>
                     </div>
+
+
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('plugin_js')
