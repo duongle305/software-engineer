@@ -61,6 +61,31 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label for="detail">Số nhà</label>
+                                    <input type="text" class="form-control" name="detail" id="detail">
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="province">Tỉnh/TP</label>
+                                    <select name="province" id="province" class="form-control" v-model="province" @change="getDistricts()">
+                                        <option v-for="province in provinces" :value="province.title">@{{ province.title }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="district">Quận/Huyện</label>
+                                    <select name="district" id="district" class="form-control" :disabled="!province" v-model="district">
+                                        <option v-for="district in districts" value="@{{ district.title  }}">@{{ district.title }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="ward">Phường/Xã</label>
+                                    <select name="ward" id="ward" class="form-control" :disabled="!district">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="password">Mật khẩu</label>
                             <input type="password" class="form-control" name="password" id="password" :disabled="default_pass">
                             <div class="form-check form-check-flat">
@@ -98,8 +123,20 @@
             el: '#app',
             data:{
                 default_pass: false,
-                password: ''
+                password: '',
+                province: false,
+                district: false,
+                districts: [],
+                provinces: []
             },
+            methods:{
+                getDistricts(){
+                    axios.get('/admin-dl/ajax/districts/'+this.province).then(rs => {
+                        this.districts = rs.data;
+                        console.log(rs);
+                    });
+                }
+            }
         });
     </script>
 @endsection

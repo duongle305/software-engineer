@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SalesManagement;
 
 use App\Models\User;
+use App\Models\Province;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +28,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $provinces = Province::all();
+        return view('admin.users.create')->withProvinces($provinces);
     }
 
     /**

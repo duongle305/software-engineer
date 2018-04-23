@@ -22,4 +22,8 @@ Route::prefix('/admin-dl')->group(function(){
     Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
 
     Route::resource('/users','SalesManagement\UserController');
+
+
+    Route::get('/ajax/districts/{province}', 'SalesManagement\AjaxController@districts');
+    Route::get('/ajax/provinces', 'SalesManagement\AjaxController@provinces');
 });
