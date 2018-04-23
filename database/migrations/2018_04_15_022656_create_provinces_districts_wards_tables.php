@@ -17,12 +17,14 @@ class CreateProvincesDistrictsWardsTables extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('slug');
+            $table->string('type');
             $table->timestamps();
         });
         Schema::create('districts', function(Blueprint $table){
             $table->increments('id');
             $table->string('title');
             $table->string('slug');
+            $table->string('type');
             $table->unsignedInteger('province_id');
             $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
             $table->timestamps();
@@ -31,6 +33,7 @@ class CreateProvincesDistrictsWardsTables extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('slug');
+            $table->string('type');
             $table->unsignedInteger('district_id');
             $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
             $table->timestamps();

@@ -16,21 +16,13 @@ class PermissionRoleSeeder extends Seeder
             'administrator'=>[
                 'users'=>'c,r,u,d',
                 'acl'=>'c,r,u,d',
-                'suppliers'=>'c,r,u,d',
-                'customers'=>'r,u,d',
-                'products'=>'c,r,u,d',
-                'imports'=>'c,r,u,d',
-                'orders'=>'c,r,u,d',
+                'profile'=>'r,u'
             ],
             'employee'=>[
-                'products'=>'c,r,u',
-                'suppliers'=>'c,r,u',
-                'imports'=>'c,r,u',
-                'orders'=>'c,r,u'
+                'profile'=>'r,u'
             ],
             'shipper'=>[
-                'customers'=>'r',
-                'orders'=>'r,u'
+                'profile'=>'r,u'
             ]
         ];
 

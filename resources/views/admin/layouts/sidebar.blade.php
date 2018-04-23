@@ -7,7 +7,7 @@
         <li class="nav-item nav-profile">
             <div class="nav-link">
                 <div class="profile-image">
-                    <img src="{{ asset('assets/images/faces/face10.jpg') }}" alt="image"/>
+                    <img src="{{ asset($user->photo) }}" alt="image"/>
                     <span class="online-status online"></span>
                 </div>
                 <div class="profile-name">
@@ -28,9 +28,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="">
-                <i class="icon-shield menu-icon"></i>
-                <span class="menu-title">Widgets</span>
+            <a class="nav-link" href="{{ route('users.index') }}">
+                <i class="icon-people menu-icon"></i>
+                <span class="menu-title">Nhân viên</span>
             </a>
         </li>
     </ul>

@@ -15,7 +15,7 @@
                         <div class="auth-form-dark text-left p-5">
                             <h2>Sale management</h2>
                             <h4 class="font-weight-light">Hello! let's get started</h4>
-                            <form class="pt-5" method="post" action="{{ route('admin.login') }}">
+                            <form class="pt-5" method="post" action="{{ route('login') }}">
                                 <div class="form-group">
                                     {{ csrf_field() }}
                                 </div>

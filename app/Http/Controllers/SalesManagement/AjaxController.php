@@ -4,16 +4,26 @@ namespace App\Http\Controllers\SalesManagement;
 
 use Illuminate\Http\Request;
 use App\Models\Province;
+use App\Models\District;
 use App\Http\Controllers\Controller;
 
 class AjaxController extends Controller
 {
     public function provinces(){
-        $provinces = Province::all();
+        $provinces = Province::orderBy('title','asc')->get();
         return response()->json($provinces,200);
     }
-    public function districts($province){
-        $districts= Province::where('slug',str_slug($province))->first()->districts;
-        return response()->json($districts,200);
+    public function districts($id){
+        $districts = Province::find($id)->districts;
+        if($districts){
+            return response()->json($districts,200);
+        }
+    }
+
+    public function wards($id){
+        $wards = District::find($id)->wards;
+        if($wards){
+            return response()->json($wards,200);
+        }
     }
 }
