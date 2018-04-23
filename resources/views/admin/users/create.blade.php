@@ -25,11 +25,11 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <label for="first_name">Họ</label>
-                                    <input type="text" class="form-control" name="first_name" id="first_name">
+                                    <input type="text" class="form-control" name="first_name" id="first_name" value="{{ old('first_name') }}">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="last_name">Tên</label>
-                                    <input type="text" class="form-control" name="last_name" id="last_name">
+                                    <input type="text" class="form-control" name="last_name" id="last_name" value="{{ old('last_name') }}">
                                 </div>
                             </div>
                         </div>
@@ -37,13 +37,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <label for="birthday">Ngày sinh</label>
-                                    <input class="form-control" data-inputmask="'alias': 'date','alias': 'dd-mm-yyyy'" name="birthday" id="birthday">
+                                    <input class="form-control" data-inputmask="'alias': 'date','alias': 'dd-mm-yyyy'" name="birthday" id="birthday" value="{{ old('birthday') }}">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="sex">Giới tính</label>
                                     <select name="sex" id="sex" class="form-control">
-                                        <option value="MALE">Nam</option>
-                                        <option value="FEMALE">Nữ</option>
+                                        <option value="MALE" {{ (old('sex') =='MALE')?'selected':''  }}>Nam</option>
+                                        <option value="FEMALE" {{ (old('sex') =='FEMALE')?'selected':''  }}>Nữ</option>
                                     </select>
                                 </div>
                             </div>
@@ -52,27 +52,27 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <label for="phone">Số điện thoại</label>
-                                    <input type="text" class="form-control" name="phone" id="phone">
+                                    <input type="text" class="form-control" name="phone" id="phone" value="{{ old('phone') }}">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="email">Email</label>
-                                    <input type="text" class="form-control" data-inputmask="'alias': 'email'" name="email" id="email">
+                                    <input type="text" class="form-control" data-inputmask="'alias': 'email'" name="email" id="email" value="{{ old('email') }}">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password">Mật khẩu</label>
-                            <input type="password" class="form-control" name="password" id="password" v-show="!default_pass" :value="password">
+                            <input type="password" class="form-control" name="password" id="password" :disabled="default_pass">
                             <div class="form-check form-check-flat">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" @click="check()" v-model="default_pass">
+                                    <input type="checkbox" class="form-check-input" v-model="default_pass">
                                     Lấy mật khẩu mặt định "password"
                                 </label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="photo">Hình</label>
-                            <input type="file" class="dropify" />
+                            <input type="file" class="dropify" name="photo" id="photo" />
                         </div>
                         <div class="form-group text-right">
                             <button type="submit" class="btn btn-success">Thêm</button>
@@ -91,21 +91,15 @@
 @endsection
 @section('custom_js')
     <script type="text/javascript">
-        (function($) {
-            'use strict';
+        $(document).ready(function(){
             $('.dropify').dropify();
-        })(jQuery);
+        });
         let app = new Vue({
             el: '#app',
             data:{
                 default_pass: false,
                 password: ''
             },
-            methods:{
-                check(){
-                    this.password = (!this.default_pass)?'password':'';
-                }
-            }
         });
     </script>
 @endsection
