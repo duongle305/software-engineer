@@ -23,6 +23,8 @@ Route::prefix('/admin-dl')->group(function(){
         Route::get('/dashboard','SalesManagement\DashboardController@index')->name('admin.dashboard');
         Route::resource('/users','SalesManagement\UserController')->except('edit','update');
         Route::post('/users/{id}/update-info','SalesManagement\UserController@updateInfo')->name('users.update.info');
+        Route::post('/users/{id}/update-photo','SalesManagement\UserController@updatePhoto')->name('users.update.photo');
+        Route::post('/users/{id}/change-password','SalesManagement\UserController@changePassword')->name('users.change.password');
 
         //Ajax
         Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');

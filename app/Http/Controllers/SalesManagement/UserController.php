@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -46,7 +47,7 @@ class UserController extends Controller
             'last_name.required'=>'Vui lòng nhập tên.',
             'birthday.required'=>'Vui lòng nhập ngày sinh.',
             'sex.required'=>'Vui lòng chọn giới tính.',
-            'photo.required'=>'Vui lòng chọn hình đại diện.',
+            'photo.required'=>'Vui lòng chọn ảnh đại diện.',
             'photo.image'=>'Ảnh đại diện không đúng định dạng yêu cầu.',
             'photo.mimes'=>'Ảnh đại diện phải có định dạng jpg, jpeg, png.',
             'phone.required'=>'Vui lòng nhập số điện thoại.',
@@ -145,7 +146,7 @@ class UserController extends Controller
             'role'=>'required',
         ];
         $user = User::find($id);
-        if(!$user) return redirect()->back()->withErrors(['user-not-found'=>'Nhân viên không tồn tại vui lòng kiểm tra lại.']);
+        if(!$user) return redirect()->back()->withErrors(['user-not-found'=>'Nhân viên không tồn tại.']);
         if(!isset($request->change_address) && empty($request->change_address)){
             $all = $request->only(['first_name','last_name','birthday','sex','email','phone','role']);
             $validator = Validator::make($all,$rules,$msgs);
@@ -183,6 +184,53 @@ class UserController extends Controller
             }
             return redirect()->back()->withErrors($validator);
         }
+    }
+
+    public function updatePhoto(Request $request, $id){
+        $all = $request->only(['photo']);
+        $validator = Validator::make($all,
+            [
+            'photo'=>'required|image|mimes:jpg,jpeg,png'
+            ],
+            ['photo.required'=>'Vui lòng chọn ảnh đại diện.',
+            'photo.image'=>'Ảnh đại diện không đúng định dạng yêu cầu.',
+            'photo.mimes'=>'Ảnh đại diện phải có định dạng jpg, jpeg, png.',
+            ]);
+        $user = User::find($id);
+        if(!$user) return redirect()->back()->withErrors(['user-not-found'=>'Nhân viên không tồn tại.']);
+        if(!$validator->fails()){
+            if(File::exists($user->photo)){
+                File::delete($user->photo);
+            }
+            $image = $request->file('photo');
+            $imageName = 'dl-'.time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('/uploads'),$imageName);
+            $user->update(['photo'=>'uploads/'.$imageName]);
+            return redirect()->route('users.index')->withMessages(['update-photo'=>'Cập nhật ảnh đại diện nhân viên thành công.']);
+        }
+        return redirect()->back()->withErrors($validator);
+    }
+
+    public function changePassword(Request $request, $id){
+        $user  = User::find($id);
+        if(!$user) return redirect()->back()->withErrors(['user-not-found'=>'Nhân viên không tồn tại.']);
+        if(!isset($request->password) && empty($request->password)){
+            $user->update(['password'=>bcrypt('password')]);
+            return redirect()->back()->withMessages(['change-password'=>'Thay đổi mật khẩu thành công.']);
+        }
+        $all = $request->only(['password','password_confirmation']);
+        $validator = Validator::make($all,[
+            'password'=>'required|min:6',
+            'password_confirmation'=>'required|confirmed|min:6'
+        ],[
+            'password.required'=>'Vui lòng nhập mật khẩu mới.',
+            'password.min'=>'Mật khẩu phải có ít nhất 6 ký tự.',
+            'password_confirmation.required'=>'Vui lòng nhập lại mật khẩu.',
+            'password_confirmation.confirmed'=>'Nhập lại mật khẩu không đúng.'
+        ]);
+        if($validator->fails()) return redirect()->back()->withErrors($validator);
+        $user->update(['password'=>bcrypt($all['password'])]);
+        return redirect()->back()->withMessages(['change-password'=>'Thay đổi mật khẩu thành công.']);
     }
 
     /**

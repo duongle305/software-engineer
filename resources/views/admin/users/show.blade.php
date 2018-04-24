@@ -145,7 +145,10 @@
                                 </form>
                             </div><!-- tab content ends -->
                             <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">
-                                <form action="#">
+                                <form action="{{ route('users.update.photo',$user->id) }}" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        @csrf
+                                    </div>
                                     <div class="form-group">
                                         <div class="form-check form-check-flat">
                                             <label class="form-check-label">
@@ -155,7 +158,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="file" class="dropify" data-max-file-size="1mb" data-default-file="{{ asset($user->photo) }}" :disabled="!isChangePhoto">
+                                        <input type="file" class="dropify" data-max-file-size="5mb" data-default-file="{{ asset($user->photo) }}" :disabled="!isChangePhoto" name="photo">
                                     </div>
                                     <div class="form-group mt-5 text-right" v-show="isChangePhoto">
                                         <button type="submit" class="btn btn-success mr-2">Update</button>
@@ -163,17 +166,26 @@
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-                                <form action="#">
+                                <form action="{{ route('users.change.password', $user->id) }}" method="post">
                                     <div class="form-group">
-                                        <label for="change-password">Change password</label>
-                                        <input type="password" class="form-control" id="change-password" placeholder="Enter you current password">
+                                        @csrf
+                                    </div>
+                                    <div class="form-check form-check-flat">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" v-model="defaultPassword">
+                                            Sử dụng mật khẩu mặt định "password"
+                                        </label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" id="new-password" placeholder="Enter you new password">
+                                        <label for="password">Mật khẩu mới</label>
+                                        <input type="password" class="form-control" id="password" name="password" :disabled="defaultPassword">
                                     </div>
-                                    <div class="form-group mt-5">
-                                        <button type="submit" class="btn btn-success mr-2">Update</button>
-                                        <button class="btn btn-outline-danger">Cancel</button>
+                                    <div class="form-group">
+                                        <label for="password_confirmation">Nhập lại mật khẩu</label>
+                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" :disabled="defaultPassword">
+                                    </div>
+                                    <div class="form-group mt-5 text-right">
+                                        <button type="submit" class="btn btn-success mr-2">Xác nhận</button>
                                     </div>
                                 </form>
                             </div>
@@ -198,6 +210,7 @@
         let app = new Vue({
             el: '#app',
             data:{
+                defaultPassword:false,
                 isChangeInfo:false,
                 isChangePhoto: false,
                 isChangeAddress: false,
