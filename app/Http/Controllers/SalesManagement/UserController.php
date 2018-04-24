@@ -70,6 +70,7 @@ class UserController extends Controller
             'role'=>'required',
             'password'=>'nullable|min:6',
             'detail'=>'required',
+            'ward'=>'required',
             'district'=>'required',
             'province'=>'required'
         ],$msgs);
@@ -120,6 +121,68 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+
+    public function updateInfo(Request $request, $id){
+        $msgs = [
+            'first_name.required'=>'Vui lòng nhập họ.',
+            'last_name.required'=>'Vui lòng nhập tên.',
+            'birthday.required'=>'Vui lòng nhập ngày sinh.',
+            'sex.required'=>'Vui lòng chọn giới tính.',
+            'phone.required'=>'Vui lòng nhập số điện thoại.',
+            'email.required'=>'Vui lòng nhập địa chỉ email.',
+            'email.email'=>'Địa chỉ email không đúng.',
+            'role.required'=>'Vui lòng chọn vai trò.',
+        ];
+        $rules = [
+            'first_name'=>'required|string',
+            'last_name'=>'required|string',
+            'birthday'=>'required|date_format:d-m-Y',
+            'sex'=>'required|in:MALE,FEMALE',
+            'phone'=>'required|regex:/(0)[0-9]{9,10}/',
+            'email'=>'required|email',
+            'role'=>'required',
+        ];
+        $user = User::find($id);
+        if(!$user) return redirect()->back()->withErrors(['user-not-found'=>'Nhân viên không tồn tại vui lòng kiểm tra lại.']);
+        if(!isset($request->change_address) && empty($request->change_address)){
+            $all = $request->only(['first_name','last_name','birthday','sex','email','phone','role']);
+            $validator = Validator::make($all,$rules,$msgs);
+            if(!$validator->fails()){
+                $all['birthday'] = date('Y-m-d',strtotime($all['birthday']));
+                $user->attachRole(Role::find($all['role']));
+                $user->update($all);
+                return redirect()->back()->withMessages(['update-info'=>'Cập nhật thông tin nhân viên thành công.']);
+            }
+            return redirect()->back()->withErrors($validator);
+        }else{
+            $all = $request->only(['first_name','last_name','birthday','sex','email','phone','role','detail','ward','district','province']);
+            $msg = [
+                'detail.required'=>'Vui lòng nhập số nhà, tên đường.',
+                'ward.required'=>'Vui lòng chọn phường, xã.',
+                'district.required'=>'Vui lòng chọn quận, huyện.',
+                'province.required'=>'Vui lòng chọn tỉnh, thành phố.'];
+            $rule = [
+                'detail'=>'required',
+                'ward'=>'required',
+                'district'=>'required',
+                'province'=>'required'
+            ];
+            $rules[] = $rule;
+            $msgs[] = $msg;
+            $validator = Validator::make($all,$rules,$msgs);
+            if(!$validator->fails()){
+                $all['birthday'] = date('Y-m-d',strtotime($all['birthday']));
+                $all['address'] = $request->detail.', '.$request->ward.', '.$request->district.', '.$request->province;
+                $user->attachRole(Role::find($all['role']));
+                $all = collect($all);
+                $all = $all->except(['detail','ward','district','province','role']);
+                $user->update($all->toArray());
+                return redirect()->back()->withMessages(['update-info'=>'Cập nhật thông tin nhân viên thành công.']);
+            }
+            return redirect()->back()->withErrors($validator);
+        }
     }
 
     /**

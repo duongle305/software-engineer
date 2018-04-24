@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Dashboard')
+@section('title','Thông tin nhân viên '.$user->first_name.' '.$user->last_name)
 
 @section('plugin_css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/dropify/dist/css/dropify.min.css') }}">
@@ -41,12 +41,15 @@
                         <hr>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info">
-                                <form action="#">
+                                <form action="{{ route('users.update.info', $user->id) }}" method="post">
+                                    <div class="form-group">
+                                        {{ csrf_field() }}
+                                    </div>
                                     <div class="form-group">
                                         <div class="form-check form-check-flat">
                                             <label class="form-check-label">
                                                 <input type="checkbox" class="form-check-input" v-model="isChangeInfo">
-                                                Thay đổi thông tin
+                                                Cập nhật thông tin nhân viên
                                             </label>
                                         </div>
                                     </div>
@@ -105,8 +108,8 @@
                                         <input v-show="!isChangeAddress" class="form-control" id="address" value="{{ $user->address }}" disabled>
                                         <div class="form-check form-check-flat" v-show="isChangeInfo">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" v-model="isChangeAddress" @change="reset">
-                                                Thay đổi địa chỉ
+                                                <input type="checkbox" class="form-check-input" v-model="isChangeAddress" @change="reset" name="change_address">
+                                                Cập nhật địa chỉ
                                             </label>
                                         </div>
                                     </div>
@@ -137,7 +140,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mt-5 text-right" v-show="isChangeInfo">
-                                        <button type="submit" class="btn btn-success mr-2">Update</button>
+                                        <button type="submit" class="btn btn-success mr-2">Cập nhật</button>
                                     </div>
                                 </form>
                             </div><!-- tab content ends -->
@@ -147,16 +150,15 @@
                                         <div class="form-check form-check-flat">
                                             <label class="form-check-label">
                                                 <input type="checkbox" class="form-check-input" v-model="isChangePhoto">
-                                                Đổi ảnh đại diện
+                                                Cập nhật ảnh đại diện
                                             </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="file" class="dropify" data-max-file-size="1mb" data-default-file="{{ asset($user->photo) }}" >
+                                        <input type="file" class="dropify" data-max-file-size="1mb" data-default-file="{{ asset($user->photo) }}" :disabled="!isChangePhoto">
                                     </div>
-                                    <div class="form-group mt-5">
+                                    <div class="form-group mt-5 text-right" v-show="isChangePhoto">
                                         <button type="submit" class="btn btn-success mr-2">Update</button>
-                                        <button class="btn btn-outline-danger">Cancel</button>
                                     </div>
                                 </form>
                             </div>

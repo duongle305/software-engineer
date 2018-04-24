@@ -14,17 +14,20 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes();
-Route::get('/logout','Auth\LoginController@logout');
-Route::prefix('/admin-dl')->middleware('auth')->group(function(){
 
-    Route::get('/dashboard','SalesManagement\DashboardController@index')->name('admin.dashboard');
-    Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
-    Route::resource('/users','SalesManagement\UserController')->except('edit','update');
+Route::prefix('/admin-dl')->group(function(){
+    Route::get('/login','Auth\LoginController@showLoginForm')->name('login');
+    Route::post('/login','Auth\LoginController@login');
+    Route::middleware('auth')->group(function(){
+        Route::get('/logout','Auth\LoginController@logout');
+        Route::get('/dashboard','SalesManagement\DashboardController@index')->name('admin.dashboard');
+        Route::resource('/users','SalesManagement\UserController')->except('edit','update');
+        Route::post('/users/{id}/update-info','SalesManagement\UserController@updateInfo')->name('users.update.info');
 
-
-
-    Route::get('/ajax/provinces', 'SalesManagement\AjaxController@provinces');
-    Route::get('/ajax/districts/{id}', 'SalesManagement\AjaxController@districts');
-    Route::get('/ajax/wards/{id}', 'SalesManagement\AjaxController@wards');
+        //Ajax
+        Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
+        Route::get('/ajax/provinces', 'SalesManagement\AjaxController@provinces');
+        Route::get('/ajax/districts/{id}', 'SalesManagement\AjaxController@districts');
+        Route::get('/ajax/wards/{id}', 'SalesManagement\AjaxController@wards');
+    });
 });
