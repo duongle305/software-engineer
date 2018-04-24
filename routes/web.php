@@ -14,10 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-
+Auth::routes();
+Route::get('/logout','Auth\LoginController@logout');
 Route::prefix('/admin-dl')->middleware('auth')->group(function(){
-    Auth::routes();
+
     Route::get('/dashboard','SalesManagement\DashboardController@index')->name('admin.dashboard');
     Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
     Route::resource('/users','SalesManagement\UserController')->except('edit','update');

@@ -43,14 +43,22 @@
                             <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info">
                                 <form action="#">
                                     <div class="form-group">
+                                        <div class="form-check form-check-flat">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" v-model="isChangeInfo">
+                                                Thay đổi thông tin
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <label for="first_name">Họ</label>
-                                                <input type="text" class="form-control" name="first_name" id="first_name" value="{{ (old('first_name'))?old('first_name'):$user->first_name }}">
+                                                <input type="text" class="form-control" name="first_name" id="first_name" value="{{ (old('first_name'))?old('first_name'):$user->first_name }}" :disabled="!isChangeInfo">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="last_name">Tên</label>
-                                                <input type="text" class="form-control" name="last_name" id="last_name" value="{{ (old('last_name'))?old('last_name'):$user->last_name }}">
+                                                <input type="text" class="form-control" name="last_name" id="last_name" value="{{ (old('last_name'))?old('last_name'):$user->last_name }}" :disabled="!isChangeInfo">
                                             </div>
                                         </div>
                                     </div>
@@ -58,11 +66,11 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <label for="birthday">Ngày sinh</label>
-                                                <input class="form-control" data-inputmask="'alias': 'date','alias': 'dd-mm-yyyy'" name="birthday" id="birthday" value="{{ (old('birthday'))?old('birthday'):date('d-m-Y',strtotime($user->birthday)) }}">
+                                                <input class="form-control" data-inputmask="'alias': 'date','alias': 'dd-mm-yyyy'" name="birthday" id="birthday" value="{{ (old('birthday'))?old('birthday'):date('d-m-Y',strtotime($user->birthday)) }}" :disabled="!isChangeInfo">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="sex">Giới tính</label>
-                                                <select name="sex" id="sex" class="form-control">
+                                                <select name="sex" id="sex" class="form-control" :disabled="!isChangeInfo">
                                                     @php $sexs = ['MALE'=>'Nam','FEMALE'=>'Nữ'] @endphp
                                                     @foreach($sexs as $key => $sex)
                                                         <option value="{{ $key }}" {{ (old('sex'))?((old('sex')===$key)?'selected':''):(($user->sex===$key)?'selected':'') }}>{{ $sex }}</option>
@@ -75,18 +83,18 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <label for="email">Email</label>
-                                                <input type="text" class="form-control" data-inputmask="'alias': 'email'" name="email" id="email" value="{{ (old('email'))?old('email'):$user->email }}">
+                                                <input type="text" class="form-control" data-inputmask="'alias': 'email'" name="email" id="email" value="{{ (old('email'))?old('email'):$user->email }}" :disabled="!isChangeInfo">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="phone">Số điện thoại</label>
-                                                <input type="text" class="form-control" name="phone" id="phone" value="{{ (old('phone'))?old('phone'):$user->phone }}">
+                                                <input type="text" class="form-control" name="phone" id="phone" value="{{ (old('phone'))?old('phone'):$user->phone }}" :disabled="!isChangeInfo">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="role">Vai trò</label>
                                         @php $roles = \App\Models\Role::all(); @endphp
-                                        <select name="role" id="role" class="form-control">
+                                        <select name="role" id="role" class="form-control" :disabled="!isChangeInfo">
                                             @foreach($roles as $role)
                                             <option value="{{ $role->id }}" {{ (old('role'))?((old('role')===$role->id)?'selected':''):(($user->roles()->first()->id===$role->id)?'selected':'') }}>{{ $role->display_name }}</option>
                                             @endforeach
@@ -95,7 +103,7 @@
                                     <div class="form-group">
                                         <label for="address">Địa chỉ</label>
                                         <input v-show="!isChangeAddress" class="form-control" id="address" value="{{ $user->address }}" disabled>
-                                        <div class="form-check form-check-flat">
+                                        <div class="form-check form-check-flat" v-show="isChangeInfo">
                                             <label class="form-check-label">
                                                 <input type="checkbox" class="form-check-input" v-model="isChangeAddress" @change="reset">
                                                 Thay đổi địa chỉ
@@ -128,18 +136,24 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group mt-5">
+                                    <div class="form-group mt-5 text-right" v-show="isChangeInfo">
                                         <button type="submit" class="btn btn-success mr-2">Update</button>
                                     </div>
                                 </form>
                             </div><!-- tab content ends -->
                             <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">
-                                <div class="wrapper mb-5 mt-4">
-                                    <span class="badge badge-warning text-white">Note : </span>
-                                    <p class="d-inline ml-3 text-muted">Image size is limited to not greater than 1MB .</p>
-                                </div>
                                 <form action="#">
-                                    <input type="file" class="dropify" data-max-file-size="1mb" data-default-file="../../images/faces/face6.jpg"/>
+                                    <div class="form-group">
+                                        <div class="form-check form-check-flat">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" v-model="isChangePhoto">
+                                                Đổi ảnh đại diện
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="file" class="dropify" data-max-file-size="1mb" data-default-file="{{ asset($user->photo) }}" >
+                                    </div>
                                     <div class="form-group mt-5">
                                         <button type="submit" class="btn btn-success mr-2">Update</button>
                                         <button class="btn btn-outline-danger">Cancel</button>
@@ -176,9 +190,14 @@
 @endsection
 @section('custom_js')
     <script>
+        $(document).ready(function(){
+            $('.dropify').dropify();
+        });
         let app = new Vue({
             el: '#app',
             data:{
+                isChangeInfo:false,
+                isChangePhoto: false,
                 isChangeAddress: false,
                 isSelectedProvince: false,
                 isSelectedDistrict: false,

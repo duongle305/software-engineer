@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -55,10 +57,15 @@ class LoginController extends Controller
         ],$msgs);
         if(!$validator->fails()){
             if($this->attemptLogin($request)){
-                return redirect()->route('admin.dashboard')->withMesssages(['login-success'=>'Chào mừng bạn đến với Sale management']);;
+                return redirect()->route('admin.dashboard')->withMessages(['login-success'=>'Chào mừng bạn đến với Sale management']);;
             }
             return redirect()->back()->withErrors(['login-fail'=>'Thông tin đăng nhập không đúng.']);
         }
         return redirect()->back()->withErrors($validator)->withInput(['email']);
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('login');
     }
 }
