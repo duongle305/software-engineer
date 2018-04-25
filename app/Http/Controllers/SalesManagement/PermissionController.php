@@ -64,7 +64,7 @@ class PermissionController extends Controller
             ],$msgs);
             if($validator->fails()) return redirect()->back()->withErrors($validator)->withInput();
             $cruds = explode(',',$request->crud_selected);
-            $vn = ['create'=>'Thêm','read'=>'Xem','update'=>'Xóa','delete'=>'Xóa'];
+            $vn = ['create'=>'Thêm','read'=>'Xem','update'=>'Sửa','delete'=>'Xóa'];
             $vn = array_map('utf8_encode', $vn);
             $resource = $request->resource;
             if(count($cruds) > 0){
@@ -119,7 +119,21 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $permission = Permission::find($id);
+        if($permission){
+            $all = $request->only(['name','display_name','description']);
+            $validator = Validator::make($all,[
+                'name'=>'required',
+                'display_name'=>'required',
+            ],['name.required'=>'Vui lòng nhập tên quyền.','display_name.required'=>'Vui lòng nhập tên hiển thị.']);
+            if($validator->fails()) {
+                return response()->json(['message'=>$validator->errors()->first()],400);
+            }else{
+                if($permission->update($all))
+                    session()->flash('messages',['update-permission'=>'Cập nhật quyền thành công.']);
+                return response()->json(['href'=>route('permissions.index')],200);
+            }
+        }
     }
 
     /**
