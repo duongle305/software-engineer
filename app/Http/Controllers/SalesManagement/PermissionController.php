@@ -106,7 +106,8 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permission = Permission::find($id);
+        return response()->json($permission,200);
     }
 
     /**
