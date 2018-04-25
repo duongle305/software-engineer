@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SalesManagement;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class PermissionController extends Controller
 {
@@ -37,7 +38,50 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->permission_type === 'basic'){
+            $msgs = [
+                'display_name.required'=>'Vui lòng nhập tên hiển thị.',
+                'name.required'=>'Vui lòng nhập tên (slug).',
+                'name.unique'=>'Tên quyền đã tồn tại.'
+            ];
+            $validator = Validator::make($request->all(),[
+                'display_name'=>'required',
+                'name'=>'required|unique:permissions,name',
+            ],$msgs);
+            if($validator->fails()) return redirect()->back()->withErrors($validator)->withInput();
+            $all = $request->only(['display_name','name','description']);
+            Permission::create($all);
+            return redirect()->route('permissions.index')->withMessages(['create-permission'=>'Thêm mới quyền thành công.']);
+        }
+        if($request->permission_type === 'crud'){
+            $msgs = [
+                'resource.required'=>'Vui lòng nhập resource.',
+                'resource.min'=>'Resource phải có ít nhất 3 ký tự',
+                'resource.alpha'=>'Resource phải là ký tự chứ cái.'
+            ];
+            $validator = Validator::make($request->all(),[
+                'resource'=>'required|min:3'
+            ],$msgs);
+            if($validator->fails()) return redirect()->back()->withErrors($validator)->withInput();
+            $cruds = explode(',',$request->crud_selected);
+            $vn = ['create'=>'Thêm','read'=>'Xem','update'=>'Xóa','delete'=>'Xóa'];
+            $vn = array_map('utf8_encode', $vn);
+            $resource = $request->resource;
+            if(count($cruds) > 0){
+                foreach ($cruds as $crud){
+                    $permission = new Permission();
+                    $permission->name =  $crud.'-'.str_slug($request->resource);
+                    $permission->display_name = utf8_decode($vn[$crud]).' '.$this->strToLowerUtf8($resource);
+                    $permission->description = 'Cho phép người dùng '.$this->strToLowerUtf8($resource);
+                    $permission->save();
+                }
+                return redirect()->route('permissions.index')->withMessages(['create-permission'=>'Thêm mới crud quyền thành công.']);
+            }
+        }
+    }
+
+    private function strToLowerUtf8($str){
+        return strtolower(substr($str,0,1)).substr($str,1,strlen($str));
     }
 
     /**
