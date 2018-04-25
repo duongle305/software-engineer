@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Thêm mới sản phẩm')
+@section('title','Thêm mới khách hàng')
 
 @section('plugin_css')
         <link rel="stylesheet" href="{{ asset('assets/vendor/dropify/dist/css/dropify.min.css') }}">
@@ -12,7 +12,7 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+                    <li class="breadcrumb-item"><a href="#">Khách hàng</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><span>Thêm</span></li>
                 </ol>
             </nav>
@@ -24,56 +24,59 @@
                                 {{ csrf_field() }}
                             </div>
                             <div class="form-group">
-                                <label for="first_name">Tên sản phẩm</label>
-                                <input type="text" class="form-control" minlength="5" name="product_name" id="product_name"
-                                       value="" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="birthday">Mô tả</label>
-                                <textarea class="form-control" rows="5" minlength="10" name="product_description" id="product_description" value="" required></textarea>
-                            </div>
-                            <div class="form-group">
                                 <div class="row">
-                                    <div class="col-sm-4">
-                                        <label for="phone">Giá Nhập</label>
-                                        <input type="number" class="form-control" name="base_price" id="base_price" value="" required>
+                                    <div class="col-sm-6">
+                                        <label for="first_name">Họ tên đệm</label>
+                                        <input type="text" class="form-control" name="first_name" id="first_name" value="" required>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <label for="email">Giá bán</label>
-                                        <input type="number" class="form-control" name="unit_price" id="unit_price" value="" required>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label for="phone">Số lượng</label>
-                                        <input type="number" class="form-control" name="quantity" id="quantity" value="" required>
+                                    <div class="col-sm-6">
+                                        <label for="last_name">Tên</label>
+                                        <input type="text" class="form-control" name="last_name" id="last_name" value="" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-sm-4">
-                                        <label for="exampleSelectSuccess">Loại sản phẩm</label>
-                                        <select class="form-control" id="category" name="category">
-                                            <option>1</option>
-                                        </select>
+                                    <div class="col-sm-6">
+                                        <label for="phone">Số điện thoại</label>
+                                        <input type="text" class="form-control form-control-sm" name="phone" id="phone" value="" required>
+
                                     </div>
-                                    <div class="col-sm-4">
-                                        <label for="exampleSelectSuccess">Thương hiệu</label>
-                                        <select class="form-control" id="brand" name="brand">
-                                            <option>1</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label for="exampleSelectSuccess">Nhà cung cấp</label>
-                                        <select class="form-control" id="supplier" name="supplier">
-                                            <option>1</option>
-                                        </select>
+                                    <div class="col-sm-6">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" name="email" id="email" value="" required>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="photo">Hình sản phẩm</label>
-                                <input type="file" class="dropify" accept="image/*" name="product_image[]" id="product_image" multiple="multiple" required/>
+                                <label for="address">Địa chỉ</label>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-3">
+                                        <label for="provinces">Tỉnh/TP</label>
+                                        <select class="form-control form-control-sm" id="provinces" name="provinces">
+                                            <option>1</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <label for="districts">Quận/Huyện</label>
+                                        <select class="form-control form-control-sm" id="districts" name="districts">
+                                            <option>1</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <label for="wards">Phường/Xã</label>
+                                        <select class="form-control form-control-sm" id="wards" name="wards">
+                                            <option>1</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <label for="street">Tên đường, số nhà</label>
+                                        <input type="text" class="form-control" name="street" id="street" value="" required>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="form-group text-right">
                                 <button type="submit" class="btn btn-success">Thêm</button>
                             </div>
@@ -89,7 +92,6 @@
     <script src="{{ asset('assets/vendor/dropify/dist/js/dropify.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/inputmask/dist/jquery.inputmask.bundle.js') }}"></script>
     <script src="{{ asset('assets/vendor/inputmask/dist/inputmask/bindings/inputmask.binding.js') }}"></script>
-    <script src="{{ asset('assets/vendor/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 @endsection
 @section('custom_js')
     <script type="text/javascript">
