@@ -31,5 +31,8 @@ Route::prefix('/admin-dl')->group(function(){
         Route::get('/ajax/provinces', 'SalesManagement\AjaxController@provinces');
         Route::get('/ajax/districts/{id}', 'SalesManagement\AjaxController@districts');
         Route::get('/ajax/wards/{id}', 'SalesManagement\AjaxController@wards');
+        Route::get('/test',function(){
+            return view('admin.orders.create');
+        });
     });
 });
