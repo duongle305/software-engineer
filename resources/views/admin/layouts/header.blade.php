@@ -18,6 +18,10 @@
                         Nhân viên
                     </a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('permissions.create') }}">
+                        <i class="icon-key text-primary"></i>
+                        Quyền
+                    </a>
                 </div>
             </li>
         </ul>

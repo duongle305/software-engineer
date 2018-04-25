@@ -92,7 +92,10 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        //
+        $permission = Permission::find($id);
+        if($permission)
+            return view('admin.permissions.show')->withPermission($permission);
+        return redirect()->back()->withErrors(['permission-not-found'=>'Quyền khồng tồn tại']);
     }
 
     /**

@@ -25,20 +25,24 @@
                                         <table class="table">
                                             <tbody>
                                             <tr>
-                                                <th class="text-left">Tên:</th>
-                                                <td class="text-left">permissions</td>
+                                                <th class="text-left">Tên (Slug):</th>
+                                                <td class="text-left">{{ $permission->name }}</td>
                                             </tr>
                                             <tr>
                                                 <th class="text-left">Hiển thị tên:</th>
-                                                <td class="text-left">display</td>
+                                                <td class="text-left">{{ $permission->display_name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left">Mô tả:</th>
+                                                <td class="text-left">{{ $permission->description }}</td>
                                             </tr>
                                             <tr>
                                                 <th class="text-left">Ngày tạo:</th>
-                                                <td class="text-left">create</td>
+                                                <td class="text-left">{{ $permission->created_at->format('d-m-Y') }}</td>
                                             </tr>
                                             <tr>
                                                 <th class="text-left">Ngày cập nhật:</th>
-                                                <td class="text-left">update</td>
+                                                <td class="text-left">{{ $permission->updated_at->format('d-m-Y') }}</td>
                                             </tr>
                                             </tbody>
                                         </table>

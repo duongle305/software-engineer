@@ -19,32 +19,34 @@
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Slug</th>
-                                <th>Tên</th>
-                                <th>Mô tả</th>
-                                <th>Ngày tạo</th>
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên (Slug)</th>
+                                    <th>Tên hiển thị</th>
+                                    <th>Mô tả</th>
+                                    <th>Ngày tạo</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
-                                        <a href="" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i> Sửa</a>
-                                    </div>
-                                </td>
-                            </tr>
+                                @foreach($permissions as $permission)
+                                <tr>
+                                    <td>{{ $permission->id }}</td>
+                                    <td>{{ $permission->name }}</td>
+                                    <td>{{ $permission->display_name }}</td>
+                                    <td>{{ $permission->description }}</td>
+                                    <td>{{ $permission->created_at->format('d-m-Y') }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
+                                            <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i> Sửa</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-
-
+                    {{ $permissions->links() }}
                 </div>
             </div>
         </div>

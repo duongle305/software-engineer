@@ -33,5 +33,18 @@
                 <span class="menu-title">Nhân viên</span>
             </a>
         </li>
+        <li class="nav-item d-none d-lg-block">
+            <a class="nav-link" data-toggle="collapse" href="#role-permission" aria-expanded="false" aria-controls="sidebar-layouts">
+                <i class="icon-key menu-icon"></i>
+                <span class="menu-title">Vai trò & Quyền</span>
+                <span class="badge badge-warning">2</span>
+            </a>
+            <div class="collapse" id="role-permission">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('permissions.index') }}">Quyền</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">Compact menu</a></li>
+                </ul>
+            </div>
+        </li>
     </ul>
 </nav>
