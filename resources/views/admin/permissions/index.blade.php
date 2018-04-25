@@ -21,22 +21,25 @@
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Slug</th>
                                 <th>Tên</th>
                                 <th>Mô tả</th>
                                 <th>Ngày tạo</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <div class="btn-group" role="group">
-                                    <a href="" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
-                                    <a href="" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i> Sửa</a>
-                                </div>
-                            </td>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
+                                        <a href="" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i> Sửa</a>
+                                    </div>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

@@ -145,7 +145,7 @@
                                 </form>
                             </div><!-- tab content ends -->
                             <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">
-                                <form action="{{ route('users.update.photo',$user->id) }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('users.update.photo', $user->id) }}" method="post" enctype="multipart/form-data">
                                     <div class="form-group">
                                         @csrf
                                     </div>

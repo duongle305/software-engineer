@@ -3,7 +3,7 @@
 
         $.toast({
             heading: 'Thông báo !',
-            text: `@foreach($errors->all() as $error) {{  $error }}</br>@endforeach`,
+            text: `@foreach($errors->all() as $error) {{  $error }} </br> @endforeach`,
             showHideTransition: 'slide',
             icon: 'error',
             loaderBg: '#f96868',

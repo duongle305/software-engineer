@@ -1,8 +1,7 @@
 require('./bootstrap');
 window.Vue = require('vue');
+import BootstrapVue from 'bootstrap-vue';
+Vue.use(BootstrapVue);
 
-const ajax = axios.create({
-    baseURL: 'http://localhost:8000/ajax'
-});
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));

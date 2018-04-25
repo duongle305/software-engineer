@@ -159,20 +159,15 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator);
         }else{
             $all = $request->only(['first_name','last_name','birthday','sex','email','phone','role','detail','ward','district','province']);
-            $msg = [
-                'detail.required'=>'Vui lòng nhập số nhà, tên đường.',
-                'ward.required'=>'Vui lòng chọn phường, xã.',
-                'district.required'=>'Vui lòng chọn quận, huyện.',
-                'province.required'=>'Vui lòng chọn tỉnh, thành phố.'];
-            $rule = [
-                'detail'=>'required',
-                'ward'=>'required',
-                'district'=>'required',
-                'province'=>'required'
-            ];
-            $rules[] = $rule;
-            $msgs[] = $msg;
-            $validator = Validator::make($all,$rules,$msgs);
+            $msgs['detail.required'] = 'Vui lòng nhập số nhà, tên đường.';
+            $msgs['ward.required'] = 'Vui lòng nhập phường, xã';
+            $msgs['district.required'] = 'Vui lòng nhập quận, huyện.';
+            $msgs['province.required'] = 'Vui lòng nhập tỉnh, thành phố';
+            $rules['detail'] = 'required';
+            $rules['ward'] = 'required';
+            $rules['district'] = 'required';
+            $rules['province'] = 'required';
+            $validator = Validator::make($request->all(),$rules,$msgs);
             if(!$validator->fails()){
                 $all['birthday'] = date('Y-m-d',strtotime($all['birthday']));
                 $all['address'] = $request->detail.', '.$request->ward.', '.$request->district.', '.$request->province;
