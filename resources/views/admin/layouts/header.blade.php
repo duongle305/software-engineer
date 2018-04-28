@@ -19,6 +19,11 @@
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('permissions.create') }}">
+                        <i class="icon-lock text-primary"></i>
+                        Vai trò
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('permissions.create') }}">
                         <i class="icon-key text-primary"></i>
                         Quyền
                     </a>

@@ -16,4 +16,18 @@ class Role extends Model
     public function attachPermission(Permission $permission){
         return $this->permissions()->save($permission);
     }
+
+    public function detachPermission($per)
+    {
+        if(is_int($per)){
+            $permission = $this->permissions()->find($per);
+            if($permission) return $permission->pivot->delete();
+        }
+        if(is_string($per)) {
+            $permission = $this->permissions()->whereName($per);
+            if($permission) $permission->pivot->delete();
+        }
+
+
+    }
 }

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/ti-icons/css/themify-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/perfect-scrollbar/dist/css/perfect-scrollbar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/jquery-toast-plugin/dist/jquery.toast.min.css') }}">
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     <!-- endinject -->
     <!-- plugin css for this page -->
     @yield('plugin_css')
@@ -88,7 +89,6 @@
 <script src="{{ asset('assets/js/settings.js') }}"></script>
 <!-- endinject -->
 <!-- Custom js for this page-->
-<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/customs/settings.js') }}"></script>
 @include('blocks.errors')
 @include('blocks.messages')

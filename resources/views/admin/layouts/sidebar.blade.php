@@ -41,8 +41,8 @@
             </a>
             <div class="collapse" id="role-permission">
                 <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('roles.index') }}">Vai trò</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('permissions.index') }}">Quyền</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">Compact menu</a></li>
                 </ul>
             </div>
         </li>
