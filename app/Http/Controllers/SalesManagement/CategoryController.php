@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\SalesManagement;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        
+        $categories = Category::all();
+        return view('admin.categories.index')->withCategories($categories);
     }
 
     /**
@@ -24,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -35,7 +38,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $all = $request->only(['title','slug']);
+        $validator = Validator::make($all,[
+            'title'=>'required|string',
+            'slug'=>'required|string'
+        ],[
+            'title.required'=>'Vui lòng nhập tiêu đề danh mục.',
+        ]);
+        if($validator->fails()) return redirect()->back()->withErrors($validator);
+        $cate = Category::create($all);
+        return redirect()->route('categories.index')->withMessages(['create-category'=>'Thêm mới danh mục'.$cate->title.'thành công.']);
     }
 
     /**
@@ -69,7 +81,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $all = $request->only(['title','slug']);
+        $validator = Validator::make($all,[
+            'title'=>'required|string',
+            'slug'=>'required|string'
+        ],[
+            'title.required'=>'Vui lòng nhập tiêu đề danh mục.',
+        ]);
+        if($validator->fails()) return redirect()->back()->withErrors($validator);
+        $cate = Category::find($id);
+        if($cate)
+            $cate->update($all);
+        return redirect()->route('categories.index')->withMessages(['create-category'=>'Cập nhật danh mục'.$cate->title.'thành công.']);
     }
 
     /**
@@ -80,6 +103,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cate = Category::find($id);
+        if($cate){
+            $cate->delete();
+        }
     }
 }

@@ -27,6 +27,7 @@ Route::prefix('/admin-dl')->group(function(){
         Route::post('/users/{id}/change-password','SalesManagement\UserController@changePassword')->name('users.change.password');
         Route::resource('/permissions','SalesManagement\PermissionController');
         Route::resource('/roles','SalesManagement\RoleController');
+        Route::resource('/categories','SalesManagement\CategoryController');
         //Ajax
         Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
         Route::get('/ajax/provinces', 'SalesManagement\AjaxController@provinces');

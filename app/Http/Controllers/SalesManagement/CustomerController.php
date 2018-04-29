@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SalesManagement;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::paginate(10);
+        return view('admin.customers.index')->withCustomers($customers);
     }
 
     /**
@@ -80,6 +82,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::find($id);
+        if($customer){
+            $customer->delete();
+        }
     }
 }
