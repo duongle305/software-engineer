@@ -25,7 +25,7 @@ Route::prefix('/admin-dl')->group(function(){
         Route::post('/users/{id}/update-info','SalesManagement\UserController@updateInfo')->name('users.update.info');
         Route::post('/users/{id}/update-photo','SalesManagement\UserController@updatePhoto')->name('users.update.photo');
         Route::post('/users/{id}/change-password','SalesManagement\UserController@changePassword')->name('users.change.password');
-        Route::resource('/permissions','SalesManagement\PermissionController');
+        Route::resource('/permissions','SalesManagement\PermissionController')->except(['show']);
         Route::resource('/roles','SalesManagement\RoleController');
         Route::resource('/categories','SalesManagement\CategoryController');
         Route::resource('/suppliers','SalesManagement\SupplierController');

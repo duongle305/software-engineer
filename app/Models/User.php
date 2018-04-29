@@ -40,7 +40,7 @@ class User extends Authenticatable
 
     public function hasPermission($permission){
         if(is_string($permission)){
-            return $this->roles()->first();
+            return $this->roles()->first()->permissions()->whereName($permission)->first();
         }
     }
     public function attachRole($role){

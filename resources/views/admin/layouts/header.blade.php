@@ -27,6 +27,11 @@
                         <i class="icon-key text-primary"></i>
                         Quyền
                     </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('suppliers.create') }}">
+                        <i class="icon-home text-primary"></i>
+                        Nhà cung cấp
+                    </a>
                 </div>
             </li>
         </ul>

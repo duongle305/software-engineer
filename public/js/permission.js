@@ -24,7 +24,8 @@ let app  = new Vue({
         getPermission(){
             axios.get(this.href.edit).then(rs =>{
                 this.permission = rs.data;
-            }).catch(e => { });
+            }).catch(error => {
+            });
         },
         updatePermission(){
             axios.put(this.href.update,this.permission).then(rs =>{

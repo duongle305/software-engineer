@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SalesManagement;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PermissionController extends Controller
@@ -16,6 +17,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermission('read-acl')) abort(401,'Không được phép truy cập.');
         $permissions = Permission::paginate(10);
         return view('admin.permissions.index')->withPermissions($permissions);
     }
@@ -27,6 +29,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasPermission('create-acl')) abort(401);
         return view('admin.permissions.create');
     }
 
@@ -38,6 +41,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::user()->hasPermission('create-acl')) abort(404);
         if($request->permission_type === 'basic'){
             $msgs = [
                 'display_name.required'=>'Vui lòng nhập tên hiển thị.',
@@ -92,10 +96,11 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $permission = Permission::find($id);
-        if($permission)
-            return view('admin.permissions.show')->withPermission($permission);
-        return redirect()->back()->withErrors(['permission-not-found'=>'Quyền khồng tồn tại']);
+//        if(!Auth::user()->hasPermission('read-acl')) abort(404);
+//        $permission = Permission::find($id);
+//        if($permission)
+//            return view('admin.permissions.show')->withPermission($permission);
+//        return redirect()->back()->withErrors(['permission-not-found'=>'Quyền khồng tồn tại']);
     }
 
     /**
@@ -106,6 +111,7 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
+        if(!Auth::user()->hasPermission('read-acl')) abort(404);
         $permission = Permission::find($id);
         return response()->json($permission,200);
     }
@@ -119,6 +125,7 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!Auth::user()->hasPermission('update-acl')) abort(404);
         $permission = Permission::find($id);
         if($permission){
             $all = $request->only(['name','display_name','description']);

@@ -18,8 +18,8 @@ class CreateProductsTable extends Migration
             $table->string('code',25)->unique();
             $table->string('title',191);
             $table->text('description')->nullable();
-            $table->decimal('unit_price',8,2);
-            $table->decimal('base_price',8,2);
+            $table->decimal('unit_price');
+            $table->decimal('base_price');
             $table->unsignedInteger('quantity')->default(0);
             $table->unsignedInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

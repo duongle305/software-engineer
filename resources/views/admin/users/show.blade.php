@@ -158,7 +158,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="file" class="dropify" data-max-file-size="5mb" data-default-file="{{ asset($user->photo) }}" :disabled="!isChangePhoto" name="photo">
+                                        <input type="file" class="dropify" data-max-file-size="5mb" data-default-file="{{ asset($user->photo) }}" name="photo">
                                     </div>
                                     <div class="form-group mt-5 text-right" v-show="isChangePhoto">
                                         <button type="submit" class="btn btn-success mr-2">Update</button>
