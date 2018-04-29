@@ -29,7 +29,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        if(!Auth::user()->hasPermission('create-acl')) abort(401);
+        if(!Auth::user()->hasPermission('create-acl')) abort(401,'Không được phép truy cập.');
         return view('admin.permissions.create');
     }
 
@@ -41,7 +41,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        if(!Auth::user()->hasPermission('create-acl')) abort(404);
+        if(!Auth::user()->hasPermission('create-acl')) abort(401,'Không được phép truy cập.');
         if($request->permission_type === 'basic'){
             $msgs = [
                 'display_name.required'=>'Vui lòng nhập tên hiển thị.',
@@ -111,7 +111,6 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        if(!Auth::user()->hasPermission('read-acl')) abort(404);
         $permission = Permission::find($id);
         return response()->json($permission,200);
     }
@@ -125,7 +124,7 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(!Auth::user()->hasPermission('update-acl')) abort(404);
+        if(!Auth::user()->hasPermission('update-acl')) return response()->json(['message'=>'Không được phép truy cập.'],401);
         $permission = Permission::find($id);
         if($permission){
             $all = $request->only(['name','display_name','description']);
@@ -151,10 +150,11 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
+        if(!Auth::user()->hasPermission('delete-al')) abort(403,'Bạn không được phép xóa');
         $permission = Permission::find($id);
         if($permission){
             $permission->delete();
-
+            return response()->json(['message'=>'Xóa '.$permission->display_name.' thành công.'],200);
         }
     }
 }

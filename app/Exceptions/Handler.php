@@ -56,8 +56,8 @@ class Handler extends ExceptionHandler
     {
         if($exception instanceof HttpException){
             if($request->wantsJson())
-                return response()->json(['unauthorized'=>$exception->getMessage()],$exception->getCode());
-            return redirect()->back()->withErrors(['unauthorized'=>$exception->getMessage()]);
+                return response()->json(['message'=>$exception->getMessage()],$exception->getStatusCode());
+            return redirect()->back()->withErrors(['message'=>$exception->getMessage()]);
         }
         return parent::render($request, $exception);
     }

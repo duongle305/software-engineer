@@ -1,8 +1,9 @@
 @extends('admin.layouts.app')
 
-@section('title','Quản lý nhân viên')
+@section('title','Quản lý phân quyền')
 
 @section('plugin_css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}">
 @endsection
 
 @section('wrapper')
@@ -40,6 +41,9 @@
                                             <button  type="button" data-target="#edit" data-toggle="modal" data-edit="{{ route('permissions.edit', $permission->id) }}" data-update="{{ route('permissions.update', $permission->id) }}" class="btn btn-success icon-btn btn-xs">
                                                 <i class="ti-eye"></i> Xem
                                             </button>
+                                            <button  type="button" data-delete="{{ route('permissions.destroy', $permission->id) }}" data-name="{{ $permission->display_name }}" class="btn btn-danger icon-btn btn-xs" @click.one="showMessage">
+                                                <i class="ti-trash"></i> Xóa
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -56,8 +60,9 @@
 @endsection
 
 @section('plugin_js')
-
+    <script src="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 @endsection
 @section('custom_js')
+
     <script type="text/javascript" src="{{ asset('js/permission.js') }}"></script>
 @endsection

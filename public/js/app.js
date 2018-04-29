@@ -9751,6 +9751,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_bootstrap_vue__["a" /* default */]);
 window.axios = __webpack_require__(75);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['Content-Type'] = 'application/json';
+window.axios.defaults.headers.common['Accept'] = 'application/json';
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
