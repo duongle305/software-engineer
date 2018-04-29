@@ -77,7 +77,7 @@ class ProductController extends Controller
                 $i++;
             }
         }
-        return redirect()->route('product.show',$product->id)->withMessages(['create-product'=>'Thêm mới sản phẩm'.$product->title.'thành công.']);
+        return redirect()->route('products.show',$product->id)->withMessages(['create-product'=>'Thêm mới sản phẩm'.$product->title.'thành công.']);
 
     }
 
@@ -90,6 +90,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
+
+
         return view('admin.products.show')->withProduct($product);
     }
 

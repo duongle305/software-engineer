@@ -32,21 +32,21 @@
                             <tbody>
                             @forelse($products as $product)
                                 <tr>
-                                    <td>{{$product->id}}</td>
-                                    <td>{{$product->code}}</td>
-                                    <td>{{$product->title}}</td>
-                                    <td>{{$product->quantity}}</td>
-                                    <td>{{$product->unit_price}}</td>
-                                    <td>{{$product->created_at->format('d-m-Y')}}</td>
+                                    <td>{{ $product->id }}</td>
+                                    <td>{{ $product->code }}</td>
+                                    <td>{{ $product->title }}</td>
+                                    <td>{{ $product->quantity }}</td>
+                                    <td>{{ number_format($product->unit_price) }} VNĐ</td>
+                                    <td>{{ $product->created_at->format('d-m-Y') }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{route('products.show', $product->id)}}"
+                                            <a href="{{ route('products.show', $product->id) }}"
                                                class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>
                                                 Xem</a>
-                                            <a href="{{route('products.edit', $product->id)}}"
+                                            <a href="{{ route('products.edit', $product->id) }}"
                                                class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
                                                 Sửa</a>
-                                            <a href="{{route('products.destroy', $product->id)}}"
+                                            <a href="{{ route('products.destroy', $product->id) }}"
                                                class="btn btn-danger icon-btn btn-xs"><i class="ti-pencil"></i>
                                                 Xoá</a>
                                         </div>

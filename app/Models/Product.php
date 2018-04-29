@@ -11,11 +11,27 @@ class Product extends Model
 
     public function images()
     {
-        return $this->hasMany('App\Image');
+        return $this->hasMany('App\Models\Image');
     }
 
     public function sizes()
     {
-        return $this->hasMany('App\Size');
+        return $this->hasMany('App\Models\Size');
     }
+
+    public function brand()
+    {
+        return $this->belongsTo('App\Models\Brand');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo('App\Models\Supplier');
+    }
+
 }

@@ -31,11 +31,11 @@
                             <tbody>
                             @forelse($suppliers as $supplier)
                                 <tr>
-                                    <td>{{$supplier->id}}</td>
-                                    <td>{{$supplier->title}}</td>
-                                    <td>{{$supplier->phone}}</td>
-                                    <td>{{$supplier->email}}</td>
-                                    <td>{{$supplier->created_at->format('d-m-Y')}}</td>
+                                    <td>{{ $supplier->id }}</td>
+                                    <td>{{ $supplier->title }}</td>
+                                    <td>{{ $supplier->phone }}</td>
+                                    <td>{{ $supplier->email }}</td>
+                                    <td>{{ $supplier->created_at->format('d-m-Y') }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('suppliers.show', $supplier->id) }}" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>

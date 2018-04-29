@@ -25,7 +25,7 @@
                                 <div class="card-body">
                                     <h4 class="text-left">{{ $product->title }}</h4><br>
                                     <div class="row">
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-6">
                                             <div class="table-responsive">
                                                 <table class="table">
                                                     <tbody>
@@ -35,55 +35,51 @@
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Mô tả</th>
-                                                        <td class="text-left"></td>
+                                                        <td class="text-left">{{ $product->description }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Giá nhập</th>
-                                                        <td class="text-left">1.500.000đ</td>
+                                                        <td class="text-left">{{ number_format($product->base_price) }} VNĐ</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Giá bán</th>
-                                                        <td class="text-left">5.000.000đ</td>
+                                                        <td class="text-left">{{ number_format($product->unit_price) }} VNĐ</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Số lượng</th>
-                                                        <td class="text-left">112</td>
+                                                        <td class="text-left">{{ $product->quantity }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Loại sản phẩm</th>
-                                                        <td class="text-left">Điện thoại</td>
+                                                        <td class="text-left"><a href="{{ route('categories.show',$product->category->id) }}">{{ $product->category->title }}</a></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Thương hiệu</th>
-                                                        <td class="text-left">Samsung</td>
+                                                        <td class="text-left"><a href="{{ route('brands.show',$product->brand->id) }}">{{ $product->brand->title }}</a></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Nhà cung cấp</th>
-                                                        <td class="text-left">Digiworld</td>
+                                                        <td class="text-left"><a href="{{ route('suppliers.show',$product->supplier->id) }}">{{ $product->supplier->title }}</a></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Ngày tạo</th>
-                                                        <td class="text-left">01/01/2018 12:00</td>
+                                                        <td class="text-left">{{ $product->created_at->format('d-m-Y') }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Ngày update</th>
-                                                        <td class="text-left">01/01/2018 12:00</td>
+                                                        <td class="text-left">{{ $product->updated_at->format('d-m-Y') }}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-6">
                                             <div class="owl-carousel owl-theme full-width">
+                                                @foreach($product->images as$image)
                                                 <div class="item">
-                                                    <img src="https://i.imgur.com/jp8y6Yf.jpg" alt="image"/>
+                                                    <img src="{{ asset($image->url) }}" alt="image"/>
                                                 </div>
-                                                <div class="item">
-                                                    <img src="https://i.imgur.com/YkANwVo.png" alt="image"/>
-                                                </div>
-                                                <div class="item">
-                                                    <img src="https://i.imgur.com/yoQINMn.jpg" alt="image"/>
-                                                </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -96,9 +92,26 @@
         </div>
         @endsection
 
-        @section('plugin_js')
-            <script src="{{ asset('assets/vendor/owl-carousel-2/owl.carousel.min.js') }}"></script>
-            <script src="{{ asset('assets/js/owl-carousel.js') }}"></script>
+@section('plugin_js')
+    <script src="{{ asset('assets/vendor/owl-carousel-2/owl.carousel.min.js') }}"></script>
+    <script>
+        $.fn.andSelf = function() {
+            return this.addBack.apply(this, arguments);
+        }
+
+        if($('.full-width').length) {
+            $('.full-width').owlCarousel({
+                loop: true,
+                margin: 10,
+                items: 1,
+                nav: true,
+                autoplay: true,
+                autoplayTimeout:5500,
+                navText: ["<i class='mdi mdi-chevron-left'></i>","<i class='mdi mdi-chevron-right'></i>"]
+            });
+        }
+
+    </script>
 @endsection
 @section('custom_js')
 @endsection
