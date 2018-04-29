@@ -24,9 +24,8 @@
                         <div class="row">
                             <div class="col-md-6 col-md-pull-6">
                                 <div class="form-group">
-                                    <label for="first_name">Tên loại sản phẩm</label>
-                                    <input type="text" class="form-control" name="categories_name" id="categories_name"
-                                           value="">
+                                    <label for="title">Tên loại sản phẩm</label>
+                                    <input type="text" class="form-control" name="title" id="title" value="">
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-success">Thêm</button>
