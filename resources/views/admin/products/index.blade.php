@@ -46,7 +46,7 @@
                                             <a href="{{route('products.edit', $product->id)}}"
                                                class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
                                                 Sửa</a>
-                                            <a href="{{route('products.delete', $product->id)}}"
+                                            <a href="{{route('products.destroy', $product->id)}}"
                                                class="btn btn-danger icon-btn btn-xs"><i class="ti-pencil"></i>
                                                 Xoá</a>
                                         </div>

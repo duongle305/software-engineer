@@ -30,13 +30,17 @@ Route::prefix('/admin-dl')->group(function(){
         Route::resource('/categories','SalesManagement\CategoryController');
         Route::resource('/suppliers','SalesManagement\SupplierController');
         Route::resource('/products','SalesManagement\ProductController');
+        Route::resource('/orders','SalesManagement\OrderController');
+        Route::resource('/brands','SalesManagement\BrandController');
+        Route::resource('/customers','SalesManagement\CustomerController');
         //Ajax
         Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
         Route::get('/ajax/provinces', 'SalesManagement\AjaxController@provinces');
         Route::get('/ajax/districts/{id}', 'SalesManagement\AjaxController@districts');
         Route::get('/ajax/wards/{id}', 'SalesManagement\AjaxController@wards');
-        Route::get('/test',function(){
-            return view('admin.orders.create');
-        });
+        Route::get('/ajax/category/{id}','SalesManagement\AjaxController@category')->name('ajax.category');
+//        Route::get('/test',function(){
+//            return view('admin.brands.create');
+//        });
     });
 });

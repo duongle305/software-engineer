@@ -27,20 +27,31 @@
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                                <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
-                                        <a href="" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i> Sửa</a>
-                                    </div>
-                                </td>
+                            <tbody>
+                            <tr>
+                                @forelse($customers as $customer)
+                                    <td>{{$customer->id}}</td>
+                                    <td>{{$customer->first_name}} {{$customer->last_name}}</td>
+                                    <td>{{$customer->phone}}</td>
+                                    <td>{{$customer->address}}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('customers.show', $category->id) }}" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>
+                                                Xem</a>
+                                            <a href="{{ route('customers.edit', $category->id) }}" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
+                                                Sửa</a>
+                                        </div>
+                                    </td>
+                            </tr>
+                            @empty
+                                <tr>
+                                    <td class="text-center" colspan="5">Không có</td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
+                    {{ $customers->links() }}
                 </div>
             </div>
         </div>

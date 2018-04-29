@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Thêm mới danh mục sản phẩm')
+@section('title','Cập nhật danh mục sản phẩm')
 
 @section('plugin_css')
 @endsection
@@ -12,17 +12,21 @@
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Quản lý loại sản phẩm</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Thêm mới</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Cập nhật</span></li>
                 </ol>
             </nav>
             <div class="card">
                 <div class="card-body">
-                    <form action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('categories.update',$category->id)}}" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
-                            {{ csrf_field() }}
+                            @csrf
+                            @method('PUT')
                         </div>
                         <div class="row">
                             <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="hidden" id="url" value="{{ route('ajax.category', $category->id) }}">
+                                </div>
                                 <div class="form-group">
                                     <label for="title">Tên danh mục sản phẩm</label>
                                     <input type="text" class="form-control" name="title" id="title" v-model="title">
@@ -32,7 +36,7 @@
                                     <input type="text" class="form-control" name="slug" id="slug" :value="slugTitle(title)" readonly>
                                 </div>
                                 <div class="form-group text-right">
-                                    <button type="submit" class="btn btn-success">Thêm</button>
+                                    <button type="submit" class="btn btn-success">Cập nhật</button>
                                 </div>
                             </div>
 
@@ -51,13 +55,23 @@
         let app = new Vue({
             el:'#app',
             data: {
+                url: $('#url').val(),
                 title:'',
                 slug:''
             },
             methods:{
                 slugTitle: (title) => {
                     return strslug(title)
+                },
+                getCategory(){
+                    axios.get(this.url).then(rs =>{
+                        this.title = rs.data.title;
+                        this.slug = rs.data.slug;
+                    });
                 }
+            },
+            mounted(){
+                this.getCategory();
             }
         });
     </script>

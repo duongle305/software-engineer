@@ -3,7 +3,7 @@
 @section('title','Thêm mới sản phẩm')
 
 @section('plugin_css')
-        <link rel="stylesheet" href="{{ asset('assets/vendor/dropify/dist/css/dropify.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/dropify/dist/css/dropify.min.css') }}">
 @endsection
 
 @section('wrapper')
@@ -19,60 +19,65 @@
             <div class="card">
                 <div class="card-body">
                     <div class="container">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 {{ csrf_field() }}
                             </div>
                             <div class="form-group">
-                                <label for="first_name">Tên sản phẩm</label>
-                                <input type="text" class="form-control" minlength="5" name="product_name" id="product_name"
-                                       value="" required>
+                                <label for="title">Tên sản phẩm</label>
+                                <input type="text" class="form-control" minlength="5" name="title" id="title">
                             </div>
                             <div class="form-group">
-                                <label for="birthday">Mô tả</label>
-                                <textarea class="form-control" rows="5" minlength="10" name="product_description" id="product_description" value="" required></textarea>
+                                <label for="description">Mô tả</label>
+                                <textarea class="form-control" rows="5" minlength="10" name="description" id="description"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label for="phone">Giá Nhập</label>
-                                        <input type="number" class="form-control" name="base_price" id="base_price" value="" required>
+                                        <label for="base_price">Giá Nhập</label>
+                                        <input type="number" class="form-control" name="base_price" id="base_price">
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="email">Giá bán</label>
-                                        <input type="number" class="form-control" name="unit_price" id="unit_price" value="" required>
+                                        <label for="unit_price">Giá bán</label>
+                                        <input type="number" class="form-control" name="unit_price" id="unit_price">
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="phone">Số lượng</label>
-                                        <input type="number" class="form-control" name="quantity" id="quantity" value="" required>
+                                        <label for="quantity">Số lượng</label>
+                                        <input type="number" class="form-control" name="quantity" id="quantity">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label for="exampleSelectSuccess">Loại sản phẩm</label>
-                                        <select class="form-control" id="category" name="category">
-                                            <option>1</option>
+                                        <label for="category_id">Loại sản phẩm</label>
+                                        <select class="form-control" id="category_id" name="category_id">
+                                            @foreach($categories as $categorie)
+                                                <option value="{{ $categorie->id }}">{{ $categorie->title }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="exampleSelectSuccess">Thương hiệu</label>
-                                        <select class="form-control" id="brand" name="brand">
-                                            <option>1</option>
+                                        <label for="brand_id">Thương hiệu</label>
+                                        <select class="form-control" id="brand_id" name="brand_id">
+                                            @foreach($brands as $brand)
+                                                <option value="{{ $brand->id }}">{{ $brand->title }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="exampleSelectSuccess">Nhà cung cấp</label>
-                                        <select class="form-control" id="supplier" name="supplier">
-                                            <option>1</option>
+                                        <label for="supplier_id">Nhà cung cấp</label>
+                                        <select class="form-control" id="supplier_id" name="supplier_id">
+                                            @foreach($suppliers as $supplier)
+                                                <option value="{{ $supplier->id }}">{{ $supplier->title }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="photo">Hình sản phẩm</label>
-                                <input type="file" class="dropify" accept="image/*" name="product_image[]" id="product_image" multiple="multiple" required/>
+                                <input type="file" class="dropify" accept="image/*" name="images[]" id="images" multiple/>
                             </div>
                             <div class="form-group text-right">
                                 <button type="submit" class="btn btn-success">Thêm</button>

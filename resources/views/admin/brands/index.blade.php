@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Quản lý đơn hàng')
+@section('title','Quản lý thương hiệu')
 
 @section('plugin_css')
 @endsection
@@ -11,7 +11,7 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Đơn hàng</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Quản lý thương hiệu</span></li>
                 </ol>
             </nav>
             <div class="card">
@@ -21,29 +21,31 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Mã</th>
+                                <th>Tên thương hiệu</th>
+                                <th class="text-center">Ảnh thương hiệu</th>
                                 <th>Ngày tạo</th>
-                                <th>Trạng thái</th>
-                                <th>Actions</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse($orders as $order)
+                            @forelse($brands as $brand)
                                 <tr>
-                                    <td>{{$order->id}}</td>
-                                    <td>{{$order->code}}</td>
-                                    <td>{{$order->created_at->format('d-m-Y')}}</td>
-                                    <td></td>
+                                    <td>{{ $brand->id }}</td>
+                                    <td>{{ $brand->title }}</td>
+                                    <td class="text-center"><img src="{{ asset($brand->image) }}" alt="{{ $brand->title }}"></td>
+                                    <td>{{ $brand->created_at->format('d-m-Y') }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{route('orders.show', $order->id)}}" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>
+                                            <a href="{{ route('brands.show', $brand->id) }}" class="btn btn-success icon-btn btn-xs"><i class="ti-pencil"></i>
                                                 Xem</a>
-                                            <a href="{{route('orders.edit', $order->id)}}" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('brands.edit', $brand->id) }}" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
                                                 Sửa</a>
                                         </div>
                                     </td>
                                 </tr>
-                            @empty
+                                @empty
                                 <tr>
                                     <td class="text-center" colspan="5">Không có</td>
                                 </tr>
@@ -51,12 +53,10 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $orders->links() }}
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('plugin_js')

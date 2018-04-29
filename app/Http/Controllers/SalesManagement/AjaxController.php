@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SalesManagement;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Province;
 use App\Models\District;
@@ -25,5 +26,13 @@ class AjaxController extends Controller
         if($wards){
             return response()->json($wards,200);
         }
+    }
+
+    public function category($id)
+    {
+        $cate =Category::find($id);
+        if($cate)
+            return response()->json($cate,200);
+
     }
 }

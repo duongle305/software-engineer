@@ -23,7 +23,7 @@
                         <div class="col-sm-12 grid-margin stretch-card">
                             <div class="card text-center">
                                 <div class="card-body">
-                                    <h4 class="text-left">Product name</h4><br>
+                                    <h4 class="text-left">{{ $product->title }}</h4><br>
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <div class="table-responsive">
@@ -31,13 +31,11 @@
                                                     <tbody>
                                                     <tr>
                                                         <th class="text-left">Mã sản phẩm</th>
-                                                        <td class="text-left">NA12C</td>
+                                                        <td class="text-left">{{ $product->code }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Mô tả</th>
-                                                        <td class="text-left">Lorem ipsum dolor sit amet,
-                                                            consectetur adipisicing elit.
-                                                        </td>
+                                                        <td class="text-left"></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Giá nhập</th>

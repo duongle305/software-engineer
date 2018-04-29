@@ -1,8 +1,9 @@
 @extends('admin.layouts.app')
 
-@section('title','Thêm mới danh mục sản phẩm')
+@section('title','Thêm mới thương hiệu sản phẩm')
 
 @section('plugin_css')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/dropify/dist/css/dropify.min.css') }}">
 @endsection
 
 @section('wrapper')
@@ -11,31 +12,34 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Quản lý loại sản phẩm</a></li>
+                    <li class="breadcrumb-item"><a href="#">Quản lý thương hiệu</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><span>Thêm mới</span></li>
                 </ol>
             </nav>
             <div class="card">
                 <div class="card-body">
-                    <form action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('brands.store') }}" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             {{ csrf_field() }}
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="title">Tên danh mục sản phẩm</label>
-                                    <input type="text" class="form-control" name="title" id="title" v-model="title">
+                                    <label for="title">Tên thương hiệu</label>
+                                    <input type="text" class="form-control" name="title" id="title">
                                 </div>
                                 <div class="form-group">
-                                    <label for="slug">Tên slug</label>
-                                    <input type="text" class="form-control" name="slug" id="slug" :value="slugTitle(title)" readonly>
+                                    <label for="description">Mô tả</label>
+                                    <textarea type="text" class="form-control" rows="4" name="description" id="description"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="image">Hình</label>
+                                    <input type="file" class="dropify" name="image" id="image" />
                                 </div>
                                 <div class="form-group text-right">
                                     <button type="submit" class="btn btn-success">Thêm</button>
                                 </div>
                             </div>
-
                         </div>
                     </form>
                 </div>
@@ -45,20 +49,12 @@
 @endsection
 
 @section('plugin_js')
+    <script src="{{ asset('assets/vendor/dropify/dist/js/dropify.min.js') }}"></script>
 @endsection
 @section('custom_js')
     <script>
-        let app = new Vue({
-            el:'#app',
-            data: {
-                title:'',
-                slug:''
-            },
-            methods:{
-                slugTitle: (title) => {
-                    return strslug(title)
-                }
-            }
+        $(document).ready(function(){
+            $('.dropify').dropify();
         });
     </script>
 @endsection
