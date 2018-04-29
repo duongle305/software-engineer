@@ -23,26 +23,37 @@
                                 <th>#</th>
                                 <th>Tên</th>
                                 <th>Số điện thoại</th>
-                                <th>Địa chỉ</th>
+                                <th>Email</th>
                                 <th>Ngày tạo</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                                <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
-                                        <a href="" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i> Sửa</a>
-                                    </div>
-                                </td>
+                            <tbody>
+                            @forelse($suppliers as $supplier)
+                                <tr>
+                                    <td>{{$supplier->id}}</td>
+                                    <td>{{$supplier->title}}</td>
+                                    <td>{{$supplier->phone}}</td>
+                                    <td>{{$supplier->email}}</td>
+                                    <td>{{$supplier->created_at->format('d-m-Y')}}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('suppliers.show', $supplier->id) }}" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>
+                                                Xem</a>
+                                            <a href="{{ route('suppliers.edit', $supplier->id) }}" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
+                                                Sửa</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td class="text-center" colspan="6">Không có</td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>

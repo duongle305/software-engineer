@@ -47,7 +47,7 @@ class CategoryController extends Controller
         ]);
         if($validator->fails()) return redirect()->back()->withErrors($validator);
         $cate = Category::create($all);
-        return redirect()->route('categories.index')->withMessages(['create-category'=>'Thêm mới danh mục'.$cate->title.'thành công.']);
+        return redirect()->route('categories.index')->withMessages(['create-category'=>'Thêm mới danh mục '.$cate->title.' thành công.']);
     }
 
     /**

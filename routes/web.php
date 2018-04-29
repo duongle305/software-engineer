@@ -28,6 +28,7 @@ Route::prefix('/admin-dl')->group(function(){
         Route::resource('/permissions','SalesManagement\PermissionController');
         Route::resource('/roles','SalesManagement\RoleController');
         Route::resource('/categories','SalesManagement\CategoryController');
+        Route::resource('/suppliers','SalesManagement\SupplierController');
         //Ajax
         Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
         Route::get('/ajax/provinces', 'SalesManagement\AjaxController@provinces');

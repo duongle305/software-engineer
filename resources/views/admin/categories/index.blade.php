@@ -34,16 +34,14 @@
                                     <td>{{$category->created_at->format('d-m-Y')}}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('categories.show', $category->id) }}" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>
-                                                Xem</a>
-                                            <a href="" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
+                                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
                                                 Sửa</a>
                                         </div>
                                     </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center" colspan="4">Không có</tdclas>
+                                    <td class="text-center" colspan="4">Không có</td>
                                 </tr>
                             @endforelse
                             </tbody>
