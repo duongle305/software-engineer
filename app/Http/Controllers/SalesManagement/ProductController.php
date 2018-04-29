@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SalesManagement;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-//        $products = Prod
+        $products = Product::paginate(10);
+        return view('admin.products.index')->withProducts($products);
     }
 
     /**

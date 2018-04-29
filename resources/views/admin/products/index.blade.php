@@ -23,28 +23,44 @@
                                 <th>#</th>
                                 <th>Mã</th>
                                 <th>Tên</th>
-                                <th>Giá bán</th>
                                 <th>Số lượng</th>
+                                <th>Giá bán</th>
                                 <th>Ngày tạo</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                                <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
-                                        <a href="" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i> Sửa</a>
-                                    </div>
-                                </td>
+                            <tbody>
+                            @forelse($products as $product)
+                                <tr>
+                                    <td>{{$product->id}}</td>
+                                    <td>{{$product->code}}</td>
+                                    <td>{{$product->title}}</td>
+                                    <td>{{$product->quantity}}</td>
+                                    <td>{{$product->unit_price}}</td>
+                                    <td>{{$product->created_at->format('d-m-Y')}}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{route('products.show', $product->id)}}"
+                                               class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>
+                                                Xem</a>
+                                            <a href="{{route('products.edit', $product->id)}}"
+                                               class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
+                                                Sửa</a>
+                                            <a href="{{route('products.delete', $product->id)}}"
+                                               class="btn btn-danger icon-btn btn-xs"><i class="ti-pencil"></i>
+                                                Xoá</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td class="text-center" colspan="7">Không có</td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
+                    {{ $products->links() }}
                 </div>
             </div>
         </div>
