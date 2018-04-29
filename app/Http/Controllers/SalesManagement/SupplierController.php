@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SalesManagement;
 
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers = Supplier::paginate(10);
+        return view('admin.suppliers.index')->withSuppliers($suppliers);
     }
 
     /**
@@ -24,7 +26,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.suppliers.create');
     }
 
     /**
@@ -35,7 +37,7 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $all = $request->only(['title','phone','email',''])
     }
 
     /**

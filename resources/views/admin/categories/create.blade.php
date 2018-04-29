@@ -24,8 +24,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
+<<<<<<< HEAD
                                     <label for="title">Tên danh mục sản phẩm</label>
                                     <input type="text" class="form-control" name="title" id="title" v-model="title">
+=======
+                                    <label for="title">Tên loại sản phẩm</label>
+                                    <input type="text" class="form-control" name="title" id="title" value="">
+>>>>>>> 1ec3713075a5204a2c1df67f6e319ec8e575f88f
                                 </div>
                                 <div class="form-group">
                                     <label for="slug">Tên slug</label>
