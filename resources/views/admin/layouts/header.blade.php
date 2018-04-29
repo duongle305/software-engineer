@@ -18,7 +18,7 @@
                         Nhân viên
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('permissions.create') }}">
+                    <a class="dropdown-item" href="{{ route('roles.create') }}">
                         <i class="icon-lock text-primary"></i>
                         Vai trò
                     </a>
