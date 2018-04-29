@@ -41,7 +41,7 @@ class SupplierController extends Controller
         $all = $request->only(['title','phone','email','detail','ward','district','province']);
         $validator = Validator::make($all,[
             'title'=>'required|string',
-            'phone'=>'required|string:unique:suppliers,phone',
+            'phone'=>'required|string|unique:suppliers,phone',
             'email'=>'required|email|unique:suppliers,email',
             'detail'=>'required',
             'ward'=>'required',
@@ -57,6 +57,11 @@ class SupplierController extends Controller
             'district'=>'Vui lòng chọn quận, huyện',
             'province'=>'Vui lòng chọn tỉnh, thành phố.',
         ]);
+        if($validator->fails) return redirect()->back()->withErrors($validator);
+        $all['address'] = $all['detail'].', '.$all['ward'].', '.$all['district'].', '.$all['province'];
+        $all = collect($all)->except(['detail','ward','district','province']);
+        $supplier = Supplier::create($all->toArray());
+        return redirect()->route('suppliers.show',$supplier->id)->withMessages(['create-supplier'=>'Thêm mới nhà cung cấp thàhh công.']);
     }
 
     /**
@@ -67,7 +72,8 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        //
+        $supplier = Supplier::find($id);
+        return view('admin.suppliers.show')->withSupplier($supplier);
     }
 
     /**
@@ -78,7 +84,8 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        //
+        $supplier = Supplier::find($id);
+        return view('admin.suppliers.edit')->withSupplier($supplier);
     }
 
     /**
@@ -90,7 +97,31 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $all = $request->only(['title','phone','email','detail','ward','district','province']);
+        $validator = Validator::make($all,[
+            'title'=>'required|string',
+            'phone'=>'required|string',
+            'email'=>'required|email',
+            'detail'=>'required',
+            'ward'=>'required',
+            'district'=>'required',
+            'province'=>'required',
+        ],[
+            'title.required'=>'Vui lòng nhập tên công nhà cung cấp',
+            'phone.required'=>'Vui lòng nhập số điện thoại nhà cung cấp.',
+            'email.required'=>'Vui lòng nhập địa chỉ email nhà cung cấp',
+            'email.email'=>'Địa chỉ email không đúng.',
+            'detail'=>'Vui lòng nhập số nhà, tên đường.',
+            'ward'=>'Vui lòng chọn phường, xã',
+            'district'=>'Vui lòng chọn quận, huyện',
+            'province'=>'Vui lòng chọn tỉnh, thành phố.',
+        ]);
+        if($validator->fails) return redirect()->back()->withErrors($validator);
+        $all['address'] = $all['detail'].', '.$all['ward'].', '.$all['district'].', '.$all['province'];
+        $all = collect($all)->except(['detail','ward','district','province']);
+        $supplier = Supplier::find($id);
+        $supplier->update($all);
+        return redirect()->route('suppliers.show',$supplier->id)->withMessages(['update-supplier'=>'Cập nhật thông tin nhà cung cấp thành công.']);
     }
 
     /**
@@ -101,6 +132,9 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $supplier = Supplier::find($id);
+        if($supplier){
+            $supplier->delete();
+        }
     }
 }
