@@ -78,6 +78,7 @@
 <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/jquery-toast-plugin/dist/jquery.toast.min.js') }}"></script>
+
 <!-- endinject -->
 <!-- Plugin js for this page-->
 @yield('plugin_js')
@@ -87,6 +88,7 @@
 <script src="{{ asset('assets/js/hoverable-collapse.js') }}"></script>
 <script src="{{ asset('assets/js/misc.js') }}"></script>
 <script src="{{ asset('assets/js/settings.js') }}"></script>
+
 <!-- endinject -->
 <!-- Custom js for this page-->
 <script type="text/javascript" src="{{ asset('assets/customs/settings.js') }}"></script>
