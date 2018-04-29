@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Thêm mới sản phẩm')
+@section('title','Thêm mới nhà cung cấp')
 
 @section('plugin_css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/dropify/dist/css/dropify.min.css') }}">
@@ -11,8 +11,8 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Nhà cung cấp</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('suppliers.index') }}">Nhà cung cấp</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><span>Thêm</span></li>
                 </ol>
             </nav>

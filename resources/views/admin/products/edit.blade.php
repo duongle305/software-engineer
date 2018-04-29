@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Thêm mới sản phẩm')
+@section('title',$product->title.' - cập nhật sản phẩm')
 
 @section('plugin_css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/dropify/dist/css/dropify.min.css') }}">
@@ -13,37 +13,38 @@
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Sản phẩm</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Thêm</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Cập nhật sản phẩm: {{ $product->title }}</span></li>
                 </ol>
             </nav>
             <div class="card">
                 <div class="card-body">
                     <div class="container">
-                        <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="" method="post" enctype="multipart/form-data">
                             <div class="form-group">
-                                {{ csrf_field() }}
+                                @csrf
+                                @method('PUT')
                             </div>
                             <div class="form-group">
                                 <label for="title">Tên sản phẩm</label>
-                                <input type="text" class="form-control" minlength="5" name="title" id="title">
+                                <input type="text" class="form-control" minlength="5" name="title" id="title" value="{{ $product->title }}">
                             </div>
                             <div class="form-group">
                                 <label for="description">Mô tả</label>
-                                <textarea class="form-control" rows="5" minlength="10" name="description" id="description"></textarea>
+                                <textarea class="form-control" rows="5" minlength="10" name="description" id="description">{{ $product->description }}</textarea>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <label for="base_price">Giá Nhập</label>
-                                        <input type="number" class="form-control" name="base_price" id="base_price">
+                                        <input type="number" class="form-control" name="base_price" id="base_price" value="{{ $product->base_price }}">
                                     </div>
                                     <div class="col-sm-4">
                                         <label for="unit_price">Giá bán</label>
-                                        <input type="number" class="form-control" name="unit_price" id="unit_price">
+                                        <input type="number" class="form-control" name="unit_price" id="unit_price" value="{{ $product->unit_price }}">
                                     </div>
                                     <div class="col-sm-4">
                                         <label for="quantity">Số lượng</label>
-                                        <input type="number" class="form-control" name="quantity" id="quantity">
+                                        <input type="number" class="form-control" name="quantity" id="quantity" value="{{ $product->quantity }}">
                                     </div>
                                 </div>
                             </div>
@@ -120,13 +121,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.dropify').dropify();
-        });
-        let app = new Vue({
-            el: '#app',
-            data: {
-                default_pass: false,
-                password: ''
-            },
         });
     </script>
 @endsection

@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Quản lý loại sản phẩm')
+@section('title','Quản lý danh mục sản phẩm')
 
 @section('plugin_css')
 @endsection
@@ -10,8 +10,8 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Quản lý danh mục sản phẩm</span></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Danh mục sản phẩm</span></li>
                 </ol>
             </nav>
             <div class="card">
@@ -36,6 +36,8 @@
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
                                                 Sửa</a>
+                                            <a href="{{ route('categories.destroy', $category->id) }}" class="btn btn-danger icon-btn btn-xs"><i class="ti-pencil"></i>
+                                                Xóa</a>
                                         </div>
                                     </td>
                                 </tr>

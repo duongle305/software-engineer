@@ -120,7 +120,7 @@ class BrandController extends Controller
 
         }
         $brand->update($all);
-        return redirect()->route('brands.index')->withMessages(['update-brand'=>'Cập nhật thương hiệu '.$brand->title.' thành công.']);
+        return redirect()->route('brands.show',$id)->withMessages(['update-brand'=>'Cập nhật thương hiệu '.$brand->title.' thành công.']);
     }
 
     /**

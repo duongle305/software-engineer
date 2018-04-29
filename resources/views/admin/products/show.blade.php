@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Dashboard')
+@section('title',$product->title.' - chi tiết sản phẩm')
 
 @section('plugin_css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/owl-carousel-2/assets/owl.carousel.min.css') }}">
@@ -12,9 +12,9 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Chi tiết sản phẩm</span></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Sản phẩm</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Chi tiết sản phẩm: {{ $product->title }}</span></li>
                 </ol>
             </nav>
             <div class="card">

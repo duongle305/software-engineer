@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Nhà cung cấp - '.$supplier->title)
+@section('title',$supplier->title.' - cập nhật nhà cung cấp')
 
 @section('plugin_css')
 @endsection
@@ -10,9 +10,9 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Nhà cung cấp</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Thêm</span></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('suppliers.index') }}">Nhà cung cấp</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Cập nhật nhà cung cấp: {{ $supplier->title }}</span></li>
                 </ol>
             </nav>
             <div class="card">

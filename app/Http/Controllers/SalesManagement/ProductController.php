@@ -103,7 +103,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::all();
+        $brands = Brand::all();
+        $suppliers = Supplier::all();
+        $product = Product::find($id);
+
+        return view('admin.products.edit')->withBrands($brands)->withCategories($categories)->withSuppliers($suppliers)->withProduct($product);
     }
 
     /**
