@@ -89,6 +89,7 @@
 <script src="{{ asset('assets/js/misc.js') }}"></script>
 <script src="{{ asset('assets/js/settings.js') }}"></script>
 
+
 <!-- endinject -->
 <!-- Custom js for this page-->
 <script type="text/javascript" src="{{ asset('assets/customs/settings.js') }}"></script>

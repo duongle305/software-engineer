@@ -19,7 +19,7 @@ Route::prefix('/admin-dl')->group(function(){
     Route::get('/login','Auth\LoginController@showLoginForm')->name('login');
     Route::post('/login','Auth\LoginController@login');
     Route::middleware('auth')->group(function(){
-        Route::get('/logout','Auth\LoginController@logout');
+        Route::get('/logout','Auth\LoginController@logout')->name('admin.logout');
         Route::get('/dashboard','SalesManagement\DashboardController@index')->name('admin.dashboard');
         Route::resource('/users','SalesManagement\UserController')->except('edit','update');
         Route::post('/users/{id}/update-info','SalesManagement\UserController@updateInfo')->name('users.update.info');

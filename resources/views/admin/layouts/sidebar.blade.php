@@ -17,14 +17,15 @@
                     <p class="designation">
                         {{ $user->roles()->first()->display_name }}
                     </p>
+                    <a href="{{ route('admin.logout') }}" class="btn btn-warning btn-xs mt-2">Đăng xuất</a>
                 </div>
+
             </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.dashboard') }}">
                 <i class="icon-rocket menu-icon"></i>
-                <span class="menu-title">Dashboard</span>
-                <span class="badge badge-success">New</span>
+                <span class="menu-title">Bảng điều khiển</span>
             </a>
         </li>
         <li class="nav-item">

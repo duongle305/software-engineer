@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Quản lý nhân viên')
+@section('title','Sale Manager - Nhân viên')
 
 @section('plugin_css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}">
@@ -33,14 +33,15 @@
                             </thead>
                             <tbody>
                                 @foreach($users as $user)
+                                    @if($user->id !== \Illuminate\Support\Facades\Auth::user()->id)
                                     <tr>
-                                        <td>{{$user->id}}</td>
-                                        <td>{{$user->first_name}} {{$user->last_name}}</td>
-                                        <td>{{ucwords(strtolower($user->sex))}}</td>
+                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                                        <td>{{ ucwords(strtolower($user->sex)) }}</td>
                                         <td><img src="{{ asset($user->photo) }}" alt="photo"></td>
-                                        <td>{{$user->email}}</td>
-                                        <td>{{$user->phone}}</td>
-                                        <td>{{$user->created_at->format('d-m-Y')}}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->phone }}</td>
+                                        <td>{{ $user->created_at->format('d-m-Y') }}</td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <a href="{{ route('users.show', $user->id) }}" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
@@ -48,6 +49,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>

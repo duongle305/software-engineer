@@ -75,13 +75,13 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <label for="district">Quận/Huyện</label>
-                                    <select name="district" id="district" class="form-control form-control-sm" :disabled="!isSelectedProvince" @change="getWards" @blur="getWards" v-model="isSelectedDistrict">
+                                    <select name="district" id="district" class="form-control form-control-sm" :disabled="!isSelectedProvince" @change="getWards" v-model="isSelectedDistrict">
                                         <option v-for="district in districts" :value="district.type+' '+district.title" :data-id="district.id">@{{ district.type }} @{{ district.title }}</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
                                     <label for="province">Tỉnh/TP</label>
-                                    <select name="province" id="province" class="form-control form-control-sm" @change="getDistricts" @blur="getDistricts" v-model="isSelectedProvince">
+                                    <select name="province" id="province" class="form-control form-control-sm" @change="getDistricts" v-model="isSelectedProvince">
                                         <option v-for="province in provinces" :value="province.type+' '+province.title" :data-id="province.id">@{{ province.type }} @{{ province.title }}</option>
                                     </select>
                                 </div>
