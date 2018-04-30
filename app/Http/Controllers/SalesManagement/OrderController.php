@@ -15,6 +15,8 @@ class OrderController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermission('read-orders')) abort(401,'Bạn không được phép xem danh sách đơn hàng.');
+
         $orders = Order::paginate(10);
         return view('admin.orders.index')->withOrders($orders);
     }
@@ -26,6 +28,8 @@ class OrderController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasPermission('create-orders')) abort(401,'Bạn không được phép tạo mới đơn hàng.');
+
         //
     }
 
@@ -37,6 +41,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::user()->hasPermission('create-orders')) abort(401,'Bạn không được phép tạo mới đơn hàng.');
+
         //
     }
 
@@ -48,6 +54,8 @@ class OrderController extends Controller
      */
     public function show($id)
     {
+        if(!Auth::user()->hasPermission('read-orders')) abort(401,'Bạn không được phép xem đơn hàng.');
+
         return view('admin.orders.show');
     }
 
@@ -59,6 +67,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
+        if(!Auth::user()->hasPermission('update-orders')) abort(401,'Bạn không được phép cập nhật đơn hàng.');
+
         //
     }
 
@@ -71,6 +81,8 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!Auth::user()->hasPermission('update-orders')) abort(401,'Bạn không được phép cập nhật đơn hàng.');
+
         //
     }
 
@@ -82,7 +94,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        if(!Auth::user()->hasPermission('delete-orders')) abort(401,'Bạn không được phép xóa danh mục.');
+        if(!Auth::user()->hasPermission('delete-orders')) abort(401,'Bạn không được phép xóa đơn hàng.');
         $supplier = Supplier::find($id);
         if($supplier){
             $supplier->delete();

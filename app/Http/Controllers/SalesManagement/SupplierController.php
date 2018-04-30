@@ -28,6 +28,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasPermission('create-suppliers')) abort(401,'Bạn không có quyền thêm nhà cung cấp.');
         return view('admin.suppliers.create');
     }
 
@@ -39,6 +40,7 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::user()->hasPermission('create-suppliers')) abort(401,'Bạn không có quyền thêm nhà cung cấp.');
         $all = $request->only(['title','phone','email','detail','ward','district','province']);
         $validator = Validator::make($all,[
             'title'=>'required|string',
@@ -73,6 +75,7 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
+        if(!Auth::user()->hasPermission('read-suppliers')) abort(401,'Bạn không được phép xem nhà cung cấp.');
         $supplier = Supplier::find($id);
         return view('admin.suppliers.show')->withSupplier($supplier);
     }
@@ -85,6 +88,7 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
+        if(!Auth::user()->hasPermission('update-suppliers')) abort(401,'Bạn không được phép cập nhật nhà cung cấp.');
         $supplier = Supplier::find($id);
         return view('admin.suppliers.edit')->withSupplier($supplier);
     }
@@ -98,6 +102,7 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!Auth::user()->hasPermission('create-suppliers')) abort(401,'Bạn không được phép cập nhật nhà cung cấp.');
         $rules = [
             'title'=>'required|string',
             'phone'=>'required|string',

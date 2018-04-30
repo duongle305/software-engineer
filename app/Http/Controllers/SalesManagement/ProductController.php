@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -20,6 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermission('read-products')) abort(401,'Bạn không được xem danh sách sản phẩm.');
         $products = Product::paginate(10);
         return view('admin.products.index')->withProducts($products);
     }
@@ -31,6 +33,8 @@ class ProductController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasPermission('create-products')) abort(401,'Bạn không được phép thêm mới sản phẩm.');
+
         $categories = Category::all();
         $brands = Brand::all();
         $suppliers = Supplier::all();
@@ -46,7 +50,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-            $all = $request->only(['title','description','unit_price','base_price','quantity','supplier_id','brand_id','category_id']);
+        if(!Auth::user()->hasPermission('create-products')) abort(401,'Bạn không được phép thêm mới sản phẩm.');
+
+        $all = $request->only(['title','description','unit_price','base_price','quantity','supplier_id','brand_id','category_id']);
 
         $validator = Validator::make($all,[
             'title'=>'required|string',
@@ -89,6 +95,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        if(!Auth::user()->hasPermission('read-products')) abort(401,'Bạn không được phép xem sản phẩm.');
+
+
         $product = Product::find($id);
 
 
@@ -103,6 +112,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        if(!Auth::user()->hasPermission('update-products')) abort(401,'Bạn không được phép câp nhật sản phẩm.');
         $categories = Category::all();
         $brands = Brand::all();
         $suppliers = Supplier::all();
