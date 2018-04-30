@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SalesManagement;
 
 use App\Models\Category;
+use App\Models\SizeType;
 use Illuminate\Http\Request;
 use App\Models\Province;
 use App\Models\District;
@@ -34,5 +35,11 @@ class AjaxController extends Controller
         if($cate)
             return response()->json($cate,200);
 
+    }
+
+    public function sizes($id)
+    {
+        $type = SizeType::find($id);
+        return response()->json($type->sizes,200);
     }
 }

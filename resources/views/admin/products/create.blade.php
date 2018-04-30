@@ -29,7 +29,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Mô tả</label>
-                                <textarea class="form-control" rows="5" minlength="10" name="description" id="description"></textarea>
+                                <textarea class="form-control" rows="5" minlength="10" name="description"
+                                          id="description"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -80,24 +81,81 @@
                                     <div class="col-md-6">
                                         <div class="form-check form-check-flat">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input">
+                                                <input type="checkbox" class="form-check-input" v-model="isAddColor">
                                                 Thêm màu sắc
                                             </label>
                                         </div>
+                                        <div class="form-group" v-if="isAddColor">
+                                            <label for="size">Chọn màu sắc cho sản phẩm</label>
+                                            <div class="form-check form-check-flat">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" value=""
+                                                                   name="colors[]">
+                                                            Màu 1
+                                                            <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" value=""
+                                                                   name="colors[]">
+                                                            Màu 2
+                                                            <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="col-md-6">
-                                        <div class="form-check form-check-flat">
-                                            <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input">
-                                                Thêm size
-                                            </label>
+                                        {{--<div class="form-check form-check-flat">--}}
+                                        {{--<label class="form-check-label">--}}
+                                        {{--<input type="checkbox" class="form-check-input" v-model="isAddSize">--}}
+                                        {{--Thêm size--}}
+                                        {{--</label>--}}
+                                        {{--</div>--}}
+                                        <div class="form-group">
+                                            <label for="size">Chọn size cho sản phẩm</label>
+                                            <select name="ward" id="ward" class="form-control form-control-sm"
+                                                    v-model="sizeTypeId" @change="getSizes">
+                                                @foreach(\App\Models\SizeType::all() as $type)
+                                                    <option value="{{ $type->id }}"
+                                                            data-href="{{ route('ajax.sizes', $type->id )  }}">{{ $type->title }}</option>
+                                                @endforeach
+                                            </select>
+
+                                            <div class="form-check form-check-flat" v-if="sizeTypeId">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="form-check-label" v-for="size in sizes">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                   :value="size.id"
+                                                                   name="sizes[]">
+                                                            @{{ size.name }}
+                                                            <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" value=""
+                                                                   name="sizes[]">
+                                                            Size 2
+                                                            <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="photo">Hình sản phẩm</label>
-                                <input type="file" class="dropify" accept="image/*" name="images[]" id="images" multiple/>
+                                <input type="file" class="dropify" accept="image/*" name="images[]" id="images"
+                                       multiple/>
                             </div>
                             <div class="form-group text-right">
                                 <button type="submit" class="btn btn-success">Thêm</button>
@@ -124,8 +182,22 @@
         let app = new Vue({
             el: '#app',
             data: {
-                default_pass: false,
-                password: ''
+                isAddColor: false,
+                isAddSize: false,
+                sizeTypeId: '',
+                sizes: []
+            },
+            methods: {
+                getSizes: (e) => {
+                    if (e.target.options.selectedIndex > -1) {
+                        let href = e.target.options[e.target.options.selectedIndex].dataset.href;
+                        axios.get(href).then(rs => {
+                            this.sizes = rs.data;
+                        }).catch(e => {
+                        });
+                    }
+
+                }
             },
         });
     </script>
