@@ -17,6 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermission('read-categories')) abort(401,'Bạn không được phép xem danh mục sản phẩm.');
         $categories = Category::all();
         return view('admin.categories.index')->withCategories($categories);
     }
@@ -28,6 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasPermission('read-categories')) abort(401,'Bạn không được phép thêm mới danh mục sản phẩm.');
         return view('admin.categories.create');
     }
 
@@ -39,6 +41,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::user()->hasPermission('create-categories')) abort(401,'Bạn không được phép thêm mới danh mục sản phẩm.');
         $all = $request->only(['title','slug']);
         $validator = Validator::make($all,[
             'title'=>'required|string',
@@ -59,6 +62,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
+        if (!Auth::user()->hasPermission('read-categories')) abort(401, 'Bạn không được phép xem danh mục sản phẩm.');
         $category = Category::find($id);
         return view('admin.categories.show')->withCategory($category);
     }
@@ -71,6 +75,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        if (Auth::user()->hasPermission('update-categories')) abort(401, 'Bạn không được phép chỉnh sửa danh mục');
         $category = Category::find($id);
         return view('admin.categories.edit')->withCategory($category);
     }
@@ -84,6 +89,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!Auth::user()->hasPermission('update-categories')) abort(401, 'Bạn không được phép chỉnh sửa danh mục');
         $all = $request->only(['title','slug']);
         $validator = Validator::make($all,[
             'title'=>'required|string',
