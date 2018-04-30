@@ -10,9 +10,8 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('brands.index') }}">Quản lý thương hiệu</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Thông tin thương hiệu: {{ $brand->title }}</span>
+                    <li class="breadcrumb-item"><a href="{{ route('brands.index') }}">Thương hiệu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>{{ $brand->title }}</span>
                     </li>
                 </ol>
             </nav>
@@ -24,7 +23,7 @@
                                 <div class="card-body">
                                     <h3 class="text-left">{{ $brand->title }}</h3>
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-8">
                                             <br>
                                             <div class="table-responsive">
                                                 <table class="table">
@@ -45,7 +44,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-4">
                                             <img src="{{ asset($brand->image) }}" alt="{{ $brand->title }}"
                                                  style="width: 150px;height: auto">
                                         </div>

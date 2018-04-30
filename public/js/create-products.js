@@ -60,71 +60,16 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 37:
+/***/ 35:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(38);
+(function webpackMissingModule() { throw new Error("Cannot find module \"D:\\Data\\CNPM\\km15-v1.0\\resources\\assets\\js\\create-products.js\""); }());
 
-
-/***/ }),
-
-/***/ 38:
-/***/ (function(module, exports) {
-
-var app = new Vue({
-    el: '#app',
-    data: {
-        isDefaultPassword: false,
-        isSelectedProvince: false,
-        isSelectedDistrict: false,
-        provinces: [],
-        districts: [],
-        wards: []
-    },
-    methods: {
-        getProvinces: function getProvinces() {
-            var _this = this;
-
-            axios.get('/admin-dl/ajax/provinces').then(function (rs) {
-                _this.provinces = rs.data;
-            }).catch(function (e) {});
-        },
-        getDistricts: function getDistricts(e) {
-            var _this2 = this;
-
-            var selected = e.target.options[e.target.options.selectedIndex];
-            if (selected !== undefined) {
-                if (this.wards.length > 0) {
-                    this.wards = [];
-                    this.isSelectedDistrict = false;
-                }
-                var province_id = selected.dataset.id;
-                axios.get('/admin-dl/ajax/districts/' + province_id).then(function (rs) {
-                    _this2.districts = rs.data;
-                }).catch(function (e) {});
-            }
-        },
-        getWards: function getWards(e) {
-            var _this3 = this;
-
-            var selected = e.target.options[e.target.options.selectedIndex];
-            if (selected !== undefined) {
-                var district_id = selected.dataset.id;
-                axios.get('/admin-dl/ajax/wards/' + district_id).then(function (rs) {
-                    _this3.wards = rs.data;
-                }).catch(function (e) {});
-            }
-        }
-    },
-    mounted: function mounted() {
-        this.getProvinces();
-    }
-});
 
 /***/ })
 

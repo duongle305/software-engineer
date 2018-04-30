@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SalesManagement;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,6 +18,7 @@ class BrandController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermission('read-brands')) abort(401,'Bạn không được phép xem danh sách thương hiệu.');
         $brands = Brand::paginate(10);
         return view('admin.brands.index')->withBrands($brands);
     }
@@ -28,6 +30,7 @@ class BrandController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasPermission('create-brands')) abort(401,'Bạn không được phép thêm mới thương hiệu.');
         return view('admin.brands.create');
     }
 
@@ -39,8 +42,8 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::user()->hasPermission('create-brands')) abort(401,'Bạn không được phép thêm mới thương hiệu.');
         $all = $request->only(['title','description','image']);
-
         $validator = Validator::make($all,[
             'title'=>'required|string',
             'description'=>'required|string',
@@ -49,8 +52,8 @@ class BrandController extends Controller
             'title.required'=>'Vui lòng nhập tên thương hiệu.',
             'description.required'=>'Vui lòng nhập mô tả cho thương hiệu.',
             'image.required'=>'Vui lòng thêm ảnh cho thương hiệu.',
-            'image.image'=>'Vui ',
-            'image.mimes'=>''
+            'image.image'=>'File không phải là ảnh vui lòng kiểm tra lại.',
+            'image.mimes'=>'Vui lòng chọn ảnh thuộc các định dạng: jpg,png,jpeg'
         ]);
         if($validator->fails()) return redirect()->back()->withErrors($validator);
 
@@ -70,6 +73,7 @@ class BrandController extends Controller
      */
     public function show($id)
     {
+        if(!Auth::user()->hasPermission('read-brands')) abort(401,'Bạn không được phép xem thông tin thương hiệu');
         $brand = Brand::find($id);
         return view('admin.brands.show')->withBrand($brand);
     }
@@ -82,6 +86,7 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
+        if(!Auth::user()->hasPermission('update-brands')) abort(401,'Bạn không được phép cập nhật thương hiệu.');
         $brand = Brand::find($id);
         return view('admin.brands.edit')->withBrand($brand);
     }
@@ -95,8 +100,8 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!Auth::user()->hasPermission('update-brands')) abort(401,'Bạn không được phép cập nhật thương hiệu.');
         $all = $request->only(['title','description','image']);
-
         $validator = Validator::make($all,[
             'title'=>'required|string',
             'description'=>'required|string',
@@ -104,8 +109,8 @@ class BrandController extends Controller
         ],[
             'title.required'=>'Vui lòng nhập tên thương hiệu.',
             'description.required'=>'Vui lòng nhập mô tả cho thương hiệu.',
-            'image.image'=>'Vui ',
-            'image.mimes'=>''
+            'image.image'=>'File không phải là ảnh vui lòng kiểm tra lại.',
+            'image.mimes'=>'Vui lòng chọn ảnh thuộc các định dạng: jpg,png,jpeg'
         ]);
         if($validator->fails()) return redirect()->back()->withErrors($validator);
         $brand = Brand::find($id);
@@ -131,6 +136,11 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!Auth::user()->hasPermission('delete-brands')) abort(401,'Bạn không được phép xóa thương hiệu.');
+        $brand = Brand::find($id);
+        if($brand){
+            $brand->delete();
+            return response()->json(['message'=>'Xóa thương hiệu '.$brand->title.' thành công.'],200);
+        }
     }
 }

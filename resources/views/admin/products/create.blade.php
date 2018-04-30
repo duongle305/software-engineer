@@ -35,114 +35,110 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label for="base_price">Giá Nhập</label>
-                                        <input type="number" class="form-control" name="base_price" id="base_price">
+                                        <div class="form-group">
+                                            <label for="base_price">Giá Nhập</label>
+                                            <input type="number" class="form-control" name="base_price" id="base_price">
+                                        </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="unit_price">Giá bán</label>
-                                        <input type="number" class="form-control" name="unit_price" id="unit_price">
+                                        <div class="form-group">
+                                            <label for="unit_price">Giá bán</label>
+                                            <input type="number" class="form-control" name="unit_price" id="unit_price">
+                                        </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="quantity">Số lượng</label>
-                                        <input type="number" class="form-control" name="quantity" id="quantity">
+                                        <div class="form-group">
+                                            <label for="quantity">Số lượng</label>
+                                            <input type="number" class="form-control" name="quantity" id="quantity">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label for="category_id">Loại sản phẩm</label>
-                                        <select class="form-control" id="category_id" name="category_id">
-                                            @foreach($categories as $categorie)
-                                                <option value="{{ $categorie->id }}">{{ $categorie->title }}</option>
-                                            @endforeach
-                                        </select>
+                                        <div class="form-group">
+                                            <label for="category_id">Loại sản phẩm</label>
+                                            <select class="form-control" id="category_id" name="category_id">
+                                                @foreach($categories as $categorie)
+                                                    <option value="{{ $categorie->id }}">{{ $categorie->title }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="brand_id">Thương hiệu</label>
-                                        <select class="form-control" id="brand_id" name="brand_id">
-                                            @foreach($brands as $brand)
-                                                <option value="{{ $brand->id }}">{{ $brand->title }}</option>
-                                            @endforeach
-                                        </select>
+                                        <div class="form-group">
+                                            <label for="brand_id">Thương hiệu</label>
+                                            <select class="form-control" id="brand_id" name="brand_id">
+                                                @foreach($brands as $brand)
+                                                    <option value="{{ $brand->id }}">{{ $brand->title }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="supplier_id">Nhà cung cấp</label>
-                                        <select class="form-control" id="supplier_id" name="supplier_id">
-                                            @foreach($suppliers as $supplier)
-                                                <option value="{{ $supplier->id }}">{{ $supplier->title }}</option>
-                                            @endforeach
-                                        </select>
+                                        <div class="form-group">
+                                            <label for="supplier_id">Nhà cung cấp</label>
+                                            <select class="form-control" id="supplier_id" name="supplier_id">
+                                                @foreach($suppliers as $supplier)
+                                                    <option value="{{ $supplier->id }}">{{ $supplier->title }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <div class="form-check form-check-flat">
                                             <label class="form-check-label">
                                                 <input type="checkbox" class="form-check-input" v-model="isAddColor">
                                                 Thêm màu sắc
                                             </label>
                                         </div>
-                                        <div class="form-group" v-if="isAddColor">
-                                            <label for="size">Chọn màu sắc cho sản phẩm</label>
+                                    </div>
+                                    <div class="form-group" v-if="isAddColor">
+                                        <div class="form-group">
                                             <div class="form-check form-check-flat">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" value=""
-                                                                   name="colors[]">
-                                                            Màu 1
-                                                            <i class="input-helper"></i>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" value=""
-                                                                   name="colors[]">
-                                                            Màu 2
-                                                            <i class="input-helper"></i>
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input"
+                                                           name="colors[]">
+                                                        Màu 1
+                                                    <i class="input-helper"></i>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-6">
-                                        {{--<div class="form-check form-check-flat">--}}
-                                        {{--<label class="form-check-label">--}}
-                                        {{--<input type="checkbox" class="form-check-input" v-model="isAddSize">--}}
-                                        {{--Thêm size--}}
-                                        {{--</label>--}}
-                                        {{--</div>--}}
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-flat">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" v-model="isAddSize" name="size">
+                                                Kích thước
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div v-if="isAddSize">
                                         <div class="form-group">
-                                            <label for="size">Chọn size cho sản phẩm</label>
-                                            <select name="ward" id="ward" class="form-control form-control-sm"
+                                            <label for="size">Chọn loại kích thước sản phẩm</label>
+                                            <select name="size" id="size" class="form-control form-control-sm"
                                                     v-model="sizeTypeId" @change="getSizes">
                                                 @foreach(\App\Models\SizeType::all() as $type)
                                                     <option value="{{ $type->id }}"
                                                             data-href="{{ route('ajax.sizes', $type->id )  }}">{{ $type->title }}</option>
                                                 @endforeach
                                             </select>
-
-                                            <div class="form-check form-check-flat" v-if="sizeTypeId">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label class="form-check-label" v-for="size in sizes">
-                                                            <input type="checkbox" class="form-check-input"
-                                                                   :value="size.id"
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-md-6 form-group" v-for="size in sizes">
+                                                    <div class="form-check form-check-flat">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" :value="size.id"
                                                                    name="sizes[]">
                                                             @{{ size.name }}
-                                                            <i class="input-helper"></i>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label class="form-check-label">
-                                                            <input type="checkbox" class="form-check-input" value=""
-                                                                   name="sizes[]">
-                                                            Size 2
                                                             <i class="input-helper"></i>
                                                         </label>
                                                     </div>
@@ -179,26 +175,6 @@
         $(document).ready(function () {
             $('.dropify').dropify();
         });
-        let app = new Vue({
-            el: '#app',
-            data: {
-                isAddColor: false,
-                isAddSize: false,
-                sizeTypeId: '',
-                sizes: []
-            },
-            methods: {
-                getSizes: (e) => {
-                    if (e.target.options.selectedIndex > -1) {
-                        let href = e.target.options[e.target.options.selectedIndex].dataset.href;
-                        axios.get(href).then(rs => {
-                            this.sizes = rs.data;
-                        }).catch(e => {
-                        });
-                    }
-
-                }
-            },
-        });
     </script>
+    <script src="{{ asset('js/create-product.js') }}"></script>
 @endsection
