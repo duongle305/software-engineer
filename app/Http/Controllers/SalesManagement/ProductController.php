@@ -131,7 +131,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!Auth::user()->hasPermission('delete-products')) abort(401,'Bạn không được phép xóa sản phẩm.');
+        $supplier = Product::find($id);
+        if($supplier){
+            $supplier->delete();
+            return response()->json(['message'=>''],200);
+        }
     }
 
     private function generateCode(Request $request)

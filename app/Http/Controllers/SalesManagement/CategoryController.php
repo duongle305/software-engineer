@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SalesManagement;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -105,9 +106,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        if(!Auth::user()->hasPermission('delete-categories')) abort(401,'Bạn không được phép xóa danh mục.');
         $cate = Category::find($id);
         if($cate){
             $cate->delete();
+            return response()->json(['message'=>''],200);
         }
     }
 }

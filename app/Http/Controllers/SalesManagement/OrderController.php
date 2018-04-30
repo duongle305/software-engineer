@@ -82,6 +82,11 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!Auth::user()->hasPermission('delete-orders')) abort(401,'Bạn không được phép xóa danh mục.');
+        $supplier = Supplier::find($id);
+        if($supplier){
+            $supplier->delete();
+            return response()->json(['message'=>''],200);
+        }
     }
 }

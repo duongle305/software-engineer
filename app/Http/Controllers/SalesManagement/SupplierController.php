@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SalesManagement;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SupplierController extends Controller
@@ -140,9 +141,11 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
+        if(!Auth::user()->hasPermission('delete-suppliers')) abort(401,'Bạn không được phép xóa nhà cung cấp.');
         $supplier = Supplier::find($id);
         if($supplier){
             $supplier->delete();
+            return response()->json(['message'=>''],200);
         }
     }
 }

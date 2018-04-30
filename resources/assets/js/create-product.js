@@ -12,7 +12,6 @@ let app = new Vue({
             let selected = e.target.options[e.target.options.selectedIndex];
             if(selected !== undefined){
                 axios.get(selected.dataset.href).then(rs => {
-                    console.log(this);
                     this.sizes = rs.data;
                 }).catch(e => {
                 });
