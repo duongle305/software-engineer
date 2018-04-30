@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
@@ -17,6 +18,8 @@ class RoleController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermission('read-roles')) abort(401,'Bạn không có quyền xem danh sách vai trò.');
+
         $roles = Role::paginate(10);
         return view('admin.roles.index')->withRoles($roles);
     }
@@ -28,6 +31,8 @@ class RoleController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasPermission('create-roles')) abort(401,'Bạn không có quyền thêm mới vai trò.');
+
         $permissions = Permission::all();
         $permissions = collect($permissions);
         $permissions = $permissions->chunk(floor(count($permissions)/2));
@@ -42,6 +47,8 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::user()->hasPermission('create-roles')) abort(401,'Bạn không có quyền thêm mới vai trò.');
+
         $all = $request->only(['display_name','name','description','permissions']);
         $validator = Validator::make($all,[
             'display_name'=>'required|string',
@@ -71,6 +78,8 @@ class RoleController extends Controller
      */
     public function show($id)
     {
+        if(!Auth::user()->hasPermission('read-roles')) abort(401,'Bạn không có quyền xem vai trò này.');
+
         $role = Role::find($id);
         return view('admin.roles.show')->withRole($role);
     }
@@ -83,6 +92,8 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        if(!Auth::user()->hasPermission('update-roles')) abort(401,'Bạn không có quyền cập nhật vai trò này.');
+
         $permissions = Permission::all();
         $permissions = collect($permissions);
         $permissions = $permissions->chunk(floor(count($permissions)/2));
@@ -99,6 +110,8 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!Auth::user()->hasPermission('update-roles')) abort(401,'Bạn không có quyền cập nhật vai trò này.');
+
         $all = $request->only(['display_name','name','description','permissions']);
         $validator = Validator::make($all,[
             'display_name'=>'required|string',
@@ -131,10 +144,11 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Permission::find($id);
+        if(!Auth::user()->hasPermission('delete-roles')) abort(401,'Bạn không có quyền xóa quyền này.');
+        $role = Role::find($id);
         if($role) {
             $role->delete();
-            return redirect()->route('roles.index')->withMessage(['delete-role'=>'Xóa vai trò '.$role->display_name.' thành công.']);
+            return response()->json(['message'=>'Xóa vai trò '.$role->display_name.' thành công.'],200);
         }
     }
 }

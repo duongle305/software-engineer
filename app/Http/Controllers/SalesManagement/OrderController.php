@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SalesManagement;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {

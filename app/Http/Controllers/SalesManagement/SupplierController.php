@@ -17,6 +17,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermission('read-suppliers')) abort(401,'Bạn không có quyền xem danh sách nhà cung cấp.');
+
         $suppliers = Supplier::paginate(10);
         return view('admin.suppliers.index')->withSuppliers($suppliers);
     }
