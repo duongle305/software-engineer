@@ -75,7 +75,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        if (Auth::user()->hasPermission('update-categories')) abort(401, 'Bạn không được phép chỉnh sửa danh mục');
+        if (!Auth::user()->hasPermission('update-categories')) abort(401, 'Bạn không được phép chỉnh sửa danh mục');
         $category = Category::find($id);
         return view('admin.categories.edit')->withCategory($category);
     }

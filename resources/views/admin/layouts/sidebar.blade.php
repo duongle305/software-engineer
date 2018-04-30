@@ -61,7 +61,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('brands.index') }}">
-                <i class="icon-tag menu-icon"></i>
+                <i class="icon-diamond menu-icon"></i>
                 <span class="menu-title">Thương hiệu</span>
             </a>
         </li>
@@ -73,7 +73,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('products.index') }}">
-                <i class="icon-handbag menu-icon"></i>
+                <i class="icon-tag menu-icon"></i>
                 <span class="menu-title">Sản phẩm</span>
             </a>
         </li>

@@ -55,6 +55,8 @@ class SupplierController extends Controller
         ],[
             'title.required'=>'Vui lòng nhập tên công nhà cung cấp',
             'phone.required'=>'Vui lòng nhập số điện thoại nhà cung cấp.',
+            'phone.unique'=>'Số điện thoại nhà cung cấp đã được sử dụng.',
+            'email.unique'=>'Địa chỉ email nhà cung cấp đã được sử dụng.',
             'email.required'=>'Vui lòng nhập địa chỉ email nhà cung cấp',
             'email.email'=>'Địa chỉ email không đúng.',
             'detail'=>'Vui lòng nhập số nhà, tên đường.',

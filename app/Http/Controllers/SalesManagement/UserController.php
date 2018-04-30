@@ -19,6 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermission('read-users')) abort(401, 'Bạn không được phép xem danh sách nhân viên.');
         $users = User::paginate(10);
         return view('admin.users.index')->withUsers($users);
     }
@@ -30,6 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasPermission('create-users')) abort(401, 'Bạn không được phép thêm mới nhân viên.');
         $roles = Role::all();
         return view('admin.users.create')->withRoles($roles);
     }
@@ -42,6 +44,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::user()->hasPermission('create-users')) abort(401, 'Bạn không được phép thêm mới nhân viên.');
         $all = $request->only(['first_name','last_name','birthday','sex','phone','email','password','role','photo','detail','ward','district','province']);
         $msgs = [
             'first_name.required'=>'Vui lòng nhập họ.',
@@ -106,6 +109,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        if(!Auth::user()->hasPermission('read-users')) abort(401,'Bạn không được phép xem thông tin nhân viên.');
         $user = User::find($id);
         if($user){
             return view('admin.users.show')->withUser($user);

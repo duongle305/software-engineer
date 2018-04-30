@@ -53,13 +53,15 @@ class ProductController extends Controller
         if(!Auth::user()->hasPermission('create-products')) abort(401,'Bạn không được phép thêm mới sản phẩm.');
 
         $all = $request->only(['title','description','unit_price','base_price','quantity','supplier_id','brand_id','category_id']);
-
+        return $request->all();
         $validator = Validator::make($all,[
             'title'=>'required|string',
             'description'=>'required|string',
             'unit_price'=>'required|string',
             'base_price'=>'required|string',
-            'quantity'=>'required|string'
+            'quantity'=>'required|string',
+            'colors'=>'sometimes|array',
+            'sizes'=>'sometimes|array'
         ],[
             'title.required'=>'Vui lòng nhập tên sản phẩm.',
             'description.required'=>'Vui lòng nhập mô tả cho sản phẩm.',
