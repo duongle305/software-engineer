@@ -50,6 +50,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
         if(!Auth::user()->hasPermission('create-products')) abort(401,'Bạn không được phép thêm mới sản phẩm.');
 
         $all = $request->only(['title','description','unit_price','base_price','quantity','supplier_id','brand_id','category_id']);

@@ -74,27 +74,47 @@ module.exports = __webpack_require__(36);
 /***/ }),
 
 /***/ 36:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__) {
 
+"use strict";
 var app = new Vue({
     el: '#app',
     data: {
         isAddColor: false,
         isAddSize: false,
         sizeTypeId: '',
-        sizes: {},
-        col: 12
+        sizes: [],
+        colors: []
     },
     methods: {
         getSizes: function getSizes(e) {
             var _this = this;
 
             var selected = e.target.options[e.target.options.selectedIndex];
+            $('select.select-multiple-sizes').empty().trigger('change');
             if (selected !== undefined) {
                 axios.get(selected.dataset.href).then(function (rs) {
-                    console.log(_this);
                     _this.sizes = rs.data;
+                    _this.sizes.forEach(function (el) {
+                        el.text = el.name;
+                    });
+                    $('select.select-multiple-sizes').select2({ data: _this.sizes }).trigger('change');
                 }).catch(function (e) {});
+            }
+        },
+        getColors: function getColors(e) {
+            var _this2 = this;
+
+            $('select.select-multiple-colors').empty().trigger('change');
+            if (e.target.dataset.href) {
+                axios.get(e.target.dataset.href).then(function (res) {
+                    _this2.colors = res.data;
+                    _this2.colors.forEach(function (el) {
+                        el.text = el.name;
+                    });
+                    $('select.select-multiple-colors').select2({ data: _this2.colors }).trigger('change');
+                    $();
+                });
             }
         }
     }

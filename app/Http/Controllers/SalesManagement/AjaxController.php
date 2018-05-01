@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SalesManagement;
 
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\SizeType;
 use Illuminate\Http\Request;
 use App\Models\Province;
@@ -41,5 +42,11 @@ class AjaxController extends Controller
     {
         $type = SizeType::find($id);
         return response()->json($type->sizes,200);
+    }
+
+    public function colors()
+    {
+        $colors = Color::all();
+        return response()->json($colors,200);
     }
 }
