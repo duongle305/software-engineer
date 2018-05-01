@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title',$brand->title.' - thông tin thương hiệu')
+@section('title','Thương hiệu - '.$brand->title)
 
 @section('plugin_css')
 @endsection
@@ -10,6 +10,7 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('brands.index') }}">Thương hiệu</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><span>{{ $brand->title }}</span>
                     </li>

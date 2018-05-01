@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Quản lý thương hiệu')
+@section('title','Thương hiệu')
 
 @section('plugin_css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}">
@@ -11,8 +11,8 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Quản lý thương hiệu</span></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Thương hiệu</span></li>
                 </ol>
             </nav>
             <div class="card">

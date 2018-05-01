@@ -62,7 +62,7 @@ class BrandController extends Controller
         $image->move(public_path('uploads/brands'),$image_name);
         $all['image'] = 'uploads/brands/'.$image_name;
         $brand = Brand::create($all);
-        return redirect()->route('brands.index')->withMessages(['create-brand'=>'Thêm mới thương hiệu '.$brand->title.' thành công.']);
+        return redirect()->route('brands.show', $brand->id)->withMessages(['create-brand'=>'Thêm mới thương hiệu '.$brand->title.' thành công.']);
     }
 
     /**
