@@ -54,5 +54,6 @@ class User extends Authenticatable
     private function detachRole(){
         if($this->roles()->first())
             return $this->roles()->first()->pivot->delete();
+        return true;
     }
 }

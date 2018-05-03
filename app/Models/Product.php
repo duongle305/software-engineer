@@ -16,9 +16,28 @@ class Product extends Model
 
     public function sizes()
     {
-        return $this->hasMany('App\Models\Size');
+        return $this->belongsToMany('App\Models\Size');
     }
 
+    public function colors(){
+        return $this->belongsToMany('App\Models\Color');
+    }
+
+    public function attachColor($color)
+    {
+        if(is_int($color)){
+            return $this->colors()->save(Color::find($color));
+        }
+        return $this->colors()->save($color);
+    }
+
+    public function attachSize($size)
+    {
+        if(is_int($size)){
+            return $this->sizes()->save(Size::find($size));
+        }
+        return $this->sizes()->save($size);
+    }
     public function brand()
     {
         return $this->belongsTo('App\Models\Brand');

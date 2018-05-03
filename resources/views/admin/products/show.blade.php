@@ -35,7 +35,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Mô tả</th>
-                                                        <td class="text-left">{{ $product->description }}</td>
+                                                        <td class="text-left">{!!  $product->description !!}</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-left">Giá nhập</th>
@@ -66,8 +66,12 @@
                                                         <td class="text-left">{{ $product->created_at->format('d-m-Y') }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="text-left">Ngày update</th>
+                                                        <th class="text-left">Ngày cập nhật</th>
                                                         <td class="text-left">{{ $product->updated_at->format('d-m-Y') }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="text-left">Màu sắc</th>
+                                                        <td class="text-left">{{ $product->colors()->first()->name }}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>

@@ -5,6 +5,7 @@
 @section('plugin_css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/dropify/dist/css/dropify.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/select2/dist/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/dist/summernote-bs4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/select2-bootstrap-theme/dist/select2-bootstrap.min.css') }}" />
 @endsection
 
@@ -30,8 +31,8 @@
                                 <input type="text" class="form-control" minlength="5" name="title" id="title">
                             </div>
                             <div class="form-group">
-                                <label for="description">Mô tả</label>
-                                <textarea class="form-control" rows="5" minlength="10" name="description" id="description"></textarea>
+                                <label for="summernote">Mô tả</label>
+                                <textarea id="summernote" class="form-control" name="description"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -101,7 +102,8 @@
                                     </div>
                                     <div class="form-group" v-if="isAddColor">
                                         <label for="colors">Chọn màu sắc sản phẩm</label>
-                                        <select name="colors[]" id="colors" multiple class="select-multiple-colors" style="width: 100%;"></select>
+                                        <select2-multiple :options="colors" name="colors[]"></select2-multiple>
+                                        {{--<select name="colors[]" id="colors" multiple class="select-multiple-colors" style="width: 100%;"></select>--}}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -127,8 +129,9 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6" v-if="sizeTypeId">
-                                                    <select class="select-multiple-sizes" name="sizes[]" multiple style="width: 100%">
-                                                    </select>
+                                                    {{--<select class="select-multiple-sizes" name="sizes[]" multiple style="width: 100%">--}}
+                                                    {{--</select>--}}
+                                                    <select2-multiple :options="sizes" name="sizes[]"></select2-multiple>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,17 +156,18 @@
 
 @section('plugin_js')
     <script src="{{ asset('assets/vendor/dropify/dist/js/dropify.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/inputmask/dist/jquery.inputmask.bundle.js') }}"></script>
-    <script src="{{ asset('assets/vendor/inputmask/dist/inputmask/bindings/inputmask.binding.js') }}"></script>
-    <script src="{{ asset('assets/vendor/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/summernote/dist/summernote-bs4.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js') }}"></script>
 @endsection
 @section('custom_js')
     <script type="text/javascript">
-        (function($) {
-            'use strict';
+        $(document).ready(()=>{
             $('.dropify').dropify();
-        })(jQuery);
+            $('#summernote').summernote({
+                height: 200,
+                tabsize: 2
+            });
+        });
     </script>
     <script src="{{ asset('js/create-product.js') }}"></script>
 @endsection

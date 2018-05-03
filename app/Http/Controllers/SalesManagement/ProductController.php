@@ -50,11 +50,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
         if(!Auth::user()->hasPermission('create-products')) abort(401,'Bạn không được phép thêm mới sản phẩm.');
-
         $all = $request->only(['title','description','unit_price','base_price','quantity','supplier_id','brand_id','category_id']);
-        return $request->all();
         $validator = Validator::make($all,[
             'title'=>'required|string',
             'description'=>'required|string',
@@ -62,7 +59,7 @@ class ProductController extends Controller
             'base_price'=>'required|string',
             'quantity'=>'required|string',
             'colors'=>'sometimes|array',
-            'sizes'=>'sometimes|array'
+            'sizes'=>'sometimes|array',
         ],[
             'title.required'=>'Vui lòng nhập tên sản phẩm.',
             'description.required'=>'Vui lòng nhập mô tả cho sản phẩm.',
@@ -75,8 +72,17 @@ class ProductController extends Controller
         $all['code'] = $this->generateCode($request);
 
         $product = Product::create($all);
-
-        $images= $request->file('images');
+        if(isset($request->colors) && !empty($request->colors)){
+            foreach ($request->colors as $color){
+                $product->attachColor(intval($color));
+            }
+        }
+        if(isset($request->sizes) && !empty($request->sizes)){
+            foreach ($request->sizes as $size){
+                $product->attachSize(intval($size));
+            }
+        }
+        $images = $request->file('images');
         $i = 1;
         foreach ($images as $image){
             if($image){
@@ -154,7 +160,7 @@ class ProductController extends Controller
 
     private function generateCode(Request $request)
     {
-        $productName = $request->title;
+        $productName = strtolower(str_slug($request->title));
         if($productName){
             $productName = explode(' ',$productName);
             $temp = '';
