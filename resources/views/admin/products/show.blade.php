@@ -14,7 +14,7 @@
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Sản phẩm</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Chi tiết sản phẩm: {{ $product->title }}</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>{{ $product->title }}</span></li>
                 </ol>
             </nav>
             <div class="card">

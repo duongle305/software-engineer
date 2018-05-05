@@ -160,12 +160,12 @@ class ProductController extends Controller
 
     private function generateCode(Request $request)
     {
-        $productName = strtolower(str_slug($request->title));
+        $productName = $request->title;
         if($productName){
             $productName = explode(' ',$productName);
             $temp = '';
             foreach($productName as $item){
-              $temp .= strtoupper(substr($item,0,1));
+              $temp .= strtoupper(str_slug(substr($item,0,1)));
             }
             $rand = (string)rand(0,99999999);
             if(strlen($rand) < 8){
