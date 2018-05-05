@@ -41,8 +41,7 @@ Route::prefix('/admin-dl')->group(function(){
         Route::get('/ajax/sizes/{id}', 'SalesManagement\AjaxController@sizes')->name('ajax.sizes');
         Route::get('/ajax/colors', 'SalesManagement\AjaxController@colors')->name('ajax.colors');
         Route::get('/ajax/category/{id}','SalesManagement\AjaxController@category')->name('ajax.category');
-//        Route::get('/test',function(){
-//            return view('admin.brands.create');
-//        });
+        Route::get('/ajax/pending','SalesManagement\OrderController@pendings')->name('ajax.category');
+        Route::get('/ajax/ready','SalesManagement\OrderController@readys')->name('ajax.category');
     });
 });

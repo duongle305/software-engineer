@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SalesManagement;
 
 use App\Models\Category;
 use App\Models\Color;
+use App\Models\Order;
 use App\Models\SizeType;
 use Illuminate\Http\Request;
 use App\Models\Province;
@@ -49,4 +50,5 @@ class AjaxController extends Controller
         $colors = Color::all();
         return response()->json($colors,200);
     }
+
 }

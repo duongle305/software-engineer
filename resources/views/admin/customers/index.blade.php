@@ -36,9 +36,9 @@
                                     <td>{{$customer->address}}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('customers.show', $category->id) }}" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>
+                                            <a href="{{ route('customers.show', $customer->id) }}" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>
                                                 Xem</a>
-                                            <a href="{{ route('customers.edit', $category->id) }}" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
+                                            <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
                                                 Sửa</a>
                                         </div>
                                     </td>
