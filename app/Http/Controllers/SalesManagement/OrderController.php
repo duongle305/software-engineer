@@ -121,4 +121,14 @@ class OrderController extends Controller
         $dataOrders = DB::table('orders')->where('status',$status)->paginate(2);
         return response()->json($dataOrders,200);
     }
+
+    public function changeStatus(Request $request,$id)
+    {
+        $order = Order::find($id);
+        if($order){
+            $order->update(['status'=>$request->status]);
+            return response()->json(['message'=>''],200);
+        }
+        return response()->json(['message'=>''],400);
+    }
 }

@@ -34,7 +34,7 @@
                             <a class="nav-link" href="#" :class="{'active':tab=='CANCELLED'}" @click.one="getDataOrders('CANCELLED')">Hủy bỏ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" :class="{'active':tab=='DELIVERY_FAILED'}" @click.one="getDataOrders('DELIVERY_FAILED')" >Thất bại</a>
+                            <a class="nav-link" href="#" :class="{'active':tab=='DELIVERY FAILED'}" @click.one="getDataOrders('DELIVERY FAILED')" >Thất bại</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" :class="{'active':tab=='RETURNED'}" @click.one="getDataOrders('RETURNED')">Trả hàng</a>
@@ -57,6 +57,20 @@
                                 <td>@{{ (item.code) }}</td>
                                 <td>@{{ (item.created_at) }}</td>
                                 <td>@{{ formatNumber(item.totals) }} VNĐ</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a :href="url+item.id" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
+                                        @if(auth()->user()->roles()->first()->name != 'shipper')
+                                            <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'PENDING'" @click="readyToShip(index)">Sẵn sàng</button>
+                                            <button type="button" class="btn btn-danger icon-btn btn-xs" v-if="tab === 'PENDING'" @click="cancelled(index)">HỦy bỏ</button>
+                                            <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'READY'" @click="shipped(index)">Giao hàng</button>
+                                        @endif
+                                        @if(auth()->user()->roles()->first()->name != 'employee')
+                                        <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'SHIPPED'" @click="delivered(index)">Hoàn thành</button>
+                                        @endif
+                                        <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'DELIVERY_FAILED'">Trả hàng</button>
+                                    </div>
+                                </td>
                             </tr>
                             <tr v-if="!pagination.total">
                                 <td class="text-center" colspan="5">Không có dữ liệu.</td>
@@ -77,49 +91,18 @@
 @endsection
 @section('custom_js')
     <script>
-        Vue.component('pagination',{
-            template:`
-                <ul class="pagination rounded-flat pagination-success justify-content-end" v-if="pagination.total">
-                    <li class="page-item" :class="{ 'disabled':(pagination.current_page <= 1)}"><a class="page-link" href="#" @click.prevent="changePage(pagination.current_page - 1)"><i class="mdi mdi-chevron-left"></i></a></li>
-                    <li class="page-item" :class="{'active':(pagination.current_page === page)}" v-for="page in pages"><a class="page-link" href="#" @click.prevent="changePage(page)">@{{ page }}</a></li>
-                    <li class="page-item" :class="{ 'disabled':(pagination.current_page===pagination.total) }"><a class="page-link" href="#" @click.prevent="changePage(pagination.current_page + 1)"><i class="mdi mdi-chevron-right"></i></a></li>
-                </ul>`,
-            props:['pagination'],
-            computed:{
-                pages: function (){
-                    let array = [];
-                    let totalPages = Math.ceil(this.pagination.total / this.pagination.per_page);
-                    for(let i = 1; i <= totalPages; i++){
-                        array.push(i);
-                    }
-                    return array;
-                }
-            },
-            methods:{
-                changePage(page){
-                    this.pagination.current_page = page;
-                }
-            }
-        });
         let app = new Vue({
             el: '#app',
             data: {
-                status:[
-                    {name:'Đang xác nhận',st:'PENDING'},
-                    {name:'Sẵn sàng giao',st:'READY'},
-                    {name:'Đang giao',st:'SHIPPING'},
-                    {name:'Đã giao',st:'DELIVERED'},
-                    {name:'Hủy bỏ',st:'CANCELLED'},
-                    {name:'Thất bại',st:'DELIVERY FAILED'},
-                    {name:'Trả hàng',st:'RETURNED'}
-                ],
                 tab: 'PENDING',
                 href: 'http://localhost:8000/admin-dl/data-orders',
                 pagination:{},
-                result:[]
+                result:[],
+                url:'orders/'
             },
             methods: {
                 getDataOrders(tab,page = 1){
+
                     this.tab = tab;
                     axios.get(`${this.href}/${tab}?page=${page}`).then(res=>{
                         this.result = res.data.data;
@@ -129,6 +112,67 @@
                 formatNumber(num){
                     return $.number(num);
                 },
+                changeStatus(status,id){
+                    return axios.post(`status-orders/${id}`,{
+                        status: status
+                    });
+                },
+                readyToShip(index){
+                    if(this.result[index]) {
+                        this.changeStatus('READY', this.result[index].id).then(res => {
+                            this.result.splice(index, 1);
+                            swal(
+                                'Thành công',
+                                ``,
+                                'success'
+                            ).then(()=>{
+                            })
+                        });
+                    }
+                },
+                shipped(index){
+                    if(this.result[index]) {
+                        this.changeStatus('SHIPPED', this.result[index].id).then(res => {
+                            this.result.splice(index, 1);
+                            swal(
+                                'Thành công',
+                                ``,
+                                'success'
+                            ).then(()=>{
+                            })
+                        });
+                    }
+                },
+                delivered(index){
+                    if(this.result[index]) {
+                        this.changeStatus('DELIVERED', this.result[index].id).then(res => {
+                            this.result.splice(index, 1);
+                            swal(
+                                'Thành công',
+                                ``,
+                                'success'
+                            ).then(()=>{
+                            })
+                        });
+                    }
+                },
+                cancelled(index) {
+                    swal({
+                        title: `Bạn có muốn hủy bỏ đơn hàng ${this.result[index].code}?`,
+                        text: "Sau khi đồng ý bạn sẽ không khôi phục lại được.",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#fb9678',
+                        confirmButtonText: 'Đồng ý'
+                    }).then(() => {
+                        if (this.result[index]) {
+                            this.changeStatus('CANCELLED', this.result[index].id).then(res => {
+                                this.result.splice(index, 1);
+                            });
+                        }
+                    }).catch(e => {})
+                }
             },
             mounted(){
                 this.getDataOrders(this.tab);

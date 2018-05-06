@@ -30,10 +30,11 @@ Route::prefix('/admin-dl')->group(function(){
         Route::resource('/categories','SalesManagement\CategoryController');
         Route::resource('/suppliers','SalesManagement\SupplierController');
         Route::resource('/products','SalesManagement\ProductController');
-        Route::resource('/orders','SalesManagement\OrderController');
+        Route::resource('/orders','SalesManagement\OrderController')->except(['store']);
         Route::resource('/brands','SalesManagement\BrandController');
         Route::resource('/customers','SalesManagement\CustomerController');
         Route::get('/data-orders/{status}','SalesManagement\OrderController@dataOrders')->name('orders.data');
+        Route::post('/status-orders/{id}','SalesManagement\OrderController@changeStatus')->name('orders.status');
         //Ajax
         Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
         Route::get('/ajax/provinces', 'SalesManagement\AjaxController@provinces');

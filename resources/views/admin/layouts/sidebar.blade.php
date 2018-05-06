@@ -28,18 +28,23 @@
                 <span class="menu-title">Bảng điều khiển</span>
             </a>
         </li>
+        @can('read-users')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('users.index') }}">
                 <i class="icon-user menu-icon"></i>
                 <span class="menu-title">Nhân viên</span>
             </a>
         </li>
+        @endcan
+        @can('read-customers')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('customers.index') }}">
                 <i class="icon-people menu-icon"></i>
                 <span class="menu-title">Khách hàng</span>
             </a>
         </li>
+        @endcan
+        @can('read-acl')
         <li class="nav-item d-none d-lg-block">
             <a class="nav-link" data-toggle="collapse" href="#role-permission" aria-expanded="false" aria-controls="sidebar-layouts">
                 <i class="icon-key menu-icon"></i>
@@ -53,36 +58,46 @@
                 </ul>
             </div>
         </li>
+        @endcan
+        @can('read-suppliers')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('suppliers.index') }}">
                 <i class="icon-home menu-icon"></i>
                 <span class="menu-title">Nhà cung cấp</span>
             </a>
         </li>
+        @endcan
+        @can('read-brands')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('brands.index') }}">
                 <i class="icon-diamond menu-icon"></i>
                 <span class="menu-title">Thương hiệu</span>
             </a>
         </li>
+        @endcan
+        @can('read-categories')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('categories.index') }}">
                 <i class="icon-list menu-icon"></i>
                 <span class="menu-title">Danh mục sản phẩm</span>
             </a>
         </li>
+        @endcan
+        @can('read-products')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('products.index') }}">
                 <i class="icon-tag menu-icon"></i>
                 <span class="menu-title">Sản phẩm</span>
             </a>
         </li>
+        @endcan
+        @can('read-orders')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('orders.index') }}">
                 <i class="icon-basket-loaded menu-icon"></i>
                 <span class="menu-title">Đơn hàng</span>
             </a>
         </li>
-
+        @endcan
     </ul>
 </nav>
