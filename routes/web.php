@@ -43,5 +43,10 @@ Route::prefix('/admin-dl')->group(function(){
         Route::get('/ajax/category/{id}','SalesManagement\AjaxController@category')->name('ajax.category');
         Route::get('/ajax/pending','SalesManagement\OrderController@pendings')->name('ajax.category');
         Route::get('/ajax/ready','SalesManagement\OrderController@readys')->name('ajax.category');
+        Route::get('/ajax/shipping','SalesManagement\OrderController@shippings')->name('ajax.category');
+        Route::get('/ajax/delivered','SalesManagement\OrderController@delivered')->name('ajax.category');
+        Route::get('/ajax/cancelled','SalesManagement\OrderController@cancelled')->name('ajax.category');
+        Route::get('/ajax/failed','SalesManagement\OrderController@deliveryFailed')->name('ajax.category');
+        Route::get('/ajax/returned','SalesManagement\OrderController@returned')->name('ajax.category');
     });
 });

@@ -65,7 +65,7 @@
                                             <td>@{{ index+1 }}</td>
                                             <td>@{{ pending.code }}</td>
                                             <td>@{{ pending.created_at }}</td>
-                                            <td>@{{ pending.totals }}</td>
+                                            <td>@{{ formatNumber(pending.totals) }} VNĐ</td>
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <a :href="url + pending.id" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>Xem</a>
@@ -97,7 +97,7 @@
                                         <td>@{{ index+1 }}</td>
                                         <td>@{{ ready.code }}</td>
                                         <td>@{{ ready.created_at }}</td>
-                                        <td>@{{ ready.totals }}</td>
+                                        <td>@{{ formatNumber(ready.totals) }} VNĐ</td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <a :href="url + ready.id" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>Xem</a>
@@ -112,57 +112,217 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="tab-5-3">
-                        shipping
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th>#</th>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="text-center" v-for="(shipping,index) in shippings">
+                                        <td>@{{ index+1 }}</td>
+                                        <td>@{{ shipping.code }}</td>
+                                        <td>@{{ shipping.created_at }}</td>
+                                        <td>@{{ formatNumber(shipping.totals) }} VNĐ</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a :href="url + shipping.id" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>Xem</a>
+                                                <button data-toggle="modal" data-target="#statusChange" data-whatever="@mdo" class="btn btn-warning icon-btn btn-xs">Đổi trạng thái</button>
+                                                <button type="button" :data-delete="url+shipping.id" :data-code="shipping.code" @click.one="showDelete" class="btn btn-danger icon-btn btn-xs"><i class="ti-trash"></i> Xóa</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="shippings.length == 0">
+                                        <td class="text-center" colspan="5">Không có</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="delivered" role="tabpanel" aria-labelledby="tab-5-3">
-                        delivered
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th>#</th>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="text-center" v-for="(delivered,index) in delivereds">
+                                        <td>@{{ index+1 }}</td>
+                                        <td>@{{ delivered.code }}</td>
+                                        <td>@{{ delivered.created_at }}</td>
+                                        <td>@{{ formatNumber(delivered.totals) }} VNĐ</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a :href="url + delivered.id" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>Xem</a>
+                                                <button data-toggle="modal" data-target="#statusChange" data-whatever="@mdo" class="btn btn-warning icon-btn btn-xs">Đổi trạng thái</button>
+                                                <button type="button" :data-delete="url+delivered.id" :data-code="delivered.code" @click.one="showDelete" class="btn btn-danger icon-btn btn-xs"><i class="ti-trash"></i> Xóa</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="delivereds.length == 0">
+                                        <td class="text-center" colspan="5">Không có</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="cancelled" role="tabpanel" aria-labelledby="tab-5-3">
-                        cacelled
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th>#</th>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="text-center" v-for="(cancelled,index) in cancelleds">
+                                        <td>@{{ index+1 }}</td>
+                                        <td>@{{ cancelled.code }}</td>
+                                        <td>@{{ cancelled.created_at }}</td>
+                                        <td>@{{ formatNumber(cancelled.totals) }} VNĐ</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a :href="url + cancelled.id" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>Xem</a>
+                                                <button data-toggle="modal" data-target="#statusChange" data-whatever="@mdo" class="btn btn-warning icon-btn btn-xs">Đổi trạng thái</button>
+                                                <button type="button" :data-delete="url+cancelled.id" :data-code="cancelled.code" @click.one="showDelete" class="btn btn-danger icon-btn btn-xs"><i class="ti-trash"></i> Xóa</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="cancelleds.length == 0">
+                                        <td class="text-center" colspan="5">Không có</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="delivery-failed" role="tabpanel" aria-labelledby="tab-5-3">
-                        deliveryfaile
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th>#</th>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="text-center" v-for="(failed,index) in deliveryFaileds">
+                                        <td>@{{ index+1 }}</td>
+                                        <td>@{{ failed.code }}</td>
+                                        <td>@{{ failed.created_at }}</td>
+                                        <td>@{{ formatNumber(failed.totals) }} VNĐ</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a :href="url + failed.id" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>Xem</a>
+                                                <button data-toggle="modal" data-target="#statusChange" data-whatever="@mdo" class="btn btn-warning icon-btn btn-xs">Đổi trạng thái</button>
+                                                <button type="button" :data-delete="url+failed.id" :data-code="failed.code" @click.one="showDelete" class="btn btn-danger icon-btn btn-xs"><i class="ti-trash"></i> Xóa</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="deliveryFaileds.length == 0">
+                                        <td class="text-center" colspan="5">Không có</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="returned" role="tabpanel" aria-labelledby="tab-5-3">
-                        returned
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th>#</th>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="text-center" v-for="(returned,index) in returneds">
+                                        <td>@{{ index+1 }}</td>
+                                        <td>@{{ returned.code }}</td>
+                                        <td>@{{ returned.created_at }}</td>
+                                        <td>@{{ formatNumber(returned.totals) }} VNĐ</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a :href="url + returned.id" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i>Xem</a>
+                                                <button data-toggle="modal" data-target="#statusChange" data-whatever="@mdo" class="btn btn-warning icon-btn btn-xs">Đổi trạng thái</button>
+                                                <button type="button" :data-delete="url+returned.id" :data-code="returned.code" @click.one="showDelete" class="btn btn-danger icon-btn btn-xs"><i class="ti-trash"></i> Xóa</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="returneds.length == 0">
+                                        <td class="text-center" colspan="5">Không có</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="modal fade" id="statusChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-4" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel-4"></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="order-status" class="col-form-label">Thay đổi trạng thái:</label>
+                                        <select class="form-control" id="order-status" name="order-status">
+                                            <option v-for="st in status" :value="st.st">
+                                                @{{ st.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success">Cập nhật</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-    </div>
-    <div class="modal fade" id="statusChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-4" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel-4">New message</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success">Send message</button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
+    </div>@endsection
 
 @section('plugin_js')
     <script src="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/number-format/jquery.number.min.js') }}"></script>
 @endsection
 @section('custom_js')
     <script>
@@ -172,12 +332,13 @@
                 delete: '',
                 pendings:[],
                 readys:[],
-                shipped:[],
-                delivered:[],
-                cancelled:[],
-                deliveryFailed:[],
-                returned:[],
-                url:'orders/'
+                shippings:[],
+                delivereds:[],
+                cancelleds:[],
+                deliveryFaileds:[],
+                returneds:[],
+                url:'orders/',
+                status:[{name:'Đang xác nhận',st:'PENDING'},{name:'Sẵn sàng giao',st:'READY'},{name:'Đang giao',st:'SHIPPING'},{name:'Đã giao',st:'DELIVERED'},{name:'Hủy bỏ',st:'CANCELLED'},{name:'Thất bại',st:'DELIVERY FAILED'},{name:'Trả hàng',st:'RETURNED'}]
             },
             methods: {
                 showDelete(e) {
@@ -205,6 +366,31 @@
                         this.readys = rs.data;
                     });
                 },
+                getShipping(){
+                    axios.get('/admin-dl/ajax/shipping').then(rs => {
+                        this.shippings = rs.data;
+                    });
+                },
+                getDelivered(){
+                    axios.get('/admin-dl/ajax/delivered').then(rs => {
+                        this.delivereds = rs.data;
+                    });
+                },
+                getCancelled(){
+                    axios.get('/admin-dl/ajax/cancelled').then(rs => {
+                        this.cancelleds = rs.data;
+                    });
+                },
+                getFailed(){
+                    axios.get('/admin-dl/ajax/failed').then(rs => {
+                        this.deliveryFaileds = rs.data;
+                    });
+                },
+                getReturned(){
+                    axios.get('/admin-dl/ajax/returned').then(rs => {
+                        this.returneds = rs.data;
+                    });
+                },
                 deleteOrder(){
                     axios.delete(this.delete).then(rs => {
                         if(rs.status === 200){
@@ -224,11 +410,22 @@
                                 'error'
                             )
                     });
+                },
+                formatNumber(num){
+                    return $.number(num);
+                },
+                updateStatus(){
+
                 }
             },
             mounted(){
                 this.getPedding();
-                this.getReady()
+                this.getReady();
+                this.getShipping();
+                this.getDelivered();
+                this.getCancelled();
+                this.getFailed();
+                this.getReturned();
             }
         })
     </script>
