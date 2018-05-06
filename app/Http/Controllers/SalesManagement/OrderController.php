@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -58,14 +59,16 @@ class OrderController extends Controller
         if (!Auth::user()->hasPermission('read-orders')) abort(401, 'Bạn không được phép xem đơn hàng.');
 
         $order = Order::find($id);
-        $products = [];
-        foreach ($order->products as $product) {
-            $quantity = $product->pivot->whereOrderId($order->id)->first()->quantity;
-            $product->quantity_order = $quantity;
-            $products[] = $product;
+        if($order){
+            $products = [];
+            foreach ($order->products as $product) {
+                $quantity = $product->pivot->whereOrderId($order->id)->first()->quantity;
+                $product->quantity_order = $quantity;
+                $products[] = $product;
+            }
+            $order->products = $products;
+            return view('admin.orders.show')->withOrder($order);
         }
-        $order->products = $products;
-        return view('admin.orders.show')->withOrder($order);
     }
 
     /**
@@ -112,45 +115,10 @@ class OrderController extends Controller
         }
     }
 
-    public function pendings()
+    public function dataOrders($status = 'PENDING')
     {
-        $pendings = Order::whereStatus('PENDING')->get();
-        return response()->json($pendings, 200);
-    }
-
-    public function readys()
-    {
-        $readys = Order::whereStatus('READY')->get();
-        return response()->json($readys, 200);
-    }
-
-    public function shippings()
-    {
-        $shippings = Order::whereStatus('SHIPPING')->get();
-        return response()->json($shippings, 200);
-    }
-
-    public function delivered()
-    {
-        $delivered = Order::whereStatus('DELIVERED')->get();
-        return response()->json($delivered, 200);
-    }
-
-    public function cancelled()
-    {
-        $cancelled = Order::whereStatus('CANCELLED')->get();
-        return response()->json($cancelled, 200);
-    }
-
-    public function deliveryFailed()
-    {
-        $failed = Order::whereStatus('FAILED')->get();
-        return response()->json($failed, 200);
-    }
-
-    public function returned()
-    {
-        $returned = Order::whereStatus('RETURNED')->get();
-        return response()->json($returned, 200);
+        $status = strtoupper($status);
+        $dataOrders = DB::table('orders')->where('status',$status)->paginate(2);
+        return response()->json($dataOrders,200);
     }
 }

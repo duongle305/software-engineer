@@ -33,6 +33,7 @@ Route::prefix('/admin-dl')->group(function(){
         Route::resource('/orders','SalesManagement\OrderController');
         Route::resource('/brands','SalesManagement\BrandController');
         Route::resource('/customers','SalesManagement\CustomerController');
+        Route::get('/data-orders/{status}','SalesManagement\OrderController@dataOrders')->name('orders.data');
         //Ajax
         Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
         Route::get('/ajax/provinces', 'SalesManagement\AjaxController@provinces');
@@ -41,12 +42,6 @@ Route::prefix('/admin-dl')->group(function(){
         Route::get('/ajax/sizes/{id}', 'SalesManagement\AjaxController@sizes')->name('ajax.sizes');
         Route::get('/ajax/colors', 'SalesManagement\AjaxController@colors')->name('ajax.colors');
         Route::get('/ajax/category/{id}','SalesManagement\AjaxController@category')->name('ajax.category');
-        Route::get('/ajax/pending','SalesManagement\OrderController@pendings')->name('ajax.category');
-        Route::get('/ajax/ready','SalesManagement\OrderController@readys')->name('ajax.category');
-        Route::get('/ajax/shipping','SalesManagement\OrderController@shippings')->name('ajax.category');
-        Route::get('/ajax/delivered','SalesManagement\OrderController@delivered')->name('ajax.category');
-        Route::get('/ajax/cancelled','SalesManagement\OrderController@cancelled')->name('ajax.category');
-        Route::get('/ajax/failed','SalesManagement\OrderController@deliveryFailed')->name('ajax.category');
-        Route::get('/ajax/returned','SalesManagement\OrderController@returned')->name('ajax.category');
+
     });
 });
