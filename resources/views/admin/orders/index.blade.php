@@ -3,6 +3,8 @@
 @section('title','Quản lý đơn hàng')
 
 @section('plugin_css')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/owl-carousel-2/assets/owl.carousel.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/owl-carousel-2/assets/owl.theme.default.min.css') }}'" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}">
 @endsection
 
@@ -16,6 +18,7 @@
                 </ol>
             </nav>
             <div class="card" id="app">
+                <input type="hidden" id="href-data" value="{{ route('orders.data',false) }}">
                 <div class="card-body">
                     <ul class="nav nav-tabs tab-solid  tab-solid-primary text-center" role="tablist">
                         <li class="nav-item">
@@ -51,7 +54,7 @@
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="data-body">
                             <tr class="text-center" v-for="(item,index) in result">
                                 <td>@{{ (index+1) }}</td>
                                 <td>@{{ (item.code) }}</td>
@@ -62,11 +65,13 @@
                                         <a :href="url+item.id" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
                                         @if(auth()->user()->roles()->first()->name != 'shipper')
                                             <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'PENDING'" @click="readyToShip(index)">Sẵn sàng</button>
-                                            <button type="button" class="btn btn-danger icon-btn btn-xs" v-if="tab === 'PENDING'" @click="cancelled(index)">HỦy bỏ</button>
+                                            <button type="button" class="btn btn-danger icon-btn btn-xs" v-if="tab === 'PENDING'" @click="cancelled(index)">Hủy bỏ</button>
                                             <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'READY'" @click="shipped(index)">Giao hàng</button>
                                         @endif
                                         @if(auth()->user()->roles()->first()->name != 'employee')
                                         <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'SHIPPED'" @click="delivered(index)">Hoàn thành</button>
+                                        <button type="button" class="btn btn-danger icon-btn btn-xs" v-if="tab === 'SHIPPED'" @click="deliveryFailed(index)">Thất bại</button>
+                                        <button type="button" class="btn btn-info icon-btn btn-xs" v-if="tab === 'SHIPPED'" @click="returned(index)">Trả hàng</button>
                                         @endif
                                         <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'DELIVERY_FAILED'">Trả hàng</button>
                                     </div>
@@ -95,18 +100,21 @@
             el: '#app',
             data: {
                 tab: 'PENDING',
-                href: 'http://localhost:8000/admin-dl/data-orders',
+                hrefData: '',
                 pagination:{},
                 result:[],
                 url:'orders/'
             },
             methods: {
                 getDataOrders(tab,page = 1){
-
+                    $('div.loader').show();
                     this.tab = tab;
-                    axios.get(`${this.href}/${tab}?page=${page}`).then(res=>{
+                    axios.get(`${this.hrefData}/${tab}?page=${page}`).then(res=>{
                         this.result = res.data.data;
                         this.pagination = res.data;
+                        let time = setTimeout(()=>{
+                            $('div.loader').hide();
+                        },700);
                     });
                 },
                 formatNumber(num){
@@ -156,6 +164,32 @@
                         });
                     }
                 },
+                returned(index){
+                    if(this.result[index]) {
+                        this.changeStatus('RETURNED', this.result[index].id).then(res => {
+                            this.result.splice(index, 1);
+                            swal(
+                                'Thành công',
+                                ``,
+                                'success'
+                            ).then(()=>{
+                            })
+                        });
+                    }
+                },
+                deliveryFailed(index){
+                    if(this.result[index]) {
+                        this.changeStatus('DELIVERY FAILED', this.result[index].id).then(res => {
+                            this.result.splice(index, 1);
+                            swal(
+                                'Thành công',
+                                ``,
+                                'success'
+                            ).then(()=>{
+                            })
+                        });
+                    }
+                },
                 cancelled(index) {
                     swal({
                         title: `Bạn có muốn hủy bỏ đơn hàng ${this.result[index].code}?`,
@@ -175,6 +209,7 @@
                 }
             },
             mounted(){
+                this.hrefData = $('#href-data').val();
                 this.getDataOrders(this.tab);
             }
         });

@@ -24,8 +24,16 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
 </head>
-
 <body class="{{ session()->get('sidebar') }} sidebar-fixed">
+<div class="loader loader-show">
+    <div class="square-box-loader">
+        <div class="square-box-loader-container">
+            <div class="square-box-loader-corner-top"></div>
+            <div class="square-box-loader-corner-bottom"></div>
+        </div>
+        <div class="square-box-loader-square"></div>
+    </div>
+</div>
 <div class="container-scroller">
     {{-- start header --}}
     @include('admin.layouts.header')
@@ -96,7 +104,6 @@
 @include('blocks.errors')
 @include('blocks.messages')
 @yield('custom_js')
-
 <!-- End custom js for this page-->
 </body>
 

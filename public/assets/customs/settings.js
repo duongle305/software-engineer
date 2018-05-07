@@ -21,3 +21,7 @@ $('.tiles').on('click', function() {
         data: {type: 'header', color: color},
     });
 });
+
+$(window).on('load',()=>{
+    $('div.loader').fadeOut('show');
+});
