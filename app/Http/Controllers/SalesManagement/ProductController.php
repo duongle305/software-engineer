@@ -22,8 +22,13 @@ class ProductController extends Controller
     public function index()
     {
         if(!Auth::user()->hasPermission('read-products')) abort(401,'Bạn không được xem danh sách sản phẩm.');
-        $products = Product::paginate(10);
-        return view('admin.products.index')->withProducts($products);
+        $cate = Category::all();
+        return view('admin.products.index')->withCategories($cate);
+    }
+
+    public function products(){
+        $products = Product::paginate();
+        return response()->json($products,200);
     }
 
     /**
@@ -181,6 +186,31 @@ class ProductController extends Controller
                 $this->generateCode($request);
             return $temp;
         }
+    }
 
+    public function search(Request $request)
+    {
+        if(!empty($request->category)){
+            $search = Product::whereCategoryId($request->category);
+            if(!empty($request->code))
+                $search->where('code','like','%'.$request->code.'%');
+            if(!empty($request->title))
+                $search->where('title','like','%'.$request->title.'%');
+            if(!empty($request->unit_price))
+                $search->whereUnitPrice($request->unit_price);
+            if(!empty($request->created_at))
+                $search->whereDate('created_at',date('Y-m-d',strtotime($request->created_at)));
+        }else{
+            $search = new Product();
+            if(!empty($request->code))
+                $search->where('code','like','%'.$request->code.'%');
+            if(!empty($request->title))
+                $search->where('title','like','%'.$request->title.'%');
+            if(!empty($request->unit_price))
+                $search->whereUnitPrice($request->unit_price);
+            if(!empty($request->created_at))
+                $search->whereDate('created_at',date('Y-m-d',strtotime($request->created_at)));
+        }
+        return response()->json($search->paginate(),200);
     }
 }

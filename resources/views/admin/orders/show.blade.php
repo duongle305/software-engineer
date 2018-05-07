@@ -14,7 +14,7 @@
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('orders.index') }}">Đơn hàng</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        <span>Chi tiết đơn hàng: {{ $order->code }}</span></li>
+                        <span>{{ $order->code }}</span></li>
                 </ol>
             </nav>
             <div class="card" id="app">
@@ -27,8 +27,8 @@
                                         <div class="col-md-6 text-left">
                                             <h4 class="text-left">Đơn hàng: {{ $order->code }}</h4><br>
                                         </div>
-                                        <div class="col-md-6 text-right">
-                                            <h5 class="text-right">Trạng thái: {{ $order->status }}</h5><br>
+                                        <div class="col-md-6">
+                                            <h5 class="text-right">Trạng thái: <label class="badge badge-info">{{ $order->status }}</label></h5><br>
                                         </div>
                                     </div>
                                     <div class="row">

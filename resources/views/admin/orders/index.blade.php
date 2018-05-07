@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <ul class="nav nav-tabs tab-solid  tab-solid-primary text-center" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link" href="#" :class="{'active':tab=='PENDING'}" @click.one="getDataOrders('PENDING')">Đang xác nhận</a>
+                            <a class="nav-link" href="#" :class="{'active':tab=='PENDING'}" @click.one="getDataOrders('PENDING')">Chờ xử lý</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" :class="{'active':tab=='READY'}" @click.one="getDataOrders('READY')" >Sẵn sàng giao</a>
@@ -64,16 +64,15 @@
                                     <div class="btn-group" role="group">
                                         <a :href="url+item.id" class="btn btn-success icon-btn btn-xs"><i class="ti-eye"></i> Xem</a>
                                         @if(auth()->user()->roles()->first()->name != 'shipper')
-                                            <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'PENDING'" @click="readyToShip(index)">Sẵn sàng</button>
-                                            <button type="button" class="btn btn-danger icon-btn btn-xs" v-if="tab === 'PENDING'" @click="cancelled(index)">Hủy bỏ</button>
-                                            <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'READY'" @click="shipped(index)">Giao hàng</button>
+                                            <button type="button" class="btn btn-primary icon-btn btn-xs" v-if="tab === 'PENDING'" @click="readyToShip(index)"><i class="ti-package"></i> Sẵn sàng</button>
+                                            <button type="button" class="btn btn-danger icon-btn btn-xs" v-if="tab === 'PENDING'" @click="cancelled(index)"><i class="ti-close"></i> Hủy bỏ</button>
+                                            <button type="button" class="btn btn-primary icon-btn btn-xs" v-if="tab === 'READY'" @click="shipped(index)"><i class="ti-check"></i> Giao hàng</button>
                                         @endif
                                         @if(auth()->user()->roles()->first()->name != 'employee')
-                                        <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'SHIPPED'" @click="delivered(index)">Hoàn thành</button>
-                                        <button type="button" class="btn btn-danger icon-btn btn-xs" v-if="tab === 'SHIPPED'" @click="deliveryFailed(index)">Thất bại</button>
-                                        <button type="button" class="btn btn-info icon-btn btn-xs" v-if="tab === 'SHIPPED'" @click="returned(index)">Trả hàng</button>
+                                        <button type="button" class="btn btn-primary icon-btn btn-xs" v-if="tab === 'SHIPPED'" @click="delivered(index)"><i class="ti-check"></i> Hoàn thành</button>
+                                        <button type="button" class="btn btn-info icon-btn btn-xs" v-if="tab === 'SHIPPED'" @click="returned(index)"><i class="ti-reload"></i> Trả hàng</button>
+                                        <button type="button" class="btn btn-danger icon-btn btn-xs" v-if="tab === 'SHIPPED'" @click="deliveryFailed(index)"><i class="ti-close"></i> Thất bại</button>
                                         @endif
-                                        <button type="button" class="btn btn-warning icon-btn btn-xs" v-if="tab === 'DELIVERY_FAILED'">Trả hàng</button>
                                     </div>
                                 </td>
                             </tr>
@@ -113,8 +112,9 @@
                         this.result = res.data.data;
                         this.pagination = res.data;
                         let time = setTimeout(()=>{
-                            $('div.loader').hide();
-                        },700);
+                            $('div.loader').fadeOut();
+                            clearTimeout(time);
+                        },500);
                     });
                 },
                 formatNumber(num){

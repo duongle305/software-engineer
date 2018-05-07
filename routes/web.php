@@ -25,6 +25,8 @@ Route::prefix('/admin-dl')->group(function(){
         Route::resource('/categories','SalesManagement\CategoryController');
         Route::resource('/suppliers','SalesManagement\SupplierController');
         Route::resource('/products','SalesManagement\ProductController');
+        Route::post('/search-products','SalesManagement\ProductController@search')->name('products.search');
+        Route::get('/all-products','SalesManagement\ProductController@products')->name('products.all');
         Route::resource('/orders','SalesManagement\OrderController')->except(['store']);
         Route::resource('/brands','SalesManagement\BrandController');
         Route::resource('/customers','SalesManagement\CustomerController');

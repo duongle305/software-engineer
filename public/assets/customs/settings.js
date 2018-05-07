@@ -23,5 +23,5 @@ $('.tiles').on('click', function() {
 });
 
 $(window).on('load',()=>{
-    $('div.loader').fadeOut('show');
+    $('div.loader').fadeOut('400');
 });
