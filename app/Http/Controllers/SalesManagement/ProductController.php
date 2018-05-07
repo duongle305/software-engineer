@@ -180,7 +180,7 @@ class ProductController extends Controller
                 }
                 $rand = $tmp.$rand;
             }
-            $temp.=$rand;
+            $temp = substr($temp,0,3).$rand;
             $check = Product::whereCode($temp)->count();
             if($check > 0)
                 $this->generateCode($request);

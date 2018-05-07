@@ -34,10 +34,6 @@
                                                         <td class="text-left">{{ $product->code }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="text-left">Mô tả</th>
-                                                        <td class="text-left">{!!  $product->description !!}</td>
-                                                    </tr>
-                                                    <tr>
                                                         <th class="text-left">Giá nhập</th>
                                                         <td class="text-left">{{ number_format($product->base_price) }} VNĐ</td>
                                                     </tr>
@@ -85,6 +81,9 @@
                                                 </div>
                                                 @endforeach
                                             </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            {!!  $product->description !!}
                                         </div>
                                     </div>
                                 </div>
