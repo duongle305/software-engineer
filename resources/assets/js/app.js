@@ -25,5 +25,3 @@ Vue.component('pagination',{
         }
     }
 });
-
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));

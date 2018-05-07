@@ -3,8 +3,10 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class Handler extends ExceptionHandler
@@ -58,6 +60,11 @@ class Handler extends ExceptionHandler
             if($request->wantsJson())
                 return response()->json(['message'=>$exception->getMessage()],$exception->getStatusCode());
             return redirect()->back()->withErrors(['message'=>$exception->getMessage()]);
+        }
+        if($exception instanceof ModelNotFoundException){
+            if($request->wantsJson())
+                return response()->json(['message'=>'Not Found'],404);
+            return view('pages.404');
         }
         return parent::render($request, $exception);
     }
