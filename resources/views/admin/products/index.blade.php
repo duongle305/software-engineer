@@ -91,7 +91,7 @@
                                             <a href=""
                                                class="btn btn-warning icon-btn btn-xs"><i class="ti-pencil"></i>
                                                 Sửa</a>
-                                            <button type="button" data-delete="" data-title="" @click.one="showDelete" class="btn btn-danger icon-btn btn-xs"><i class="ti-trash"></i> Xóa</button>
+                                            <button type="button" :data-delete="'{{ route('products.destroy',false) }}'+'/'+product.id" :data-title="product.title" @click.one="showDelete" class="btn btn-danger icon-btn btn-xs"><i class="ti-trash"></i> Xóa</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -153,7 +153,7 @@
                                 `${rs.data.message}`,
                                 'success'
                             ).then(()=>{
-                                location.reload();
+                                this.getAllProducts();
                             })
                         }
                     }).catch(e =>{

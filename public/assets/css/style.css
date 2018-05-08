@@ -21930,7 +21930,6 @@ div.tagsinput {
 /* === Landing screens === */
 /* Auth */
 .auth.login-full-bg {
-  background: url("../images/auth/login_1.jpg");
   background-size: cover; }
 
 .auth .login-half-bg {

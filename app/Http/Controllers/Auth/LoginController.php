@@ -57,11 +57,11 @@ class LoginController extends Controller
         ],$msgs);
         if(!$validator->fails()){
             if($this->attemptLogin($request)){
-                return redirect()->route('admin.dashboard')->withMessages(['login-success'=>'Chào mừng bạn đến với Sale management']);;
+                return redirect()->route('admin.dashboard')->withMessages(['login-success'=>'Chào mừng bạn đến với Sale Management']);;
             }
             return redirect()->back()->withErrors(['login-fail'=>'Thông tin đăng nhập không đúng.']);
         }
-        return redirect()->back()->withErrors($validator)->withInput(['email']);
+        return redirect()->back()->withErrors($validator)->withInput();
     }
 
     public function logout(){

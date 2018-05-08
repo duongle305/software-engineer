@@ -139,6 +139,9 @@ class BrandController extends Controller
         if(!Auth::user()->hasPermission('delete-brands')) abort(401,'Bạn không được phép xóa thương hiệu.');
         $brand = Brand::find($id);
         if($brand){
+            if(File::exists($brand->image)){
+                File::delete($brand->image);
+            }
             $brand->delete();
             return response()->json(['message'=>'Xóa thương hiệu '.$brand->title.' thành công.'],200);
         }

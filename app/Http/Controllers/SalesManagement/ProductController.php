@@ -10,6 +10,7 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -156,9 +157,14 @@ class ProductController extends Controller
     public function destroy($id)
     {
         if(!Auth::user()->hasPermission('delete-products')) abort(401,'Bạn không được phép xóa sản phẩm.');
-        $supplier = Product::find($id);
-        if($supplier){
-            $supplier->delete();
+        $product = Product::find($id);
+        if($product){
+            foreach ($product->images as $image){
+                if(File::exists($image->url)){
+                    File::delete($image->url);
+                }
+            }
+            $product->delete();
             return response()->json(['message'=>''],200);
         }
     }

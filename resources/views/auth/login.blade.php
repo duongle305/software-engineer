@@ -9,19 +9,18 @@
 @section('wrapper')
     <div class="container-fluid page-body-wrapper">
         <div class="row">
-            <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-full-bg">
+            <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-full-bg" style="background-image: url({{ asset('uploads/background.jpg') }})">
                 <div class="row w-100">
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-dark text-left p-5">
-                            <h2>Sale management</h2>
-                            <h4 class="font-weight-light">Hello! let's get started</h4>
+                            <h2>Sales Management</h2>
                             <form class="pt-5" method="post" action="{{ route('login') }}">
                                 <div class="form-group">
                                     {{ csrf_field() }}
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Mật khẩu</label>

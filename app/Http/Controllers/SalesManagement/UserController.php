@@ -244,6 +244,9 @@ class UserController extends Controller
         if(!Auth::user()->hasPermission('delete-users')) abort(403, 'Bạn không được phép xóa nhân viên');
         $user = User::find($id);
         if($user){
+            if(File::exists($user->photo)){
+                File::delete($user->photo);
+            }
             $user->delete();
             return  response()->json(['message'=>'Xóa nhân viên '.$user->first_name.' '.$user->last_name.' thành công.'],200);
         }
