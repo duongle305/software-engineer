@@ -165,8 +165,9 @@ class ProductController extends Controller
                 }
             }
             $product->delete();
-            return response()->json(['message'=>''],200);
+            return response()->json(['message'=>'Xóa sản phẩm '.$product->title.' thành công !'],200);
         }
+        return response()->json(['message'=>'Product not found !'],400);
     }
 
     private function generateCode(Request $request)
@@ -194,29 +195,10 @@ class ProductController extends Controller
         }
     }
 
-    public function search(Request $request)
+    public function search($keyword)
     {
-        if(!empty($request->category)){
-            $search = Product::whereCategoryId($request->category);
-            if(!empty($request->code))
-                $search->where('code','like','%'.$request->code.'%');
-            if(!empty($request->title))
-                $search->where('title','like','%'.$request->title.'%');
-            if(!empty($request->unit_price))
-                $search->whereUnitPrice($request->unit_price);
-            if(!empty($request->created_at))
-                $search->whereDate('created_at',date('Y-m-d',strtotime($request->created_at)));
-        }else{
-            $search = new Product();
-            if(!empty($request->code))
-                $search->where('code','like','%'.$request->code.'%');
-            if(!empty($request->title))
-                $search->where('title','like','%'.$request->title.'%');
-            if(!empty($request->unit_price))
-                $search->whereUnitPrice($request->unit_price);
-            if(!empty($request->created_at))
-                $search->whereDate('created_at',date('Y-m-d',strtotime($request->created_at)));
-        }
-        return response()->json($search->paginate(),200);
+        return Product::where('code','like',"%$keyword%")
+            ->orWhere('name','like',"%$keyword%")
+            ->orWhere('','like',"%$keyword%");
     }
 }

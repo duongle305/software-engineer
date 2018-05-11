@@ -60,71 +60,90 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 35);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 35:
+/***/ 41:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(36);
+module.exports = __webpack_require__(42);
 
 
 /***/ }),
 
-/***/ 36:
+/***/ 42:
 /***/ (function(module, exports) {
 
 var app = new Vue({
     el: '#app',
     data: {
-        isAddColor: false,
-        isAddSize: false,
-        sizeTypeId: '',
-        sizes: [],
-        colors: []
+        delete: '',
+        hrefData: '',
+        result: [],
+        search: '',
+        pagination: []
     },
     methods: {
-        getSizes: function getSizes(e) {
+        showDelete: function showDelete(e, index) {
             var _this = this;
 
-            var selected = e.target.options[e.target.options.selectedIndex];
-            if (selected !== undefined) {
-                axios.get(selected.dataset.href).then(function (rs) {
-                    _this.sizes = rs.data;
-                    _this.sizes.forEach(function (el) {
-                        el.text = el.name;
-                    });
-                }).catch(function (e) {});
-            }
+            this.delete = e.target.dataset.delete;
+            swal({
+                title: 'B\u1EA1n c\xF3 mu\u1ED1n x\xF3a s\u1EA3n ph\u1EA9m ' + this.result[index].title + '?',
+                text: "Sau khi đồng ý bạn sẽ không khôi phục lại được.",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#fb9678',
+                confirmButtonText: 'Đồng ý'
+            }).then(function () {
+                _this.deleteProduct();
+            }).catch(function (e) {});
         },
-        getColors: function getColors(e) {
+        getAllProducts: function getAllProducts() {
             var _this2 = this;
 
-            if (e.target.dataset.href) {
-                axios.get(e.target.dataset.href).then(function (res) {
-                    _this2.colors = res.data;
-                    _this2.colors.forEach(function (el) {
-                        el.text = el.name;
-                    });
-                });
-            }
-        }
-    }
-});
+            var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
-Vue.component('select2-multiple', {
-    template: '\n        <select :name="name" multiple style="width: 100%"></select>\n    ',
-    props: ['options', 'name'],
+            $('div.loader').show();
+            axios.get(this.hrefData + '?page=' + page).then(function (res) {
+                _this2.result = res.data.data;
+                _this2.pagination = res.data;
+                var time = setTimeout(function () {
+                    $('div.loader').fadeOut();
+                    clearTimeout(time);
+                }, 500);
+            });
+        },
+        deleteProduct: function deleteProduct(index) {
+            var _this3 = this;
+
+            this.result.splice(index, 1);
+            axios.delete(this.delete).then(function (rs) {
+                _this3.result.splice(index, 1);
+                swal('Đã xóa!', '' + rs.data.message, 'success');
+            }).catch(function (e) {
+                swal('Thông báo!', '' + e.response.data.message, 'error');
+            });
+        },
+        formatDate: function formatDate(str) {
+            var date = new Date(str);
+            return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+        },
+        searchProduct: function searchProduct(val) {
+            console.log(val);
+        }
+    },
     mounted: function mounted() {
-        $(this.$el).select2({ data: this.options }).trigger('change');
+        this.hrefData = $('#href-data').val();
+        this.getAllProducts();
     },
 
     watch: {
-        options: function options(_options) {
-            $(this.$el).select2().empty().trigger('change');
-            $(this.$el).select2({ data: _options }).trigger('change');
+        search: function search(val) {
+            return this.searchProduct(val);
         }
     }
 });
