@@ -29,7 +29,7 @@ class Order extends Model
         $date = $y.'-'.$m.'-01';
 
 
-        $v = Order::whereStatus('"DELIVERED"')->where('created_at', '>=','"'.$date.'"')->where('created_at', '<=', '"'.$currentDate.'"')->sum('totals');
+        $v = Order::whereStatus('DELIVERED')->where('created_at', '>=',$date)->where('created_at', '<=',$currentDate)->sum('totals');
         return $v;
     }
 }

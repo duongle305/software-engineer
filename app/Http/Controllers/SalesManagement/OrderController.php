@@ -118,7 +118,7 @@ class OrderController extends Controller
     public function dataOrders($status = 'PENDING')
     {
         $status = strtoupper($status);
-        $dataOrders = DB::table('orders')->where('status',$status)->paginate(2);
+        $dataOrders = DB::table('orders')->where('status',$status)->paginate(5);
         return response()->json($dataOrders,200);
     }
 

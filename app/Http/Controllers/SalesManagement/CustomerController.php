@@ -17,7 +17,7 @@ class CustomerController extends Controller
     public function index()
     {
         if(!Auth::user()->hasPermission('read-customers')) abort(401, 'Bạn không được phép xem danh sách khách hàng.');
-        $customers = Customer::paginate(10);
+        $customers = Customer::paginate(5);
         return view('admin.customers.index')->withCustomers($customers);
     }
 
@@ -50,7 +50,9 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        if (!Auth::user()->hasPermission('read-customers')) abort(401, 'Bạn không được phép xem danh mục sản phẩm.');
+        $customer = Customer::find($id);
+        return view('admin.customers.show')->withCustomer($customer);
     }
 
     /**

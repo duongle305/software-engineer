@@ -82,7 +82,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <pagination :pagination="pagination" @click.native="getDataOrders(tab, pagination.current_page)" ></pagination>
+                    <pagination :pagination="pagination" @click.native="getDataOrders(tab, pagination.current_page)" v-if="pagination.total > pagination.per_page"></pagination>
                 </div>
             </div>
         </div>
