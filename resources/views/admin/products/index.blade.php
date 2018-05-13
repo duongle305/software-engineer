@@ -66,7 +66,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <pagination v-if="result.length >= pagination.per_page" :pagination="pagination" @click.native="getAllProducts(tab, pagination.current_page)"></pagination>
+                    <pagination v-if="result.length > pagination.per_page" :pagination="pagination" @click.native="getAllProducts(tab, pagination.current_page)"></pagination>
                 </div>
             </div>
         </div>

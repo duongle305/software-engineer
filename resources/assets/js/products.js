@@ -55,7 +55,7 @@ let app = new Vue({
             return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
         },
         searchProduct(val){
-            console.log(val);
+
         },
     },
     mounted(){
