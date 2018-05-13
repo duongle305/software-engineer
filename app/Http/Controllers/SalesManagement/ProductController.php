@@ -98,7 +98,7 @@ class ProductController extends Controller
                 $i++;
             }
         }
-        return redirect()->route('products.show',$product->id)->withMessages(['create-product'=>'Thêm mới sản phẩm'.$product->title.'thành công.']);
+        return redirect()->route('products.show',$product->id)->withMessages(['create-product'=>'Thêm mới sản phẩm '.$product->title.' thành công.']);
 
     }
 
@@ -132,7 +132,6 @@ class ProductController extends Controller
         $brands = Brand::all();
         $suppliers = Supplier::all();
         $product = Product::find($id);
-
         return view('admin.products.edit')->withBrands($brands)->withCategories($categories)->withSuppliers($suppliers)->withProduct($product);
     }
 
@@ -145,7 +144,45 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(!Auth::user()->hasPermission('update-products')) abort(401,'Bạn không được phép cập nhật sản phẩm.');
+        $all = $request->only(['title','description','unit_price','base_price','quantity','supplier_id','brand_id','category_id']);
+        $validator = Validator::make($all,[
+            'title'=>'required|string',
+            'description'=>'required|string',
+            'unit_price'=>'required|string',
+            'base_price'=>'required|string',
+            'quantity'=>'required|string',
+            'colors'=>'sometimes|array',
+            'sizes'=>'sometimes|array',
+        ],[
+            'title.required'=>'Vui lòng nhập tên sản phẩm.',
+            'description.required'=>'Vui lòng nhập mô tả cho sản phẩm.',
+            'unit_price.required'=>'Vui lòng nhập giá bán cho sản phẩm.',
+            'base_price.required'=>'Vui lòng nhập giá mua cho sản phẩm',
+            'quantity.required'=>'Vui lòng nhập só lượng cho sản phẩm',
+        ]);
+
+        if($validator->fails()) return redirect()->back()->withErrors($validator);
+
+        $all['code'] = $this->generateCode($request);
+
+        $product = Product::find($id);
+
+
+        $product->update($all);
+
+        if($images = $request->file('images')) {
+            $i = 1;
+            foreach ($images as $image) {
+                if ($image) {
+                    $image_name = str_slug($request->title) . '-' . $i . '-' . time() . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('uploads/products'), $image_name);
+                    Image::create(['url' => 'uploads/products/' . $image_name, 'product_id' => $product->id]);
+                    $i++;
+                }
+            }
+        }
+        return redirect()->route('products.show',$product->id)->withMessages(['update-product'=>'Cập nhật sản phẩm '.$product->title.' thành công.']);
     }
 
     /**

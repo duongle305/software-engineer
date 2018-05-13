@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $table = 'products';
-    protected $fillable = ['code','title','description','unit_price','base_price','quantity','category_id','brand_id','supplier_id'];
+    protected $fillable = ['code', 'title', 'description', 'unit_price', 'base_price', 'quantity', 'category_id', 'brand_id', 'supplier_id'];
 
     public function images()
     {
@@ -19,13 +19,14 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Size');
     }
 
-    public function colors(){
+    public function colors()
+    {
         return $this->belongsToMany('App\Models\Color');
     }
 
     public function attachColor($color)
     {
-        if(is_int($color)){
+        if (is_int($color)) {
             return $this->colors()->save(Color::find($color));
         }
         return $this->colors()->save($color);
@@ -33,11 +34,12 @@ class Product extends Model
 
     public function attachSize($size)
     {
-        if(is_int($size)){
+        if (is_int($size)) {
             return $this->sizes()->save(Size::find($size));
         }
         return $this->sizes()->save($size);
     }
+
     public function brand()
     {
         return $this->belongsTo('App\Models\Brand');
@@ -52,5 +54,6 @@ class Product extends Model
     {
         return $this->belongsTo('App\Models\Supplier');
     }
+
 
 }

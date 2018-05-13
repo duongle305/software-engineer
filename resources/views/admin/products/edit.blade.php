@@ -4,6 +4,7 @@
 
 @section('plugin_css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/dropify/dist/css/dropify.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/dist/summernote-bs4.css') }}">
 @endsection
 
 @section('wrapper')
@@ -19,7 +20,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="container">
-                        <form action="" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('products.update',$product->id) }}" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 @csrf
                                 @method('PUT')
@@ -30,7 +31,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Mô tả</label>
-                                <textarea class="form-control" rows="5" minlength="10" name="description" id="description">{{ $product->description }}</textarea>
+                                <textarea class="form-control summernote" rows="5" minlength="10" name="description" id="description">{{ $product->description }}</textarea>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -76,32 +77,13 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-check form-check-flat">
-                                            <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input">
-                                                Thêm màu sắc
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-check form-check-flat">
-                                            <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input">
-                                                Thêm size
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="photo">Hình sản phẩm</label>
+                                <label for="photo">Thêm hình sản phẩm</label>
                                 <input type="file" class="dropify" accept="image/*" name="images[]" id="images" multiple/>
                             </div>
                             <div class="form-group text-right">
-                                <button type="submit" class="btn btn-success">Thêm</button>
+                                <button type="submit" class="btn btn-success">Cập nhật</button>
                             </div>
                         </form>
                     </div>
@@ -116,11 +98,16 @@
     <script src="{{ asset('assets/vendor/inputmask/dist/jquery.inputmask.bundle.js') }}"></script>
     <script src="{{ asset('assets/vendor/inputmask/dist/inputmask/bindings/inputmask.binding.js') }}"></script>
     <script src="{{ asset('assets/vendor/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/summernote/dist/summernote-bs4.min.js') }}"></script>
 @endsection
 @section('custom_js')
     <script type="text/javascript">
         $(document).ready(function () {
             $('.dropify').dropify();
+            $('.summernote').summernote({
+                height: 400,
+                tabsize: 2
+            });
         });
     </script>
 @endsection

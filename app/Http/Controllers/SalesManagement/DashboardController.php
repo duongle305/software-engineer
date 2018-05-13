@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SalesManagement;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -9,7 +10,9 @@ use Illuminate\Support\Facades\Session;
 class DashboardController extends Controller
 {
     public function index(){
-        return view('admin.dashboard');
+        $order = new Order();
+        $totals = $order->total();
+        return view('admin.dashboard')->withTotal($totals);
     }
 
     public function setting(Request $request){

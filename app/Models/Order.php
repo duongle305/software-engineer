@@ -19,4 +19,17 @@ class Order extends Model
     {
         return $this->belongsToMany('App\Models\Product');
     }
+
+    public function total(){
+
+        $currentDate = date('Y-m-d');
+
+        $y = substr($currentDate,0,4);
+        $m = substr($currentDate,5,2);
+        $date = $y.'-'.$m.'-01';
+
+
+        $v = Order::whereStatus('"DELIVERED"')->where('created_at', '>=','"'.$date.'"')->where('created_at', '<=', '"'.$currentDate.'"')->sum('totals');
+        return $v;
+    }
 }
