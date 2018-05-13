@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\SalesManagement;
 
+use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -10,9 +12,10 @@ use Illuminate\Support\Facades\Session;
 class DashboardController extends Controller
 {
     public function index(){
-        $order = new Order();
-        $totals = $order->total();
-        return view('admin.dashboard')->withTotal($totals);
+        $totals = Order::total();
+        $hotProducts = Product::hotProducts(15);
+        $hotCustomers = Customer::hotCustomers(15);
+        return view('admin.dashboard')->withTotal($totals)->withHotProducts($hotProducts)->withHotCustomers($hotCustomers);
     }
 
     public function setting(Request $request){

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -55,5 +56,22 @@ class Product extends Model
         return $this->belongsTo('App\Models\Supplier');
     }
 
+    public static function hotProducts($limit)
+    {
+        $current = date('Y-m-d');
+
+        $y = substr($current,0,4);
+        $m = substr($current,5,2);
+        $start = $y.'-'.$m.'-01 00:00:00';
+        return DB::table('products')->selectRaw('products.id, products.code AS code, products.title AS title, SUM(order_product.quantity) AS quantity')
+            ->join('order_product','products.id','=','order_product.product_id','left outer')
+            ->join('orders','orders.id','=','order_product.order_id','left outer')
+            ->where('orders.created_at','>=',$start)
+            ->where('orders.created_at','<=',$current)
+            ->orderBy('order_product.quantity','DESC')
+            ->groupBy(['products.id'])
+            ->limit($limit)
+            ->get();
+    }
 
 }
