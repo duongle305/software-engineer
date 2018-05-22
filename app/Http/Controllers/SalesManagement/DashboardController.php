@@ -13,8 +13,8 @@ class DashboardController extends Controller
 {
     public function index(){
         $totals = Order::total();
-        $hotProducts = Product::hotProducts(15);
-        $hotCustomers = Customer::hotCustomers(15);
+        $hotProducts = Product::hotProducts(10);
+        $hotCustomers = Customer::hotCustomers(10);
         return view('admin.dashboard')->withTotal($totals)->withHotProducts($hotProducts)->withHotCustomers($hotCustomers);
     }
 

@@ -55,6 +55,19 @@ let app = new Vue({
             return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
         },
         searchProduct(val){
+            if(val){
+                axios.get(`search-products/${val}`).then(res=>{
+                    this.pagination = res.data;
+                    this.result = res.data.data;
+                }).catch(err=>{
+
+                });
+            }else{
+                axios.get(`${this.hrefData}`).then(res=>{
+                    this.result = res.data.data;
+                    this.pagination = res.data;
+                });
+            }
 
         },
     },

@@ -18,7 +18,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6 pull-right">
+                        <div class="col-md-12 pull-right">
                             <div class="form-group">
                                 <label for="search">Tìm kiếm</label>
                                 <input type="search" id="search" v-model="search" class="form-control" >

@@ -76,6 +76,7 @@ class ProductController extends Controller
 
         if($validator->fails()) return redirect()->back()->withErrors($validator);
         $all['code'] = $this->generateCode($request);
+        $all['slug'] = str_slug($request->title);
 
         $product = Product::create($all);
         if(isset($request->colors) && !empty($request->colors)){
@@ -165,6 +166,7 @@ class ProductController extends Controller
         if($validator->fails()) return redirect()->back()->withErrors($validator);
 
         $all['code'] = $this->generateCode($request);
+        $all['slug'] = str_slug($request->title);
 
         $product = Product::find($id);
 
@@ -234,8 +236,9 @@ class ProductController extends Controller
 
     public function search($keyword)
     {
+        $keyword = str_slug($keyword);
         return Product::where('code','like',"%$keyword%")
-            ->orWhere('name','like',"%$keyword%")
-            ->orWhere('','like',"%$keyword%");
+            ->orWhere('slug','like',"%$keyword%")
+            ->paginate(15);
     }
 }

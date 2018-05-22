@@ -133,7 +133,19 @@ var app = new Vue({
             return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
         },
         searchProduct: function searchProduct(val) {
-            console.log(val);
+            var _this4 = this;
+
+            if (val) {
+                axios.get('search-products/' + val).then(function (res) {
+                    _this4.pagination = res.data;
+                    _this4.result = res.data.data;
+                }).catch(function (err) {});
+            } else {
+                axios.get('' + this.hrefData).then(function (res) {
+                    _this4.result = res.data.data;
+                    _this4.pagination = res.data;
+                });
+            }
         }
     },
     mounted: function mounted() {
