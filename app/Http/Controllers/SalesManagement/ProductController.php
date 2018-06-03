@@ -95,7 +95,7 @@ class ProductController extends Controller
         foreach ($images as $image){
             if($image){
                 $image_name = str_slug($request->title).'-'.$i.'-'.time().'.'.$image->getClientOriginalExtension();
-                $image->move(public_path('uploads/products'),$image_name);
+                $image->move('uploads/products',$image_name);
                 Image::create(['url'=>'uploads/products/'.$image_name,'product_id'=>$product->id]) ;
                 $i++;
             }
@@ -179,7 +179,7 @@ class ProductController extends Controller
             foreach ($images as $image) {
                 if ($image) {
                     $image_name = str_slug($request->title) . '-' . $i . '-' . time() . '.' . $image->getClientOriginalExtension();
-                    $image->move(public_path('uploads/products'), $image_name);
+                    $image->move('uploads/products', $image_name);
                     Image::create(['url' => 'uploads/products/' . $image_name, 'product_id' => $product->id]);
                     $i++;
                 }
