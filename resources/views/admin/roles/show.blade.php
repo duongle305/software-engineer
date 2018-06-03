@@ -10,7 +10,7 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('roles.index') }}">Vai trò</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><span>{{ $role->display_name }}</span></li>
                 </ol>

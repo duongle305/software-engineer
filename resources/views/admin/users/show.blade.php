@@ -7,6 +7,13 @@
 @endsection
 
 @section('wrapper')
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb breadcrumb-custom">
+            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.users') }}">Nhân viên</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><span>Thông tin nhân viên</span></li>
+        </ol>
+    </nav>
     <div class="row user-profile" id="app">
         <div class="col-lg-4 side-left align-items-stretch">
             <div class="card">

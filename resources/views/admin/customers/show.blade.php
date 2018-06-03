@@ -12,7 +12,7 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('customers.index') }}">Khách hàng</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><span>Thông tin khách hàng</span></li>
                 </ol>
