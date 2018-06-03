@@ -84,7 +84,7 @@ class UserController extends Controller
             $image_name = 'dl-'.time().'.'.$image->getClientOriginalExtension();
             $image->move(public_path('/uploads'),$image_name);
             $all['photo'] = 'uploads/'.$image_name;
-            if(!empty($request->password)){
+            if(empty($request->password)){
                 $all['password'] = bcrypt('password');
             }else{
                 $all['password'] = bcrypt($request->password);
