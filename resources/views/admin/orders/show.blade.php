@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Dashboard')
+@section('title','Chi tiết đơn hàng: '.$order->code)
 
 @section('plugin_css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
@@ -11,7 +11,7 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('orders.index') }}">Đơn hàng</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
                         <span>{{ $order->code }}</span></li>

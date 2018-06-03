@@ -16,6 +16,7 @@ Route::prefix('/admin-dl')->group(function(){
     Route::middleware('auth')->group(function(){
         Route::get('/logout','Auth\LoginController@logout')->name('admin.logout');
         Route::get('/dashboard','SalesManagement\DashboardController@index')->name('admin.dashboard');
+        Route::get('/user','SalesManagement\UserController@index')->name('admin.users');
         Route::resource('/users','SalesManagement\UserController')->except('edit','update');
         Route::post('/users/{id}/update-info','SalesManagement\UserController@updateInfo')->name('users.update.info');
         Route::post('/users/{id}/update-photo','SalesManagement\UserController@updatePhoto')->name('users.update.photo');

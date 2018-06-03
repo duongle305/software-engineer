@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title','Quản lý role')
+@section('title','Quản lý vai trò')
 
 @section('plugin_css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}">
@@ -11,7 +11,7 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><span>Vai trò</span></li>
                 </ol>
             </nav>

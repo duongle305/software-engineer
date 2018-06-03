@@ -11,9 +11,9 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('suppliers.index') }}">Nhà cung cấp</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Thêm</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Thêm mới</span></li>
                 </ol>
             </nav>
             <div class="card">

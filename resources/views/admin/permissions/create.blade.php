@@ -10,8 +10,9 @@
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Library</span></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('permissions.index') }}">Quyền</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Thêm mới quyền</span></li>
                 </ol>
             </nav>
             <div class="card">

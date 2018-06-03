@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title',$category->title.' - Chỉnh sửa')
+@section('title',$category->title.' - Cập nhật')
 
 @section('plugin_css')
 @endsection
@@ -12,7 +12,7 @@
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('categories.index') }}">Danh mục sản phẩm</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>{{ $category->title }}</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Cập nhật: {{ $category->title }}</span></li>
                 </ol>
             </nav>
             <div class="card">
