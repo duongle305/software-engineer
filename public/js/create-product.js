@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -162,3 +163,6 @@ Vue.component('select2-multiple', {
 /***/ })
 
 /******/ });
+=======
+!function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{configurable:!1,enumerable:!0,get:o})},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/",n(n.s=35)}({35:function(t,e,n){t.exports=n(36)},36:function(t,e){new Vue({el:"#app",data:{isAddColor:!1,isAddSize:!1,sizeTypeId:"",sizes:[],colors:[]},methods:{getSizes:function(t){var e=this,n=t.target.options[t.target.options.selectedIndex];void 0!==n&&axios.get(n.dataset.href).then(function(t){e.sizes=t.data,e.sizes.forEach(function(t){t.text=t.name})}).catch(function(t){})},getColors:function(t){var e=this;t.target.dataset.href&&axios.get(t.target.dataset.href).then(function(t){e.colors=t.data,e.colors.forEach(function(t){t.text=t.name})})}}});Vue.component("select2-multiple",{template:'\n        <select :name="name" multiple style="width: 100%"></select>\n    ',props:["options","name"],mounted:function(){$(this.$el).select2({data:this.options}).trigger("change")},watch:{options:function(t){$(this.$el).select2().empty().trigger("change"),$(this.$el).select2({data:t}).trigger("change")}}})}});
+>>>>>>> 5919e289f38f1a33c82f6df3329f971d237d4250

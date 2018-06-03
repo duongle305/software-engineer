@@ -33,6 +33,7 @@ Route::prefix('/admin-dl')->group(function(){
         Route::resource('/customers','SalesManagement\CustomerController');
         Route::get('/data-orders/{status}','SalesManagement\OrderController@dataOrders')->name('orders.data');
         Route::post('/status-orders/{id}','SalesManagement\OrderController@changeStatus')->name('orders.status');
+        Route::get('/search-orders/{tab}/{keyword}','SalesManagement\OrderController@search')->name('orders.search');
         //Ajax
         Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
         Route::get('/ajax/provinces', 'SalesManagement\AjaxController@provinces');
