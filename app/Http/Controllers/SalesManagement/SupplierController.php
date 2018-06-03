@@ -119,7 +119,7 @@ class SupplierController extends Controller
             'email.email'=>'Địa chỉ email không đúng.',
         ];
         if(!isset($request->change_address) ){
-            $all = $request->only(['title','phone','email']);
+            $all = $request->only(['title','phone','email','slug']);
             $validator = Validator::make($all,$rules,$msgs);
             if($validator->fails()) return redirect()->back()->withErrors($validator);
         }else{

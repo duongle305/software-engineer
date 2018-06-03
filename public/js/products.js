@@ -1,1 +1,165 @@
-!function(t){var e={};function n(a){if(e[a])return e[a].exports;var o=e[a]={i:a,l:!1,exports:{}};return t[a].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=t,n.c=e,n.d=function(t,e,a){n.o(t,e)||Object.defineProperty(t,e,{configurable:!1,enumerable:!0,get:a})},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/",n(n.s=43)}({43:function(t,e,n){t.exports=n(44)},44:function(t,e){new Vue({el:"#app",data:{delete:"",hrefData:"",result:[],search:"",pagination:[]},methods:{showDelete:function(t,e){var n=this;this.delete=t.target.dataset.delete,swal({title:"Bạn có muốn xóa sản phẩm "+this.result[e].title+"?",text:"Sau khi đồng ý bạn sẽ không khôi phục lại được.",type:"warning",showCancelButton:!0,confirmButtonColor:"#3085d6",cancelButtonColor:"#fb9678",confirmButtonText:"Đồng ý"}).then(function(){n.deleteProduct()}).catch(function(t){})},getAllProducts:function(){var t=this,e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:1;$("div.loader").show(),axios.get(this.hrefData+"?page="+e).then(function(e){t.result=e.data.data,t.pagination=e.data;var n=setTimeout(function(){$("div.loader").fadeOut(),clearTimeout(n)},500)})},deleteProduct:function(t){var e=this;this.result.splice(t,1),axios.delete(this.delete).then(function(n){e.result.splice(t,1),swal("Đã xóa!",""+n.data.message,"success")}).catch(function(t){swal("Thông báo!",""+t.response.data.message,"error")})},formatDate:function(t){var e=new Date(t);return e.getDate()+"/"+(e.getMonth()+1)+"/"+e.getFullYear()},searchProduct:function(t){var e=this;t?axios.get("search-products/"+t).then(function(t){e.pagination=t.data,e.result=t.data.data}).catch(function(t){}):axios.get(""+this.hrefData).then(function(t){e.result=t.data.data,e.pagination=t.data})}},mounted:function(){this.hrefData=$("#href-data").val(),this.getAllProducts()},watch:{search:function(t){return this.searchProduct(t)}}})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 43);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 43:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(44);
+
+
+/***/ }),
+
+/***/ 44:
+/***/ (function(module, exports) {
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        delete: '',
+        hrefData: '',
+        result: [],
+        search: '',
+        pagination: []
+    },
+    methods: {
+        showDelete: function showDelete(e, index) {
+            var _this = this;
+
+            this.delete = e.target.dataset.delete;
+            swal({
+                title: 'B\u1EA1n c\xF3 mu\u1ED1n x\xF3a s\u1EA3n ph\u1EA9m ' + this.result[index].title + '?',
+                text: "Sau khi đồng ý bạn sẽ không khôi phục lại được.",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#fb9678',
+                confirmButtonText: 'Đồng ý'
+            }).then(function () {
+                _this.deleteProduct();
+            }).catch(function (e) {});
+        },
+        getAllProducts: function getAllProducts() {
+            var _this2 = this;
+
+            var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+            $('div.loader').show();
+            axios.get(this.hrefData + '?page=' + page).then(function (res) {
+                _this2.result = res.data.data;
+                _this2.pagination = res.data;
+                var time = setTimeout(function () {
+                    $('div.loader').fadeOut();
+                    clearTimeout(time);
+                }, 500);
+            });
+        },
+        deleteProduct: function deleteProduct(index) {
+            var _this3 = this;
+
+            this.result.splice(index, 1);
+            axios.delete(this.delete).then(function (rs) {
+                _this3.result.splice(index, 1);
+                swal('Đã xóa!', '' + rs.data.message, 'success');
+            }).catch(function (e) {
+                swal('Thông báo!', '' + e.response.data.message, 'error');
+            });
+        },
+        formatDate: function formatDate(str) {
+            var date = new Date(str);
+            return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+        },
+        searchProduct: function searchProduct(val) {
+            var _this4 = this;
+
+            if (val) {
+                axios.get('search-products/' + val).then(function (res) {
+                    _this4.pagination = res.data;
+                    _this4.result = res.data.data;
+                }).catch(function (err) {});
+            } else {
+                axios.get('' + this.hrefData).then(function (res) {
+                    _this4.result = res.data.data;
+                    _this4.pagination = res.data;
+                });
+            }
+        }
+    },
+    mounted: function mounted() {
+        this.hrefData = $('#href-data').val();
+        this.getAllProducts();
+    },
+
+    watch: {
+        search: function search(val) {
+            return this.searchProduct(val);
+        }
+    }
+});
+
+/***/ })
+
+/******/ });

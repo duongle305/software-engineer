@@ -1,3 +1,4 @@
+var title = $('.breadcrumb .active > span').attr('id');
 let app = new Vue({
     el: '#app',
     data: {
@@ -9,7 +10,8 @@ let app = new Vue({
         provinces:[],
         districts:[],
         wards:[],
-        address:''
+        address:'',
+        title:title
     },
     methods:{
         getProvinces(){
@@ -41,6 +43,12 @@ let app = new Vue({
             this.isSelectedProvince = undefined;
             this.detail = null;
         },
+        getSlug: function(str) {
+            return this.generateSlug(str);
+        },
+        generateSlug(str){
+            return strslug(str);
+        }
     },
     mounted(){
         this.getProvinces();

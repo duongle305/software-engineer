@@ -12,7 +12,7 @@
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('suppliers.index') }}">Nhà cung cấp</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Cập nhật: {{ $supplier->title }}</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span id="{{ $supplier->title }}">Cập nhật: {{ $supplier->title }}</span></li>
                 </ol>
             </nav>
             <div class="card">
@@ -24,9 +24,17 @@
                                 @method('PUT')
                                 <input type="hidden" id="oldChange" @if(old('change_address')) value="1" @else value="0" @endif >
                             </div>
-                            <div class="form-group">
-                                <label for="title">Tên nhà cung cấp</label>
-                                <input type="text" class="form-control" minlength="5" name="title" id="title" value="{{ $supplier->title }}">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="title">Tên nhà cung cấp</label>
+                                    <input type="text" class="form-control" minlength="5" name="title" id="title" value="" v-model="title" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="title">Tên slug</label>
+                                    <input readonly type="text" class="form-control" name="slug" id="slug" :value="getSlug(title)">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">

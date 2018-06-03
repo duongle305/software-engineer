@@ -1,1 +1,142 @@
-!function(e){var t={};function i(n){if(t[n])return t[n].exports;var r=t[n]={i:n,l:!1,exports:{}};return e[n].call(r.exports,r,r.exports,i),r.l=!0,r.exports}i.m=e,i.c=t,i.d=function(e,t,n){i.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:n})},i.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return i.d(t,"a",t),t},i.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},i.p="/",i(i.s=49)}({49:function(e,t,i){e.exports=i(50)},50:function(e,t){$(document).ready(function(){$(".dropify").dropify()});new Vue({el:"#app",data:{isSelectedProvince:!1,isSelectedDistrict:!1,provinces:[],districts:[],wards:[],title:""},watch:{name:function(e){this.getSlug(e)}},methods:{getProvinces:function(){var e=this;axios.get("/admin-dl/ajax/provinces").then(function(t){e.provinces=t.data}).catch(function(e){})},getDistricts:function(e){var t=this,i=e.target.options[e.target.options.selectedIndex];if(void 0!==i){var n=i.dataset.id;axios.get("/admin-dl/ajax/districts/"+n).then(function(e){t.districts=e.data}).catch(function(e){})}},getWards:function(e){var t=this,i=e.target.options[e.target.options.selectedIndex];if(void 0!==i){var n=i.dataset.id;axios.get("/admin-dl/ajax/wards/"+n).then(function(e){t.wards=e.data}).catch(function(e){})}},getSlug:function(e){return this.generateSlug(e)},generateSlug:function(e){return("@"+e.toLowerCase().replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi,"a").replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi,"e").replace(/i|í|ì|ỉ|ĩ|ị/gi,"i").replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi,"o").replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi,"u").replace(/ý|ỳ|ỷ|ỹ|ỵ/gi,"y").replace(/đ/gi,"d").replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi,"").replace(/ /gi,"-").replace(/\-\-\-\-\-/gi,"-").replace(/\-\-\-\-/gi,"-").replace(/\-\-\-/gi,"-").replace(/\-\-/gi,"-")+"@").replace(/\@\-|\-\@|\@/gi,"")}},mounted:function(){this.getProvinces()}})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 49);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 49:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(50);
+
+
+/***/ }),
+
+/***/ 50:
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+    $('.dropify').dropify();
+});
+var app = new Vue({
+    el: '#app',
+    data: {
+        isSelectedProvince: false,
+        isSelectedDistrict: false,
+        provinces: [],
+        districts: [],
+        wards: [],
+        title: ''
+    },
+    watch: {
+        name: function name(str) {
+            this.getSlug(str);
+        }
+    },
+    methods: {
+        getProvinces: function getProvinces() {
+            var _this = this;
+
+            axios.get('/admin-dl/ajax/provinces').then(function (rs) {
+                _this.provinces = rs.data;
+            }).catch(function (e) {});
+        },
+        getDistricts: function getDistricts(e) {
+            var _this2 = this;
+
+            var selected = e.target.options[e.target.options.selectedIndex];
+            if (selected !== undefined) {
+                var province_id = selected.dataset.id;
+                axios.get('/admin-dl/ajax/districts/' + province_id).then(function (rs) {
+                    _this2.districts = rs.data;
+                }).catch(function (e) {});
+            }
+        },
+        getWards: function getWards(e) {
+            var _this3 = this;
+
+            var selected = e.target.options[e.target.options.selectedIndex];
+            if (selected !== undefined) {
+                var district_id = selected.dataset.id;
+                axios.get('/admin-dl/ajax/wards/' + district_id).then(function (rs) {
+                    _this3.wards = rs.data;
+                }).catch(function (e) {});
+            }
+        },
+
+        getSlug: function getSlug(str) {
+            return this.generateSlug(str);
+        },
+        generateSlug: function generateSlug(str) {
+            return strslug(str);
+        }
+    },
+    mounted: function mounted() {
+        this.getProvinces();
+    }
+});
+
+/***/ })
+
+/******/ });
