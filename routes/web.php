@@ -28,12 +28,14 @@ Route::prefix('/admin-dl')->group(function(){
         Route::resource('/products','SalesManagement\ProductController');
         Route::get('/search-products/{keyword}','SalesManagement\ProductController@search')->name('products.search');
         Route::get('/all-products','SalesManagement\ProductController@products')->name('products.all');
+        Route::get('/products/status/{id}/{status}','SalesManagement\ProductController@updateStatus');
         Route::resource('/orders','SalesManagement\OrderController')->except(['store']);
         Route::resource('/brands','SalesManagement\BrandController');
         Route::resource('/customers','SalesManagement\CustomerController');
         Route::get('/data-orders/{status}','SalesManagement\OrderController@dataOrders')->name('orders.data');
         Route::post('/status-orders/{id}','SalesManagement\OrderController@changeStatus')->name('orders.status');
         Route::get('/search-orders/{tab}/{keyword}','SalesManagement\OrderController@search')->name('orders.search');
+        Route::get('/search-orders/{tab}','SalesManagement\OrderController@search');
         //Ajax
         Route::post('/setting-template','SalesManagement\DashboardController@setting')->name('setting.template');
         Route::get('/ajax/provinces', 'SalesManagement\AjaxController@provinces');

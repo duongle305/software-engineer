@@ -28,6 +28,7 @@ class CreateProductsTable extends Migration
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->unsignedInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
+            $table->enum('status',['ACTIVE','NONACTIVE'])->default('NONACTIVE');
             $table->timestamps();
         });
     }
