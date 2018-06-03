@@ -97,24 +97,7 @@
 
 @section('plugin_js')
     <script src="{{ asset('assets/vendor/owl-carousel-2/owl.carousel.min.js') }}"></script>
-    <script>
-        $.fn.andSelf = function() {
-            return this.addBack.apply(this, arguments);
-        }
-
-        if($('.full-width').length) {
-            $('.full-width').owlCarousel({
-                loop: true,
-                margin: 10,
-                items: 1,
-                nav: true,
-                autoplay: true,
-                autoplayTimeout:5500,
-                navText: ["<i class='mdi mdi-chevron-left'></i>","<i class='mdi mdi-chevron-right'></i>"]
-            });
-        }
-
-    </script>
 @endsection
 @section('custom_js')
+    <script src="{{ asset('js/show-product.js') }}"></script>
 @endsection

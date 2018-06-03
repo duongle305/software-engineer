@@ -69,17 +69,5 @@
 
 @endsection
 @section('custom_js')
-    <script type="text/javascript">
-        let app = new Vue({
-            el: '#app',
-            data:{
-                roleName:'',
-            },
-            methods:{
-                roleSlug: (roleName)=>{
-                    return strslug(roleName);
-                },
-            }
-        });
-    </script>
+    <script src="{{ asset('js/create-role.js') }}"></script>
 @endsection

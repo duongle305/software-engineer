@@ -1,9 +1,26 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/js/user.js": "/js/user.js",
+    "/js/suppliers.js": "/js/suppliers.js",
+    "/js/show-user.js": "/js/show-user.js",
+    "/js/show-suppliers.js": "/js/show-suppliers.js",
+    "/js/show-product.js": "/js/show-product.js",
+    "/js/role.js": "/js/role.js",
     "/js/products.js": "/js/products.js",
     "/js/permission.js": "/js/permission.js",
     "/js/orders.js": "/js/orders.js",
+    "/js/edit-suppliers.js": "/js/edit-suppliers.js",
+    "/js/edit-product.js": "/js/edit-product.js",
+    "/js/edit-categories.js": "/js/edit-categories.js",
+    "/js/edit-brand.js": "/js/edit-brand.js",
     "/js/create-user.js": "/js/create-user.js",
-    "/js/create-product.js": "/js/create-product.js"
+    "/js/create-suppliers.js": "/js/create-suppliers.js",
+    "/js/create-role.js": "/js/create-role.js",
+    "/js/create-product.js": "/js/create-product.js",
+    "/js/create-permission.js": "/js/create-permission.js",
+    "/js/create-categories.js": "/js/create-categories.js",
+    "/js/create-brand.js": "/js/create-brand.js",
+    "/js/categories.js": "/js/categories.js",
+    "/js/brand.js": "/js/brand.js"
 }

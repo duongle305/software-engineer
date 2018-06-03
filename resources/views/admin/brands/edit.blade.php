@@ -64,34 +64,5 @@
     <script src="{{ asset('assets/vendor/dropify/dist/js/dropify.min.js') }}"></script>
 @endsection
 @section('custom_js')
-    <script>
-        var name = $('.breadcrumb .active > span').attr('id');
-        let app = new Vue({
-            el: '#app',
-            data: {
-                name:name
-            },
-            watch: {
-                name: function (str) {
-                    this.getSlug(str)
-                }
-            },
-            methods: {
-                getSlug: function(str) {
-                    return this.generateSlug(str);
-                },
-                generateSlug(str){
-                    var slug = '';
-                    var trimmed = $.trim(str);
-                    slug = trimmed.replace(/[^a-z0-9-]/gi, '-').
-                    replace(/-+/g, '-').
-                    replace(/^-|-$/g, '');
-                    return slug.toLowerCase();
-                }
-            },
-        });
-        $(document).ready(function(){
-            $('.dropify').dropify();
-        });
-    </script>
+    <script src="{{ asset('js/edit-brand.js') }}"></script>
 @endsection

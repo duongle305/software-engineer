@@ -47,18 +47,5 @@
 @section('plugin_js')
 @endsection
 @section('custom_js')
-    <script>
-        let app = new Vue({
-            el:'#app',
-            data: {
-                title:'',
-                slug:''
-            },
-            methods:{
-                slugTitle: (title) => {
-                    return strslug(title)
-                }
-            }
-        });
-    </script>
+    <script src="{{ asset('js/create-categories.js') }}"></script>
 @endsection

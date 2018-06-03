@@ -62,12 +62,5 @@
 
 @endsection
 @section('custom_js')
-    <script type="text/javascript">
-        let app = new Vue({
-            el: '#app',
-            data:{
-                isUpdateSupplier: false,
-            }
-        })
-    </script>
+    <script src="{{ asset('js/show-suppliers.js') }}"></script>
 @endsection

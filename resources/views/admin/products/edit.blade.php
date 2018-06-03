@@ -101,13 +101,5 @@
     <script src="{{ asset('assets/vendor/summernote/dist/summernote-bs4.min.js') }}"></script>
 @endsection
 @section('custom_js')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.dropify').dropify();
-            $('.summernote').summernote({
-                height: 400,
-                tabsize: 2
-            });
-        });
-    </script>
+    <script src="{{ asset('js/edit-product.js') }}"></script>
 @endsection
