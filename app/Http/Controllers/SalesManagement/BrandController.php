@@ -59,7 +59,7 @@ class BrandController extends Controller
 
         $image = $request->file('image');
         $image_name = str_slug($request->title).'-'.time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('uploads/brands'),$image_name);
+        $image->move('uploads/brands',$image_name);
         $all['image'] = 'uploads/brands/'.$image_name;
         $brand = Brand::create($all);
         return redirect()->route('brands.show', $brand->id)->withMessages(['create-brand'=>'Thêm mới thương hiệu '.$brand->title.' thành công.']);
@@ -120,7 +120,7 @@ class BrandController extends Controller
             if(File::exists($brand->image))
                 File::delete($brand->image);
             $image_name = str_slug($request->title).'-'.time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('uploads/brands'),$image_name);
+            $image->move('uploads/brands',$image_name);
             $all['image'] = 'uploads/brands/'.$image_name;
 
         }

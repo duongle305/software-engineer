@@ -82,7 +82,7 @@ class UserController extends Controller
         if(!$validator->fails()){
             $image = $request->file('photo');
             $image_name = 'dl-'.time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('/uploads'),$image_name);
+            $image->move('/uploads',$image_name);
             $all['photo'] = 'uploads/'.$image_name;
             if(empty($request->password)){
                 $all['password'] = bcrypt('password');
@@ -204,7 +204,7 @@ class UserController extends Controller
             }
             $image = $request->file('photo');
             $imageName = 'dl-'.time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('/uploads'),$imageName);
+            $image->move('/uploads',$imageName);
             $user->update(['photo'=>'uploads/'.$imageName]);
             return redirect()->route('users.index')->withMessages(['update-photo'=>'Cập nhật ảnh đại diện nhân viên thành công.']);
         }
