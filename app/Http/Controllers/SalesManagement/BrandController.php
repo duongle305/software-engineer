@@ -43,7 +43,7 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         if(!Auth::user()->hasPermission('create-brands')) abort(401,'Bạn không được phép thêm mới thương hiệu.');
-        $all = $request->only(['title','description','image']);
+        $all = $request->only(['title','description','image','slug']);
         $validator = Validator::make($all,[
             'title'=>'required|string',
             'description'=>'required|string',
@@ -101,7 +101,7 @@ class BrandController extends Controller
     public function update(Request $request, $id)
     {
         if(!Auth::user()->hasPermission('update-brands')) abort(401,'Bạn không được phép cập nhật thương hiệu.');
-        $all = $request->only(['title','description','image']);
+        $all = $request->only(['title','description','image','slug']);
         $validator = Validator::make($all,[
             'title'=>'required|string',
             'description'=>'required|string',

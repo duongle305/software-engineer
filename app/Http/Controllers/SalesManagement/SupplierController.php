@@ -43,7 +43,7 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         if(!Auth::user()->hasPermission('create-suppliers')) abort(401,'Bạn không có quyền thêm nhà cung cấp.');
-        $all = $request->only(['title','phone','email','detail','ward','district','province']);
+        $all = $request->only(['title','phone','email','detail','ward','district','province','slug']);
         $validator = Validator::make($all,[
             'title'=>'required|string',
             'phone'=>'required|string|unique:suppliers,phone',

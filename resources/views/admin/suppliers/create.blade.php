@@ -23,9 +23,19 @@
                             <div class="form-group">
                                 {{ csrf_field() }}
                             </div>
-                            <div class="form-group">
-                                <label for="title">Tên nhà cung cấp</label>
-                                <input type="text" class="form-control" minlength="5" name="title" id="title" value="" required>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="title">Tên nhà cung cấp</label>
+                                        <input type="text" class="form-control" minlength="5" name="title" id="title" value="" v-model="title" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="title">Tên slug</label>
+                                        <input readonly type="text" class="form-control" name="slug" id="slug" :value="getSlug(title)">
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -84,47 +94,5 @@
     <script src="{{ asset('assets/vendor/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 @endsection
 @section('custom_js')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.dropify').dropify();
-        });
-        let app = new Vue({
-            el: '#app',
-            data: {
-                isSelectedProvince: false,
-                isSelectedDistrict: false,
-                provinces:[],
-                districts:[],
-                wards:[]
-            },
-            methods:{
-                getProvinces(){
-                    axios.get('/admin-dl/ajax/provinces').then(rs => {
-                        this.provinces = rs.data;
-                    }).catch(e =>{});
-                },
-                getDistricts(e){
-                    let selected = e.target.options[e.target.options.selectedIndex];
-                    if(selected !== undefined){
-                        let province_id = selected.dataset.id;
-                        axios.get('/admin-dl/ajax/districts/'+province_id).then(rs => {
-                            this.districts = rs.data;
-                        }).catch(e =>{});
-                    }
-                },
-                getWards(e){
-                    let selected = e.target.options[e.target.options.selectedIndex];
-                    if(selected !== undefined){
-                        let district_id = selected.dataset.id;
-                        axios.get('/admin-dl/ajax/wards/'+district_id).then(rs => {
-                            this.wards = rs.data;
-                        }).catch(e =>{});
-                    }
-                },
-            },
-            mounted(){
-                this.getProvinces();
-            }
-        });
-    </script>
+    <script src="{{ asset('js/create-suppliers.js') }}"></script>
 @endsection

@@ -13,7 +13,7 @@
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Bảng điều khiển</a></li>
                     <li class="breadcrumb-item"><a href="{{route('brands.index')}}">Thương hiệu</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Cập nhật: {{ $brand->title  }}</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span id="{{ $brand->title  }}">Cập nhật: {{ $brand->title  }}</span></li>
                 </ol>
             </nav>
             <div class="card">
@@ -25,9 +25,19 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="title">Tên thương hiệu</label>
-                                    <input type="text" class="form-control" name="title" id="title" value="{{ $brand->title  }}">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="title">Tên thương hiệu</label>
+                                            <input type="text" class="form-control" name="title" id="title" v-model="name">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="title">Tên slug</label>
+                                            <input readonly type="text" class="form-control" name="slug" id="slug" :value="getSlug(name)">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Mô tả</label>
@@ -55,6 +65,31 @@
 @endsection
 @section('custom_js')
     <script>
+        var name = $('.breadcrumb .active > span').attr('id');
+        let app = new Vue({
+            el: '#app',
+            data: {
+                name:name
+            },
+            watch: {
+                name: function (str) {
+                    this.getSlug(str)
+                }
+            },
+            methods: {
+                getSlug: function(str) {
+                    return this.generateSlug(str);
+                },
+                generateSlug(str){
+                    var slug = '';
+                    var trimmed = $.trim(str);
+                    slug = trimmed.replace(/[^a-z0-9-]/gi, '-').
+                    replace(/-+/g, '-').
+                    replace(/^-|-$/g, '');
+                    return slug.toLowerCase();
+                }
+            },
+        });
         $(document).ready(function(){
             $('.dropify').dropify();
         });

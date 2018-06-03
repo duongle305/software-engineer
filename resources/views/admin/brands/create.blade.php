@@ -24,9 +24,19 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="title">Tên thương hiệu</label>
-                                    <input type="text" class="form-control" name="title" id="title">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="title">Tên thương hiệu</label>
+                                            <input type="text" class="form-control" name="title" id="title" v-model="name">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="slug">Tên slug</label>
+                                            <input readonly type="text" class="form-control" name="slug" id="slug" :value="getSlug(name)">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Mô tả</label>
@@ -55,6 +65,30 @@
     <script>
         $(document).ready(function(){
             $('.dropify').dropify();
+        });
+        let app = new Vue({
+            el: '#app',
+            data: {
+                name:''
+            },
+            watch: {
+                name: function (str) {
+                    this.getSlug(str)
+                }
+            },
+            methods: {
+                getSlug: function(str) {
+                    return this.generateSlug(str);
+                },
+                generateSlug(str){
+                    var slug = '';
+                    var trimmed = $.trim(str);
+                    slug = trimmed.replace(/[^a-z0-9-]/gi, '-').
+                    replace(/-+/g, '-').
+                    replace(/^-|-$/g, '');
+                    return slug.toLowerCase();
+                }
+            },
         });
     </script>
 @endsection

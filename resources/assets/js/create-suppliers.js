@@ -1,44 +1,43 @@
-$(document).ready(()=>{
+$(document).ready(function () {
     $('.dropify').dropify();
-    $('#summernote').summernote({
-        height: 200,
-        tabsize: 2
-    });
 });
 let app = new Vue({
     el: '#app',
     data: {
-        isAddColor: false,
-        isAddSize: false,
-        sizeTypeId: '',
-        sizes: [],
-        colors:[],
-        name:''
+        isSelectedProvince: false,
+        isSelectedDistrict: false,
+        provinces:[],
+        districts:[],
+        wards:[],
+        title:''
     },
     watch: {
         name: function (str) {
             this.getSlug(str)
         }
     },
-    methods: {
-        getSizes(e){
+    methods:{
+        getProvinces(){
+            axios.get('/admin-dl/ajax/provinces').then(rs => {
+                this.provinces = rs.data;
+            }).catch(e =>{});
+        },
+        getDistricts(e){
             let selected = e.target.options[e.target.options.selectedIndex];
             if(selected !== undefined){
-                axios.get(selected.dataset.href).then(rs => {
-                    this.sizes = rs.data;
-                    this.sizes.forEach((el)=>{
-                        el.text = el.name;
-                    });
-                }).catch(e => {
-                });
+                let province_id = selected.dataset.id;
+                axios.get('/admin-dl/ajax/districts/'+province_id).then(rs => {
+                    this.districts = rs.data;
+                }).catch(e =>{});
             }
         },
-        getColors(e){
-            if(e.target.dataset.href){
-                axios.get(e.target.dataset.href).then(res=>{
-                    this.colors = res.data;
-                    this.colors.forEach((el)=>{ el.text = el.name });
-                });
+        getWards(e){
+            let selected = e.target.options[e.target.options.selectedIndex];
+            if(selected !== undefined){
+                let district_id = selected.dataset.id;
+                axios.get('/admin-dl/ajax/wards/'+district_id).then(rs => {
+                    this.wards = rs.data;
+                }).catch(e =>{});
             }
         },
         getSlug: function(str) {
@@ -65,20 +64,7 @@ let app = new Vue({
             return slug;
         }
     },
-});
-
-Vue.component('select2-multiple',{
-    template:`
-        <select :name="name" multiple style="width: 100%"></select>
-    `,
-    props:['options','name'],
     mounted(){
-        $(this.$el).select2({data:this.options}).trigger('change');
-    },
-    watch:{
-        options(options){
-            $(this.$el).select2().empty().trigger('change');
-            $(this.$el).select2({data: options}).trigger('change');
-        }
+        this.getProvinces();
     }
 });

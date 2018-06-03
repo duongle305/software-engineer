@@ -28,7 +28,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="title">Tên sản phẩm</label>
-                                <input type="text" class="form-control" minlength="5" name="title" id="title">
+                                <input type="text" class="form-control" minlength="5" name="title" id="title" v-model="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="slug">Tên slug</label>
+                                <input readonly type="text" class="form-control"  name="slug" id="slug" :value="getSlug(name)">
                             </div>
                             <div class="form-group">
                                 <label for="summernote">Mô tả</label>
@@ -160,14 +164,5 @@
     <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js') }}"></script>
 @endsection
 @section('custom_js')
-    <script type="text/javascript">
-        $(document).ready(()=>{
-            $('.dropify').dropify();
-            $('#summernote').summernote({
-                height: 200,
-                tabsize: 2
-            });
-        });
-    </script>
     <script src="{{ asset('js/create-product.js') }}"></script>
 @endsection
