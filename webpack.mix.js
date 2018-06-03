@@ -13,6 +13,7 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/create-product.js', 'public/js')
+    .js('resources/assets/js/orders.js', 'public/js')
     .js('resources/assets/js/create-user.js', 'public/js')
     .js('resources/assets/js/permission.js', 'public/js')
     .js('resources/assets/js/products.js', 'public/js')

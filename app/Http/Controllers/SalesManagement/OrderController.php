@@ -118,7 +118,7 @@ class OrderController extends Controller
     public function dataOrders($status = 'PENDING')
     {
         $status = strtoupper($status);
-        $dataOrders = DB::table('orders')->where('status',$status)->paginate(5);
+        $dataOrders = DB::table('orders')->where('status',$status)->paginate(15);
         return response()->json($dataOrders,200);
     }
 
@@ -130,6 +130,19 @@ class OrderController extends Controller
             return response()->json(['message'=>''],200);
         }
         return response()->json(['message'=>''],400);
+    }
+
+    public function search($status = 'PENDING',$keyword = '')
+    {
+        $status = strtoupper($status);
+        $keyword = str_slug($keyword);
+        $data = DB::table('orders')->select('orders.*')
+            ->leftJoin('customers','customers.id','=','orders.customer_id')
+            ->where('orders.status','=',$status)
+            ->where('orders.code','LIKE','%'.$keyword.'%')
+            ->groupBy('orders.id')->paginate(15);
+
+        return response()->json($data,200);
     }
 
 

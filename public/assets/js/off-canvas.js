@@ -9,7 +9,6 @@
 
 function strslug(str){
     if(str){
-        console.log(1);
         str = String(str).toLowerCase();
         str = str.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
         str = str.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
