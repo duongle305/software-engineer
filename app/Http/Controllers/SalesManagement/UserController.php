@@ -114,7 +114,7 @@ class UserController extends Controller
         if($user){
             return view('admin.users.show')->withUser($user);
         }
-        return redirect()->back()->withErrors(['show-users'=>'Nhân viên không tồn tại.']);
+        return redirect()->back()->withErrors(['show-users'=>'Không tìm thấy nhân viên yêu cầu.']);
     }
 
     /**

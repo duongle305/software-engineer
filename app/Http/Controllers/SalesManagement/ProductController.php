@@ -10,6 +10,7 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -237,8 +238,16 @@ class ProductController extends Controller
     public function search($keyword)
     {
         $keyword = str_slug($keyword);
-        return Product::where('code','like',"%$keyword%")
-            ->orWhere('slug','like',"%$keyword%")
-            ->paginate(15);
+        return DB::table('products')
+            ->select('products.*')
+            ->leftJoin('brands','brands.id','=','products.brand_id')
+            ->leftJoin('suppliers','suppliers.id','=','products.supplier_id')
+            ->leftJoin('categories','categories.id','=','products.category_id')
+            ->where('products.code','LIKE','%'.$keyword.'%')
+            ->orWhere('products.slug','LIKE','%'.$keyword.'%')
+            ->orWhere('suppliers.slug','LIKE','%'.$keyword.'%')
+            ->orWhere('brands.slug','LIKE','%'.$keyword.'%')
+            ->orWhere('categories.slug','LIKE','%'.$keyword.'%')
+            ->groupBy('products.id')->paginate(15);
     }
 }

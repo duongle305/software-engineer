@@ -18,8 +18,13 @@
                 </ol>
             </nav>
             <div class="card" id="app">
+
                 <input type="hidden" id="href-data" value="{{ route('orders.data',false) }}">
                 <div class="card-body">
+                    <div class="form-group">
+                        <label for="search">Tìm kiếm</label>
+                        <input type="search" class="form-control" id="search" v-model="search">
+                    </div>
                     <ul class="nav nav-tabs tab-solid  tab-solid-primary text-center" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link" href="#" :class="{'active':tab=='PENDING'}" @click.one="getDataOrders('PENDING')">Chờ xử lý</a>
@@ -103,7 +108,9 @@
                 hrefData: '',
                 pagination:{},
                 result:[],
-                url:'orders/'
+                url:'orders/',
+                search: '',
+                dataSearch:[]
             },
             methods: {
                 getDataOrders(tab,page = 1){
@@ -207,11 +214,19 @@
                             });
                         }
                     }).catch(e => {})
+                },
+                findOrder(val){
+                    this.result = this.dataSearch.filter(()=>{
+
+                    });
                 }
             },
             mounted(){
                 this.hrefData = $('#href-data').val();
                 this.getDataOrders(this.tab);
+            },
+            watch:{
+                search(val){ return this.findOrder(val); }
             }
         });
     </script>
