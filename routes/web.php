@@ -34,6 +34,7 @@ Route::prefix('/admin-dl')->group(function(){
         Route::resource('/customers','SalesManagement\CustomerController');
         Route::get('/data-orders/{status}','SalesManagement\OrderController@dataOrders')->name('orders.data');
         Route::post('/status-orders/{id}','SalesManagement\OrderController@changeStatus')->name('orders.status');
+        Route::post('/status-product/{id}/{status}','SalesManagement\ProductController@updateStatus')->name('orders.status');
         Route::get('/search-orders/{tab}/{keyword}','SalesManagement\OrderController@search')->name('orders.search');
         Route::get('/search-orders/{tab}','SalesManagement\OrderController@search');
         //Ajax

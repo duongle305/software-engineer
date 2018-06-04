@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Product extends Model
 {
     protected $table = 'products';
-    protected $fillable = ['code', 'title', 'description', 'unit_price', 'base_price', 'quantity', 'category_id', 'brand_id', 'supplier_id'];
+    protected $fillable = ['code', 'title', 'description', 'unit_price', 'base_price', 'quantity', 'category_id', 'brand_id', 'supplier_id','status'];
 
     public function images()
     {

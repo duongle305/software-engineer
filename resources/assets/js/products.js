@@ -1,14 +1,14 @@
 let app = new Vue({
-    el:'#app',
-    data:{
-        delete:'',
-        hrefData:'',
+    el: '#app',
+    data: {
+        delete: '',
+        hrefData: '',
         result: [],
-        search:'',
+        search: '',
         pagination: [],
     },
-    methods:{
-        showDelete(e, index){
+    methods: {
+        showDelete(e, index) {
             this.delete = e.target.dataset.delete;
             swal({
                 title: `Bạn có muốn xóa sản phẩm ${this.result[index].title}?`,
@@ -20,29 +20,30 @@ let app = new Vue({
                 confirmButtonText: 'Đồng ý'
             }).then(() => {
                 this.deleteProduct();
-            }).catch(e => {})
+            }).catch(e => {
+            })
         },
-        getAllProducts(page = 1){
+        getAllProducts(page = 1) {
             $('div.loader').show();
-            axios.get(`${this.hrefData}?page=${page}`).then(res=>{
+            axios.get(`${this.hrefData}?page=${page}`).then(res => {
                 this.result = res.data.data;
                 this.pagination = res.data;
-                let time = setTimeout(()=>{
+                let time = setTimeout(() => {
                     $('div.loader').fadeOut();
                     clearTimeout(time);
-                },500);
+                }, 500);
             });
         },
-        deleteProduct(index){
-            this.result.splice(index,1);
+        deleteProduct(index) {
+            this.result.splice(index, 1);
             axios.delete(this.delete).then(rs => {
-                this.result.splice(index,1);
+                this.result.splice(index, 1);
                 swal(
                     'Đã xóa!',
                     `${rs.data.message}`,
                     'success'
                 );
-            }).catch(e =>{
+            }).catch(e => {
                 swal(
                     'Thông báo!',
                     `${e.response.data.message}`,
@@ -50,20 +51,35 @@ let app = new Vue({
                 )
             });
         },
-        formatDate(str){
-            let date = new Date(str);
-            return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+        changeStatus(id,status,index){
+            event.preventDefault();
+            axios.post(`status-product/${id}/${status}`).then(res =>{
+                if(res.status === 200){
+                    swal(
+                        'Thành công!',
+                        `${res.data.message}`,
+                        'success'
+                    );
+                    this.result[index].status = status;
+                }
+            }).catch(err => {
+                swal(`Không tìm thấy sản phẩm!`);
+            });
         },
-        searchProduct(val){
-            if(val){
-                axios.get(`search-products/${val}`).then(res=>{
+        formatDate(str) {
+            let date = new Date(str);
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        },
+        searchProduct(val) {
+            if (val) {
+                axios.get(`search-products/${val}`).then(res => {
                     this.pagination = res.data;
                     this.result = res.data.data;
-                }).catch(err=>{
+                }).catch(err => {
 
                 });
-            }else{
-                axios.get(`${this.hrefData}`).then(res=>{
+            } else {
+                axios.get(`${this.hrefData}`).then(res => {
                     this.result = res.data.data;
                     this.pagination = res.data;
                 });
@@ -71,11 +87,13 @@ let app = new Vue({
 
         },
     },
-    mounted(){
+    mounted() {
         this.hrefData = $('#href-data').val();
         this.getAllProducts();
     },
-    watch:{
-        search(val){ return this.searchProduct(val); }
+    watch: {
+        search(val) {
+            return this.searchProduct(val);
+        }
     }
 });

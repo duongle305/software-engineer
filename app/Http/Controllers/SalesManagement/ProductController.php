@@ -239,11 +239,12 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         if($product){
-            $product->update(['status'=>$status]);
+            $a = $product->update(['status'=>$status]);
             return response()->json(['message'=>'Cập nhật trạng thái sản phẩm thành công !'],200);
         }
         return response()->json(['message'=>'Không tìm sản phẩm'],401);
     }
+
     public function search($keyword)
     {
         $keyword = str_slug($keyword);

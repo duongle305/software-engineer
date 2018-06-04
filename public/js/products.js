@@ -128,22 +128,35 @@ var app = new Vue({
                 swal('Thông báo!', '' + e.response.data.message, 'error');
             });
         },
+        changeStatus: function changeStatus(id, status, index) {
+            var _this4 = this;
+
+            event.preventDefault();
+            axios.post('status-product/' + id + '/' + status).then(function (res) {
+                if (res.status === 200) {
+                    swal('Thành công!', '' + res.data.message, 'success');
+                    _this4.result[index].status = status;
+                }
+            }).catch(function (err) {
+                swal('Kh\xF4ng t\xECm th\u1EA5y s\u1EA3n ph\u1EA9m!');
+            });
+        },
         formatDate: function formatDate(str) {
             var date = new Date(str);
             return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
         },
         searchProduct: function searchProduct(val) {
-            var _this4 = this;
+            var _this5 = this;
 
             if (val) {
                 axios.get('search-products/' + val).then(function (res) {
-                    _this4.pagination = res.data;
-                    _this4.result = res.data.data;
+                    _this5.pagination = res.data;
+                    _this5.result = res.data.data;
                 }).catch(function (err) {});
             } else {
                 axios.get('' + this.hrefData).then(function (res) {
-                    _this4.result = res.data.data;
-                    _this4.pagination = res.data;
+                    _this5.result = res.data.data;
+                    _this5.pagination = res.data;
                 });
             }
         }

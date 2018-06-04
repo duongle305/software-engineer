@@ -52,8 +52,11 @@
                                     <td>@{{ product.unit_price }}</td>
                                     <td>@{{ formatDate(product.created_at) }}</td>
                                     <td>
-                                        <i v-if="(product.status === 'ACTIVE')" class="text-success ti-check"></i>
-                                        <i v-else class="text-danger ti-close"></i>
+                                        <div v-if="(product.status === 'ACTIVE')">
+                                            <a href="#" @click.one="changeStatus(product.id,'NONACTIVE',index)"><i class="text-success ti-check"></i></a>
+                                        </div>
+                                        <div v-else>
+                                            <a href="#" @click.one="changeStatus(product.id,'ACTIVE',index)"><i class="text-danger ti-close"></i></a></div>
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group">
