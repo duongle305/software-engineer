@@ -82,7 +82,7 @@ class UserController extends Controller
         if(!$validator->fails()){
             $image = $request->file('photo');
             $image_name = 'dl-'.time().'.'.$image->getClientOriginalExtension();
-            $image->move('/uploads',$image_name);
+            $image->move(public_path('/uploads'),$image_name);
             $all['photo'] = 'uploads/'.$image_name;
             if(empty($request->password)){
                 $all['password'] = bcrypt('password');
@@ -204,7 +204,7 @@ class UserController extends Controller
             }
             $image = $request->file('photo');
             $imageName = 'dl-'.time().'.'.$image->getClientOriginalExtension();
-            $image->move('/uploads',$imageName);
+            $image->move(public_path('/uploads'),$imageName);
             $user->update(['photo'=>'uploads/'.$imageName]);
             return redirect()->route('users.index')->withMessages(['update-photo'=>'Cập nhật ảnh đại diện nhân viên thành công.']);
         }
@@ -244,8 +244,8 @@ class UserController extends Controller
         if(!Auth::user()->hasPermission('delete-users')) abort(403, 'Bạn không được phép xóa nhân viên');
         $user = User::find($id);
         if($user){
-            if(File::exists($user->photo)){
-                File::delete($user->photo);
+            if(File::exists(public_path($user->photo))){
+                File::delete(public_path($user->photo));
             }
             $user->delete();
             return  response()->json(['message'=>'Xóa nhân viên '.$user->first_name.' '.$user->last_name.' thành công.'],200);
